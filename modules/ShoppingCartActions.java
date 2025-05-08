@@ -1,0 +1,579 @@
+package com.modules;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.pageObjects.CheckoutObjects;
+import com.pageObjects.FlavourpageObjects;
+import com.pageObjects.GlobalHeaderObjects;
+import com.pageObjects.HomePageObjects;
+import com.pageObjects.MiniCartObjects;
+import com.pageObjects.PLPObjects;
+import com.pageObjects.ShoppingCartObjects;
+import com.utility.BrowserUtils;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class ShoppingCartActions {
+
+	public static int count=0;
+	public static void CartElementsDisplay() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(), "First Product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		//String PLPProductName=PLPObjects.PLPFirstProductNameInStock().getText().trim();
+		//String PLPPrice=PLPObjects.PriceForFirstInstockProduct().getText().trim();
+		Thread.sleep(10000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATC(),"click");	
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(10000);
+		ShoppingCartObjects.shoppingCartHeader().isDisplayed();
+		ShoppingCartObjects.ProductInformation().isDisplayed();
+	}
+
+	public static void ProductInfoDisplay() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.HoverOnElement(HomePageObjects.MegaMenu());
+		Thread.sleep(4000);
+//		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+//		Thread.sleep(4000);
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 20);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		try {
+			if(FlavourpageObjects.closeButton1().isDisplayed()) 
+			{
+				WebdriverUtils.clickAction(FlavourpageObjects.closeButton1());
+				Thread.sleep(1000);
+				}
+			}
+			catch (Exception e) {
+				System.out.println("Pop-up not displayed");
+			}
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		String PLPProductName=PLPObjects.PLPFirstProductNameInStock().getText().trim();
+		System.out.println(PLPProductName);
+		String PLPPrice=PLPObjects.PriceForFirstInstockProduct().getText().trim();
+		System.out.println(PLPPrice);
+		Thread.sleep(8000);
+	//	LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 10);
+		Thread.sleep(4000);
+		WebdriverUtils.switchToiframe(ShoppingCartObjects.viewCart());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(ShoppingCartObjects.viewCart());
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(8000);
+		Assert.assertEquals(ShoppingCartObjects.ProductInformation().getText().trim().toUpperCase(), PLPProductName.toUpperCase());
+		//LoginActions.waitAndProceedWhenItemdisplayed(ShoppingCartObjects.checkoutButtonTop(), "Checkout top");
+		/*Assert.assertEquals(ShoppingCartObjects.EstimatedTotal().getText().trim(), PLPPrice.trim());
+		Assert.assertEquals(ShoppingCartObjects.Quantity().getAttribute("value"), pro.getProperty("CartCount"));
+		Assert.assertEquals(ShoppingCartObjects.ProductPrice().getText().trim(),PLPPrice );
+		Assert.assertEquals(ShoppingCartObjects.ItemTotal().getText(), PLPPrice);*/
+	}
+
+	public static void UpdateQuantity() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		ShoppingCartActions.ProductInfoDisplay();
+		WebdriverUtils.waitForVisibilityOfElementLocated(ShoppingCartObjects.Quantity());
+		try {
+			BrowserUtils.waitFor(ShoppingCartObjects.CancelIcon(), 18);
+			WebdriverUtils.clickAction(ShoppingCartObjects.CancelIcon());
+		}
+		catch(Exception e) {
+			WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.Quantity());
+		}
+		WebdriverUtils.sendKeysWithClear(ShoppingCartObjects.Quantity(), "5");
+		Thread.sleep(3000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(PLPObjects.CartCount(), 10);
+		if(MiniCartObjects.minicartitems().size()>1){
+			String count1=PLPObjects.CartCount().getText();
+			int count1int=Integer.parseInt(count1);
+			count=1+5;
+			Assert.assertEquals(PLPObjects.CartCount().getText(), count);
+		}
+		else{
+			Assert.assertEquals(PLPObjects.CartCount().getText(), "5");
+		}		
+	}
+
+	public static void RemoveProduct() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		ShoppingCartActions.ProductInfoDisplay();
+		Thread.sleep(8000);
+		BrowserUtils.waitFor(ShoppingCartObjects.RemoveIcon(), 10);
+		WebdriverUtils.clickAction(ShoppingCartObjects.RemoveIcon());
+		Thread.sleep(2000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(MiniCartObjects.EmptyCartText(), 20);
+		//Assert.assertEquals(MiniCartObjects.EmptyCartText().getText(), pro.getProperty("EmptyCartText"));
+		try{
+			Assert.assertEquals(MiniCartObjects.EmptyCartText().getText(), pro.getProperty("EmptyCartText"));
+			Thread.sleep(2000);
+		}
+		catch(Exception e){
+			Assert.assertEquals(MiniCartObjects.EmptyCartText().getText(), pro.getProperty("EmptyCartTextWHENREMOVED"));
+		}
+
+	}
+
+	public static void NavigationToCheckout() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		ShoppingCartActions.ProductInfoDisplay();	
+		WebdriverUtils.waitForElementToBeClickable(ShoppingCartObjects.checkoutButtonTop(), "Checkout top");
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkoutButtonTop());
+		BrowserUtils.waitFor(ShoppingCartObjects.continueAsGuestTab(), 10);
+		WebdriverUtils.clickAction(ShoppingCartObjects.continueAsGuestTab());
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkBoxForNewsletters());
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkBoxForNewsletters1());
+		WebdriverUtils.clickAction(ShoppingCartObjects.nextButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Assert.assertEquals(MiniCartObjects.CheckoutTitle().getText(), pro.getProperty("CheckoutTitle"));
+	}	
+
+	public static void CouponFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		ShoppingCartActions.ProductInfoDisplay();	
+		BrowserUtils.waitFor(ShoppingCartObjects.CouponCheckbox(), 10);
+		WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.CouponCheckbox());
+		WebdriverUtils.clickAction(ShoppingCartObjects.CouponCheckbox());
+		BrowserUtils.waitFor(ShoppingCartObjects.CouponField(), 18);		
+		WebdriverUtils.sendKeys(ShoppingCartObjects.CouponField(), pro.getProperty("couponCode"));
+		Assert.assertTrue(ShoppingCartObjects.ApplyButton().isDisplayed());
+	}	
+
+	public static void KeepShoppingNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		Thread.sleep(1000);
+		PDPActions.disableEasterPopup();
+		//BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		//LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(), "First product name in stock");
+		//BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		Thread.sleep(7000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATC(),"click");
+		Thread.sleep(5000);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.closeButton(),"click");
+		Thread.sleep(1000);
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.clickButtonThroughJS(GlobalHeaderObjects.jellyBellyLogo(),"click");
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.CartIcon(), 10);
+		WebdriverUtils.moveToElementByActions(PLPObjects.CartIcon());
+		WebdriverUtils.clickButtonThroughJS(MiniCartObjects.ViewCartButton(),"click");
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		BrowserUtils.waitFor(ShoppingCartObjects.KeepShoppingButton(), 15);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.KeepShoppingButton(),"click");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		//Assert.assertEquals(WebdriverUtils.getPageTitle().trim(), "Jelly Belly Online Candy Store � Shop by Category");
+		Assert.assertEquals(WebdriverUtils.getPageTitle().trim().toLowerCase(), "official site of jelly belly candies and confections".toLowerCase());
+	}
+
+
+	public static void ErrorMessageForCouponCode() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		ShoppingCartActions.ProductInfoDisplay();	
+		BrowserUtils.waitFor(ShoppingCartObjects.CouponCheckbox(), 18);
+		WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.CouponCheckbox());
+		WebdriverUtils.clickAction(ShoppingCartObjects.CouponCheckbox());
+		BrowserUtils.waitFor(ShoppingCartObjects.CouponField(), 18);		
+		WebdriverUtils.sendKeys(ShoppingCartObjects.CouponField(), pro.getProperty("couponCode"));
+		WebdriverUtils.clickAction(ShoppingCartObjects.ApplyButton());
+		BrowserUtils.waitFor(ShoppingCartObjects.CouponErrormessage(), 20);
+		Assert.assertTrue(ShoppingCartObjects.CouponErrormessage().isDisplayed());
+	}	
+
+	public static void VerfiyCartTotal() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(), "First product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		Double PLPPrice1=Double.parseDouble(PLPObjects.PriceForFirstInstockProduct().getText().replace("$", "").trim());
+		Thread.sleep(20000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());		
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		Thread.sleep(3000);		
+		WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		Double PLPPrice2=Double.parseDouble(PLPObjects.PriceForSecondInstockProduct().getText().replace("$", "").trim());
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPSecondProductInStockATC());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		Double Productprice = PLPPrice1+PLPPrice2;
+		System.out.println("Total product price is "+Productprice);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.CartCount(), "Cart count");
+		WebdriverUtils.clickAction(PLPObjects.CartCount());
+		BrowserUtils.waitFor(MiniCartObjects.EstimatedTotal(), 15);
+		Thread.sleep(2000);
+		Double Total=Double.parseDouble(MiniCartObjects.EstimatedTotal().getText().replace("$", "").trim());
+		//WebdriverUtils.clickAction(MiniCartObjects.ViewCartButton());
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 18);
+		Double SubTotal=Double.parseDouble(ShoppingCartObjects.SubTotalincart().getText().replace("$", "").trim());
+		Assert.assertEquals(Total, SubTotal);
+		Double Estimatedtotal=Double.parseDouble((ShoppingCartObjects.EstimatedTotal().getText().replace("$", "").trim()));
+		Assert.assertEquals(Estimatedtotal, Total);	
+	}	
+
+	public static void RecommendationProductInfoDisplay() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.maximizeWindow();
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(2000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		//BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		//WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		//Thread.sleep(1000);
+		//PDPActions.disableEasterPopup();
+		//BrowserUtils.waitFor(PLPObjects.CartIcon(), 10);
+		//WebdriverUtils.moveToElementByActions(PLPObjects.CartIcon());
+		//Thread.sleep(1000);
+		//BrowserUtils.waitFor(PLPObjects.CartProduct(), 10);
+		//WebdriverUtils.clickAction(MiniCartObjects.ViewCartButton());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		PDPActions.disableEasterPopup();
+		//WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.RecommendationHeader());
+		WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.RecommendationProductName());
+		Assert.assertTrue(ShoppingCartObjects.RecommendationProductName().isDisplayed());
+		Assert.assertTrue(ShoppingCartObjects.RecommendationProductImage().isDisplayed());
+		Assert.assertTrue(ShoppingCartObjects.RecommendationAddToCart().isDisplayed());
+	}
+	public static void RecommendationProductInfoDisplay1() throws IOException, Exception {
+		
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		/*
+		 * WebdriverUtils.goToURL(Environments.getURL());
+		 * WebdriverUtils.maximizeWindow(); 
+		 * PDPActions.disableEasterPopup();
+		 */
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Assert.assertTrue(ShoppingCartObjects.shoppingCartHeader().isDisplayed());
+	}
+	public static void NavigationToPDPFromRecommendation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.maximizeWindow();
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(2000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		//BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		//WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		//Thread.sleep(1000);
+		//PDPActions.disableEasterPopup();
+		//BrowserUtils.waitFor(PLPObjects.CartIcon(), 10);
+		//WebdriverUtils.moveToElementByActions(PLPObjects.CartIcon());
+		//Thread.sleep(1000);
+		//BrowserUtils.waitFor(PLPObjects.CartProduct(), 10);
+		//WebdriverUtils.clickAction(MiniCartObjects.ViewCartButton());
+		//Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.RecommendationAddToCart());
+		String RecommendationProduct1=ShoppingCartObjects.RecommendationProductName().getText().trim().replace(".", "");
+		System.out.println(RecommendationProduct1);
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ShoppingCartObjects.RecommendationProductName());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.PDPProductName(), 30);
+		System.out.println(PLPObjects.PDPProductName().getText());
+		String RecommendationProduct=PLPObjects.PDPProductName().getText().trim().replace(".", "");
+		Assert.assertTrue(RecommendationProduct.contains(RecommendationProduct1));
+	}
+	public static void NavigationToPDPFromRecommendation1() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		/*
+		 * WebdriverUtils.goToURL(Environments.getURL());
+		 * WebdriverUtils.maximizeWindow(); PDPActions.disableEasterPopup();
+		 */
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Assert.assertTrue(ShoppingCartObjects.shoppingCartHeader().isDisplayed());
+	}
+
+	public static void AddToCartFromRecommendation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.maximizeWindow();
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		try {
+		if(FlavourpageObjects.closeButton1().isDisplayed()) 
+		{
+			WebdriverUtils.clickAction(FlavourpageObjects.closeButton1());
+			Thread.sleep(1000);
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Pop-up not displayed");
+		}
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		WebdriverUtils.clickButtonThroughJS(MiniCartObjects.ViewCartinpopup(),"View Cart");
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.swipeDownUntillElement(ShoppingCartObjects.RecommendationAddToCart());
+		String RecommendationProductcode=ShoppingCartObjects.RecommendationAddToCart().getAttribute("data-jb-pid").trim();
+		System.out.println("Recommendation product code is" +RecommendationProductcode);
+		WebdriverUtils.clickAction(ShoppingCartObjects.RecommendationAddToCart());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		Thread.sleep(3000);	
+		try {
+		if(ShoppingCartObjects.adPopUp().isDisplayed()) {
+			WebdriverUtils.clickAction(ShoppingCartObjects.adPopUp());
+			Thread.sleep(1000);
+		}
+		}
+		catch (Exception e) {
+			System.out.println("Confirm add product pop-up not displayed");
+		}
+		try{
+			
+		
+		if(FlavourpageObjects.closeButton1().isDisplayed()) {
+		WebdriverUtils.clickAction(FlavourpageObjects.closeButton1());
+		Thread.sleep(1000);
+		//WebdriverUtils.refreshPage();
+		}
+		}
+		catch (Exception e) {
+			System.out.println("Close button not displayed");
+		}
+		BrowserUtils.waitFor(ShoppingCartObjects.RecommendedSection(), 20);
+		WebdriverUtils.scrollToElement(ShoppingCartObjects.shoppingCartHeader());
+		WebElement cartItem = MiniCartObjects.cartitemcode3();
+		//System.out.println("Product added from recommended" +cartItem.getAttribute("class").trim());
+		if(cartItem!=null) {
+			String attributeValue = cartItem.getAttribute("href").trim();
+			System.out.println("attribute value is " +attributeValue);
+			Assert.assertTrue(attributeValue.contains(RecommendationProductcode));
+		}
+		}	
+	public static void AddToCartFromRecommendation1() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		/*
+		 * WebdriverUtils.goToURL(Environments.getURL());
+		 * WebdriverUtils.maximizeWindow(); PDPActions.disableEasterPopup();
+		 */
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Assert.assertTrue(ShoppingCartObjects.shoppingCartHeader().isDisplayed());
+	}
+
+	public static void ShippingLabel() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		Thread.sleep(4000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(), "First product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 20);	
+		String prodPrice = PLPObjects.PLPFirstProductATCPrice().getText().replace("$", "");
+		float prodPriceInt = Float.parseFloat(prodPrice);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		Thread.sleep(3000);		
+		WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		BrowserUtils.waitFor(ShoppingCartObjects.GlobalShippingLabel(), 30);
+		Thread.sleep(3000);	
+		System.out.println(ShoppingCartObjects.GlobalShippingLabel().getText().trim());
+		String thresholdPrice=WebdriverUtils.getProperty("tresholdPrice").replace("$", "");
+		float thresholdPriceInt = Float.parseFloat(thresholdPrice);
+		float exp = thresholdPriceInt-prodPriceInt;
+		double expPriceInHeader=FreeShippingsActions.getPriceWith2DecimalForNumber(exp);
+		String expPriceInHeadeStr = Double.toString(expPriceInHeader);
+		Assert.assertEquals(ShoppingCartObjects.GlobalShippingLabel().getText().trim().replaceAll("(.*)complete.", ""),(" Add $" +expPriceInHeadeStr+" more to get Free Ground Shipping. Click for Details"));
+		WebdriverUtils.clickAction(PLPObjects.CartCount());
+		System.out.println(MiniCartObjects.ShippingLabel().getText());
+		Assert.assertEquals(MiniCartObjects.ShippingLabel().getText().trim(),("You are only $"+expPriceInHeadeStr+" away from FREE Ground Shipping!"));
+		WebdriverUtils.clickAction(PLPObjects.CartCount());
+		BrowserUtils.waitFor(ShoppingCartObjects.ShippingLabel(), 20);
+		System.out.println(ShoppingCartObjects.ShippingLabel().getText().trim());
+		Assert.assertTrue(ShoppingCartObjects.ShippingLabel().getText().trim().contains("FREE Ground Shipping"));
+	}
+
+	public static void ShippingLabelGround() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		//WebdriverUtils.clickAction(ShoppingCartObjects.searchicon());
+		//BrowserUtils.waitFor(PLPObjects.PLPsort(), 10);
+		WebdriverUtils.clickAction(GlobalHeaderObjects.searchTextBox());
+		WebdriverUtils.sendKeys(GlobalHeaderObjects.searchTextBox(), pro.getProperty("productName"));
+		WebdriverUtils.waitForElementToBeClickable(GlobalHeaderObjects.searchSubmitButton(), "Search icon");
+		WebdriverUtils.clickAction(GlobalHeaderObjects.searchSubmitButton());
+		Thread.sleep(2000);
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(GlobalHeaderObjects.searchResultForName(), 20);
+		WebdriverUtils.selectByValue(PLPObjects.PLPsort(), "sellingPrice-desc");
+		Thread.sleep(2000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());		
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		Thread.sleep(3000);		
+		try {
+			WebdriverUtils.refreshPage();
+			//WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+			String url=WebdriverUtils.currentURL();
+			if(url.contains("cart")) {
+				System.out.println("Navigated to cart page");
+			}
+			else {
+				WebdriverUtils.refreshPage();
+				WebdriverUtils.clickAction(PLPObjects.CartCount());
+			}
+		}
+		catch(Exception e) {
+			WebdriverUtils.refreshPage();
+			WebdriverUtils.clickAction(PLPObjects.CartCount());
+		}
+		WebdriverUtils.refreshPage();
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		BrowserUtils.waitFor(ShoppingCartObjects.GlobalShippingLabel(), 10);
+		Thread.sleep(3000);	
+		String globalText=ShoppingCartObjects.GlobalShippingLabel().getText().trim();
+		System.out.println(globalText);
+		assertTrue(globalText.contains("Congratulations"));
+		WebdriverUtils.clickAction(PLPObjects.CartIcon());
+		//BrowserUtils.waitFor(MiniCartObjects.ViewCartButton(), 10);
+		BrowserUtils.waitFor(MiniCartObjects.ShippingLabel(), 20);	    
+		Thread.sleep(4000);
+		System.out.println(MiniCartObjects.ShippingLabel().getText().trim());
+		assertEquals(MiniCartObjects.ShippingLabel().getText().trim(),("You may qualify for FREE or Discounted Ground Shipping! (Exclusions apply, click for details.)"));	    
+	}
+
+
+}

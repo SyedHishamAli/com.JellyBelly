@@ -1,0 +1,114 @@
+package com.testCases;
+
+
+import com.utility.TestBase;
+import java.io.IOException;
+import org.testng.annotations.Test;
+import com.modules.ADAActions;
+
+
+public class ADATestCasesSprint17 extends TestBase{
+
+
+	@Test(priority=270,description="#2: This navigation menu opens on hover but is unable to be triggered by keyboard and screen reader users.")
+	public void verifyMenuTagname() throws IOException, Exception{
+		ADAActions.verifyMenuTagname();
+	}
+	@Test(priority=271,description="#75: Elements that function as buttons must be marked up as such so that screen reader users will identify them as actionable and they will be usable by keyboard users.")
+	public void verifybuttonwishlist() throws IOException, Exception{
+		ADAActions.verifybuttonwishlist();
+	}
+	@Test(priority=272,description="#127: Elements that function as buttons must be marked up as such so that screen reader users will identify them as actionable and they will be usable by keyboard users.")
+	public void verifyJBlogoBtn() throws IOException, Exception{
+		ADAActions.verifyJBlogoBtn();
+	}
+	@Test(priority=273,description="#157: Elements that function as buttons must be marked up as such so that screen reader users will identify them as actionable and they will be usable by keyboard users.")
+	public void verifyloginBtn() throws IOException, Exception{
+		ADAActions.verifyloginBtn();
+	}
+	@Test(priority=274,description="#187: Elements that function as buttons must be marked up as such so that screen reader users will identify them as actionable and they will be usable by keyboard users.")
+	public void verifywheelPlayBtn() throws IOException, Exception{
+		ADAActions.verifywheelPlayBtn();
+	}
+	@Test(priority=275,description="#41: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Green (#2B9B39) and white (#FFFFFF) only has a contrast ratio of 3.58:1")
+	public void verifycolor_jewelSourApple() throws IOException, Exception{
+		ADAActions.verifycolor_jewelSourApple();
+	}
+	@Test(priority=276,description="#190: Keyboard and screen reader users are unable to close this dismissible modal dialog.")
+	public void modalDialog() throws IOException, Exception{
+		ADAActions.modalDialog();
+	}
+	@Test(priority=277,description="#7: Text that functions as a heading should be marked up as such.")
+	public void h3tag() throws IOException, Exception{
+		ADAActions.h3tag();
+	}
+	//Valentine Day Product is not available
+	//@Test(priority=278,description="#16: It is not clear to screen reader users where each card or tile begins and ends.")
+	public void valentineDayProducts() throws IOException, Exception{
+		ADAActions.valentineDayProducts();
+	}
+	@Test(priority=279,description="#20: The required form field is not indicated as such.")
+	public void zipcodeFieldText() throws IOException, Exception{
+		ADAActions.zipcodeFieldText();
+	}
+	@Test(priority=280,description="#39: This color combination does not meet the minimum color contrast required by the WCAG. The combination of light gray (#969696) and very light gray (#F7F7F7) only has a contrast ratio of 2.76:1")
+	public void verifycolor_cartoverlay() throws IOException, Exception{
+		ADAActions.verifycolor_cartoverlay();
+	}
+	@Test(priority=281,description="#42: This color combination does not meet the minimum color contrast required by the WCAG. The combination of dark blue (#2A3756) and Green (#5CA24A) only has a contrast ratio of 3.77:1")
+	public void verifycolor_sourApple() throws IOException, Exception{
+		ADAActions.verifycolor_sourApple();
+	}
+	@Test(priority=282,description="#45: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Dark Purple (#9C4B6F) only has a contrast ratio of 2.05:1")
+	public void verifycolor_jewelVeryCherry() throws IOException, Exception{
+		ADAActions.verifycolor_jewelVeryCherry();
+	}
+	@Test(priority=283,description="#46: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Rose (#CD8784) only has a contrast ratio of 4.15:1")
+	public void verifycolor_jewelBubbleGum() throws IOException, Exception{
+		ADAActions.verifycolor_jewelBubbleGum();
+	}
+	@Test(priority=284,description="#47: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Pomegranate Rose (#DD4B62) only has a contrast ratio of 2.95:1")
+	public void verifycolor_pomegranate() throws IOException, Exception{
+		ADAActions.verifycolor_pomegranate();
+	}
+	@Test(priority=285,description="#49: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Dark Cherry (#AD1E34) only has a contrast ratio of 1.69:1")
+	public void verifycolor_verycherry() throws IOException, Exception{
+		ADAActions.verifycolor_verycherry();
+	}
+	@Test(priority=286,description="#50: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Raspberry Rose (#B11F29) only has a contrast ratio of 1.74:1")
+	public void verifycolor_raspberry() throws IOException, Exception{
+		ADAActions.verifycolor_raspberry();
+	}
+	@Test(priority=287,description="#51: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Mustard (#D48840) only has a contrast ratio of 4.15:1")
+	public void verifycolor_mimosa() throws IOException, Exception{
+		ADAActions.verifycolor_mimosa();
+	}
+	@Test(priority=288,description="#52: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Tangerine orange (#EE734A) only has a contrast ratio of 4.03:1")
+	public void verifycolor_Tangerine() throws IOException, Exception{
+		ADAActions.verifycolor_Tangerine();
+	}
+	@Test(priority=289,description="#54: This color combination does not meet the minimum color contrast required by the WCAG. The combination of Dark Blue (#2A3756) and Mocha Brown (#AD7E47) only has a contrast ratio of 3.28:1")
+	public void verifycolor_moscowMule() throws IOException, Exception{
+		ADAActions.verifycolor_moscowMule();
+	}
+	@Test(priority=290,description="#56: The overlaying graphical object does not have sufficient contrast in relation to the background image. The combination of Light Blue (#D2E6FF) and Very light gray (#F9F9F9) , has a contrast ratio of 1.2:1")
+	public void progressbar_color() throws IOException, Exception{
+		ADAActions.progressbar_color();
+	}
+	@Test(priority=291,description="#27: All form fields must be properly labeled.")
+	public void verifyEmailAdrs_label() throws IOException, Exception{
+		ADAActions.verifyEmailAdrs_label();
+	}
+	@Test(priority=292,description="#28: Input fields must allow autofill via a valid autocomplete attribute, which helps users properly fill in the required information.")
+	public void verifyEmailAdrs_autocomplAttrib() throws IOException, Exception{
+		ADAActions.verifyEmailAdrs_autocomplAttrib();
+	}
+	@Test(priority=293,description="#29: The required form field is not indicated as such.")
+	public void verifyEmailAdrs_requiredAttrib() throws IOException, Exception{
+		ADAActions.verifyEmailAdrs_requiredAttrib();
+	}
+	@Test(priority=294,description="#38: Pages must be scalable.")
+	public void verifyMetaTagScale() throws IOException, Exception{
+		ADAActions.verifyMetaTagScale();
+	}
+}

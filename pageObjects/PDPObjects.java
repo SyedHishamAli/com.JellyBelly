@@ -1,0 +1,150 @@
+package com.pageObjects;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.utility.WebdriverUtils;
+
+public class PDPObjects {
+	public static WebElement PDPQuantity() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='quantity']"));
+	}
+	public static WebElement PDPAddToCart() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//button[@id='add-to-cart']"));
+	}
+	public static WebElement PDPWishlistButton() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@id='add-to-wishlist'])[2]"));
+	}
+	public static WebElement PDPAddedToWishlistText() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//button[@id='add-to-wishlist']"));
+	}
+	public static WebElement PDPAddedToWishlistTextV() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//button[@id='add-to-wishlist']"));
+	}
+	public static WebElement ReviewAccordion() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='tab-header-sec']//*[@attr-data='ProductReviews']"));
+	}
+	public static WebElement ReviewHeadlineField() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//input[@name='Review Headline']"));
+	}
+	public static WebElement WriteAReviewLink() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='pr-review-snippet-container pr-no-reviews' or @class='pr-review-snapshot-snippets']//*[contains(@class,'pr-snippet-write-review-link') or @class='pr-snippet-write-review-link']"));
+	}
+	public static WebElement WriteAReviewLinkInPDPDescription() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//a[text()='Write a Review'])[1]"));
+	}
+	public static WebElement WriteAReviewText() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//h3[@class='pr-header-title']"));
+	}
+	public static WebElement WriteFirstReview() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='pr-rd-no-reviews']"));
+	}
+	public static WebElement Price() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//span[@class='mz-price']"));
+	}
+	public static WebElement Image() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='jb-images']"));
+	}
+	public static WebElement Description() throws Exception{
+	//	return WebdriverUtils.findElement(By.xpath("//span[@itemscope='description']"));
+		return WebdriverUtils.findElement(By.xpath("//*[@class='mz-productdetail-shortdesc mz-l-stack-section']/span"));		
+	}
+	public static WebElement ProductInfoAccordion() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='tab-header-sec']//*[@attr-data='ProductInfo']"));
+	}
+	public static WebElement ProductInfo() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='product-info']"));
+	}
+	public static WebElement NutritionsectionAccordion() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='tab-header-sec']//*[@attr-data='NutritionIngredients']"));
+	}
+	public static WebElement NutritionDesc() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//span[@id='nutrition-text']"));
+	}
+	public static WebElement FlovorsInThisMixAccordion() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='tab-header-sec']/span[@aria-label='Flavors in this Mix']"));
+	}
+	public static WebElement ProductReviewsAccordion() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='tab-header-sec']//*[@attr-data='ProductReviews']"));
+	}
+	public static WebElement RelatedProducts() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//h2[contains(text(),'Related Products')]"));
+	}
+	public static WebElement RecommendedSection() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@class='monetate-block-title'])[2]"));
+	}
+	public static WebElement SocialShareSection() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='at-share-btn-elements']"));
+	}
+	public static WebElement floatingHeader() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='product-info-scroll']"));
+	}
+	public static WebElement RecommendationProduct(String PDPRecommendationProduct) throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//a[text()='"+PDPRecommendationProduct+"']/ancestor::div[@class='mz-cms-content']//a[@class='mz-productlisting-title'])[1]"));
+	}
+	
+	public static WebElement RecommendationATC(String PDPRecommendationProduct) throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//a[text()='"+PDPRecommendationProduct+"']/ancestor::div[@class='mz-cms-content']//a[@id='add-to-cart-cur'])[1]"));
+	}
+	public static WebElement RelatedProduct(String PDPRelatedProduct) throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//a[text()='"+PDPRelatedProduct+"']/ancestor::div[@id='related-products']//a)[1]"));
+	}
+	public static WebElement FacebookIcon() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='at-icon at-icon-facebook']"));
+	}
+	public static WebElement TwitterIcon() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='at-icon at-icon-twitter']"));
+	}
+	public static WebElement PlusIcon() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@class='at-icon at-icon-addthis'])[1]"));
+	}
+	public static WebElement ShareText() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='at-expanded-menu-title']"));
+	}
+	public static WebElement Thumbnail() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//img[@class='mz-productimages-thumbimage'])[1]"));
+	}
+	public static WebElement Thumbnailvideo() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@alt='Product video']"));
+	}
+	public static WebElement ZoomImage() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//img[@class='cboxPhoto']"));
+	}
+	public static List<WebElement> easterPopup() throws Exception{
+		return WebdriverUtils.findElements(By.xpath("//em[contains(text(), 'No Thanks')]"));
+	}
+	public static WebElement easterPopup1() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//em[contains(text(), 'No Thanks')]"));
+	}
+	public static WebElement recommendationSection() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@id='page-wrapper']/div[@id='page-content']/h2[1]"));
+	}
+	public static WebElement recommendationProductFirstName() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[@class='related-prod-owl-carousel owl-carousel owl-theme owl-loaded']//h3[@class='prod-title-heading'])[2]"));
+	}
+	public static WebElement recommendationProductFirstName1() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@id='tns1']//a[@class='mt-productlisting-title']/div"));
+	}
+	public static WebElement recommendationAddToCartFirst() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[@class='related-prod-owl-carousel owl-carousel owl-theme owl-loaded']//div[@class='cardMobCTAcontainer']//button[@class='jb-add-to-cart-cur jb-tealium-trigger add-to-cart-btn-plp'])[2]"));
+	}
+	public static WebElement recommendationFirstPrice() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[@class='related-prod-owl-carousel owl-carousel owl-theme owl-loaded']//div[@class='jb-product-min-details']//span[@class='jb-quickprice '])[1]"));
+	}
+	public static WebElement relatedProductFirstName() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[contains(@class,'related-prod')]//*[@class='owl-item active']//*[@class='productTitle']/h3)[1]"));
+		//return WebdriverUtils.findElement(By.xpath("(//div[@id='related-products']//*[@class='owl-item active']//span[@class='p-name']/a)[1]"));
+	}
+	public static WebElement relatedProductFirstNamealt() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[@id='related-products']//span[@class='p-name']/a)[1]"));
+	}
+	public static WebElement NutritionContent() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//div[@class='tab-content-sec']"));
+	}
+	public static WebElement popup() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='usi_close']"));
+	}
+		
+}

@@ -1,0 +1,228 @@
+package com.modules;
+
+import static org.testng.Assert.assertEquals;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.testng.Assert;
+
+import com.pageObjects.FlavourpageObjects;
+import com.pageObjects.HomePageObjects;
+import com.pageObjects.PLPObjects;
+import com.pageObjects.QuickViewObjects;
+import com.utility.BrowserUtils;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class FlavorspageActions {
+	public static void verifyFlavorpageNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(HomePageObjects.exploreMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.exploreMenu());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(HomePageObjects.Firstlinkinflavor(), 10);
+		WebdriverUtils.clickButtonThroughJS(HomePageObjects.Firstlinkinflavor(),"click");
+		Thread.sleep(8000);
+
+	}
+	public static void Flavorslistexpansion() throws Exception {
+		verifyFlavorpageNavigation();
+		BrowserUtils.waitFor(HomePageObjects.Flavorexpand(), 10);
+		boolean btn =HomePageObjects.Flavorexpand().isDisplayed();
+		assertEquals(btn, true);
+	}
+	public static void Shoponlineandfindstore() throws Exception {
+		verifyFlavorpageNavigation();
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.Shoponline());
+		WebdriverUtils.clickAction(FlavourpageObjects.Shoponline());
+		Thread.sleep(5000);
+		WebdriverUtils.isVisibleInViewport(FlavourpageObjects.filtersection());
+		Thread.sleep(5000);
+		WebdriverUtils.swipeUpUntillElement(FlavourpageObjects.Shoponline());
+		WebdriverUtils.clickAction(FlavourpageObjects.findastore());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(HomePageObjects.storeLocator_header(), 10);
+		Assert.assertTrue(HomePageObjects.storeLocator_header().isDisplayed());
+	}
+	public static void Subcategorynavigation() throws Exception {
+		verifyFlavorpageNavigation();
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.Shopbulk());
+		BrowserUtils.waitFor(FlavourpageObjects.Shopbulklink(), 10);
+		String URLbefore = FlavourpageObjects.Shopbulklink().getAttribute("href");
+		WebdriverUtils.clickAction(FlavourpageObjects.Shopbulk());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		String URLafter =WebdriverUtils.getWindowURL();
+		assertEquals(URLafter, URLbefore);
+		WebdriverUtils.browserBack();
+		BrowserUtils.waitFor(HomePageObjects.Flavorexpand(), 10);
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.Shopbags());
+		BrowserUtils.waitFor(FlavourpageObjects.Shopbagslink(), 10);
+		String URLbefore1 = FlavourpageObjects.Shopbagslink().getAttribute("href");
+		WebdriverUtils.clickAction(FlavourpageObjects.Shopbags());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		String URLafter1 =WebdriverUtils.getWindowURL();
+		assertEquals(URLafter1, URLbefore1);
+		WebdriverUtils.browserBack();
+		BrowserUtils.waitFor(HomePageObjects.Flavorexpand(), 10);
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.Shopgiftbox());
+		BrowserUtils.waitFor(FlavourpageObjects.Shopgiftboxlink(), 10);
+		WebdriverUtils.clickAction(FlavourpageObjects.Shopgiftbox());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		String URLafter2 =WebdriverUtils.getWindowURL();
+		Assert.assertTrue(URLafter2.contains("gift-boxes"));
+	}
+	public static void sortfunctionality() throws Exception {
+		verifyFlavorpageNavigation();
+		Thread.sleep(4000);
+		Double AfterSort=0.00;
+		try{
+			AfterSort=Double.parseDouble(PLPObjects.SortPrice().getText().replace("$", "").trim());
+			System.out.println(AfterSort);
+		}
+		catch(Exception e){
+			AfterSort=Double.parseDouble(PLPObjects.SortPrice1().getText().replace("$", "").replace("SALE:", "").replace(" ", "").trim());
+			System.out.println(AfterSort);
+		}
+		WebdriverUtils.selectByIndex(PLPObjects.PLPsort(), 2);
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(PLPObjects.PLPsort(), 30);
+		BrowserUtils.waitFor(PLPObjects.SortPrice(), 10);
+		Thread.sleep(20000);
+		Double Sort2=0.00;
+		try{
+			Sort2=Double.parseDouble(PLPObjects.SortPrice().getText().replace("$", "").trim());
+			System.out.println(Sort2);
+		}
+		catch(Exception e){
+			Sort2=Double.parseDouble(PLPObjects.SortPrice1().getText().replace("$", "").replace("SALE:", "").replace(" ", "").trim());
+			System.out.println(Sort2);
+		}
+		Assert.assertTrue(Sort2>AfterSort);
+	}
+	public static void filterfunctionality() throws Exception {
+		verifyFlavorpageNavigation();
+		Thread.sleep(6000);
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.Filter());
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.Filter(),"click");
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.FilterPrice());
+		WebdriverUtils.clickAction(PLPObjects.FilterPrice());
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.PriceRange());
+		Thread.sleep(1500);
+		WebdriverUtils.clickAction(PLPObjects.PriceRange());
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.Apply());
+		WebdriverUtils.clickAction(PLPObjects.Apply());
+		BrowserUtils.waitFor(PLPObjects.FilterStrip(), 10);
+		Thread.sleep(5500);
+		Assert.assertEquals(PLPObjects.FilterStrip().getAttribute("aria-label").trim(), "0 To 10 $");
+		Assert.assertEquals(PLPObjects.ResetButton().getAttribute("aria-label").trim(), "Reset");
+	}
+
+	public static void FLPtoPDPNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		verifyFlavorpageNavigation();
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.Shopbulk());
+		BrowserUtils.waitFor(FlavourpageObjects.Shopbulklink(), 20);
+		WebdriverUtils.clickAction(FlavourpageObjects.Shopbulk());
+		BrowserUtils.waitFor(PLPObjects.LoadMoreButton(), 10);
+		WebdriverUtils.clickAction(PLPObjects.LoadMoreButton());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.PLPProductName(), 10);
+		WebdriverUtils.swipeUpUntillElement(QuickViewObjects.Title());
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPProductName());
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPProductName(), "PLPProductName");
+		WebdriverUtils.clickAction(PLPObjects.PLPProductName());
+		BrowserUtils.waitFor(PLPObjects.PDPProductName(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PDPProductName(), "PDPProductName");
+		WebdriverUtils.waitUntilElementIsDisplayed(PLPObjects.PDPProductName());
+		Assert.assertTrue(PLPObjects.PDPProductName().isDisplayed());
+	}
+	public static void FLPLoadMoreandshowmore() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		verifyFlavorpageNavigation();
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(PLPObjects.LoadMoreButton(), 10);
+		WebdriverUtils.clickAction(PLPObjects.LoadMoreButton());
+		Thread.sleep(6000);
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(PLPObjects.ProductCount(), 20);
+		String[] totalcount =PLPObjects.ProductCount().getText().trim().split(" ");
+		int Products=PLPObjects.Products().size();		
+		Assert.assertEquals(PLPObjects.ProductCount().getText().trim(),"Showing 1 - "+Products+" of "+totalcount[5]+" products");
+		BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.PLPProductName(), 10);
+		Assert.assertEquals(PLPObjects.ProductCount().getText().trim(),"Showing 1 - "+totalcount[3]+" of "+totalcount[5]+" products");
+	}
+	public static void ATCandelementsinpopup() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		verifyFlavorpageNavigation();
+		String productname=FlavourpageObjects.productnameinFLP().getText();
+		WebdriverUtils.clickAction(FlavourpageObjects.ATCProduct());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		assertEquals(FlavourpageObjects.productnameinpopup1().getText(), productname);
+	//	assertEquals(FlavourpageObjects.quantityinpopup().getText(), "1");
+
+	}
+	public static void NotifyFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		verifyFlavorpageNavigation();
+		try {
+			if(FlavourpageObjects.notifyme()!=null) {
+				WebdriverUtils.clickAction(FlavourpageObjects.notifymebutton());
+				String Newemail = BrowserUtils.Emailidgenerator(pro.getProperty("InvalidEmail"));
+				System.out.println(Newemail);
+				WebdriverUtils.sendKeys(FlavourpageObjects.notifymeemail(), Newemail);
+				Thread.sleep(1000);
+				WebdriverUtils.clickAction(FlavourpageObjects.notifymebut());
+				BrowserUtils.waitFor(FlavourpageObjects.SuccessMsg(), 20);
+				Assert.assertTrue(FlavourpageObjects.SuccessMsg().isDisplayed());
+			}
+		} catch (Exception e) {		
+
+			System.out.println("Notify me product is not available");
+		}
+	}
+	public static void WishlistFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(HomePageObjects.Flavorandmorelink(), 20);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Flavorandmorelink());
+		BrowserUtils.waitFor(HomePageObjects.Flavorlink1(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.Flavorlink1());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(HomePageObjects.Flavorexpand(), 10);
+		WebdriverUtils.swipeDownUntillElement(FlavourpageObjects.WishlistButton());
+		String Productcode = FlavourpageObjects.WishlistButton().getAttribute("data-mz-prdcode");
+		System.out.println("Productcode before is "+Productcode);
+		WebdriverUtils.clickAction(FlavourpageObjects.WishlistButton());
+		WebdriverUtils.waitUntilValuePresentInElement(FlavourpageObjects.productcode(Productcode), "ADDED TO WISHLIST");
+		WebdriverUtils.moveToElement(FlavourpageObjects.productcode(Productcode));
+		String ProductcodeActual = FlavourpageObjects.productcode(Productcode).getAttribute("data-mz-prdcode");
+		String Text = FlavourpageObjects.productcode(Productcode).getText();
+		System.out.println("Productcode after is "+ProductcodeActual);
+		assertEquals(ProductcodeActual, Productcode);
+		assertEquals(Text.toUpperCase(), "ADDED TO WISHLIST");
+	}
+
+
+}

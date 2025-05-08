@@ -1,0 +1,65 @@
+package com.testCases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.modules.ADAActions;
+import com.utility.TestBase;
+
+public class ADATestCasesSprint22 extends TestBase {
+	
+	@Test(priority = 343, description="#1: It is not clear to screen reader users where the contents of this mega menu begins or ends.")
+	public void verifyAriaLableOnNavigationBar() throws IOException, Exception {
+		ADAActions.verifyAriaLableOnNavigationBar();
+	}
+	
+	@Test(priority = 344, description="#9: Alt attribute text for decorative images is redundant and/or unnecessary.")
+	public void verifyAltTextImages() throws IOException, Exception {
+		ADAActions.verifyAltTextImages();
+	}
+	@Test(priority = 345, description="#11: It is not clear to screen reader users where the carousel begins or ends.")
+	public void verifyRoleAria() throws IOException, Exception {
+		ADAActions.verifyRoleAria();
+	}
+	//Summer Tops is not available
+	//@Test(priority = 346, description="#17: Screen reader users are unable to quickly determine how many cards or tiles are in this set.")
+	public void verifyliTagSummerTops() throws IOException, Exception {
+		ADAActions.verifyliTagSummerTops();
+	}
+	@Test(priority = 347, description="#22: These are marked up as separate lists; however, this is semantically a single list.")
+	public void verifyliTagFiveCards() throws IOException, Exception {
+		ADAActions.verifyliTagFiveCards();
+	}
+	
+	@Test(priority = 348, description="#33: This progress bar or loading bar is not accessible for screen reader users.")
+	public void verifyProgressbarRole() throws IOException, Exception {
+		ADAActions.verifyProgressbarRole();
+	}
+	
+	@Test(priority = 349, description="#69: Alt attribute text for decorative images is redundant and/or unnecessary.")
+	public void verifyAltOnColor() throws IOException, Exception {
+		ADAActions.verifyAltOnColor();
+	}
+	@Test(priority = 350, description="#203: Unactionable elements should not have tabindex=0")
+	public void verifyTabIndexing() throws IOException, Exception {
+		ADAActions.verifyTabIndexing();
+	}
+	@Test(priority = 351, description="#60: Images that have empty alt attributes are not visible to screen reader users.")
+	public void verifyAltOnPDPImages() throws IOException, Exception {
+		ADAActions.verifyAltOnPDPImages();
+	}
+	@Test(priority = 352, description="#152: All form fields must be properly labeled.")
+	public void verifyLabelTagOnLoginPage() throws IOException, Exception {
+		//ADAActions.verifyLabelTagOnLoginPage();
+	}
+
+	@Test(priority = 353, description="#175: This modal dialog is missing necessary ARIA attributes.")
+	public void verifyLabelTagNotification() throws IOException, Exception {
+		ADAActions.verifyLabelTagNotification();
+	}
+	@Test(priority = 354, description="#182: This page contains one or more heading levels in an illogical order.")
+	public void verifyH1H2Tag() throws IOException, Exception {
+		ADAActions.verifyH1H2Tag();
+	}
+}

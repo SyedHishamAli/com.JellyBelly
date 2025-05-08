@@ -1,0 +1,100 @@
+package com.testCases;
+
+
+import com.utility.TestBase;
+import java.io.IOException;
+import org.testng.annotations.Test;
+import com.modules.ADAActions;
+
+
+public class ADATestCasesSprint19 extends TestBase{
+
+	@Test(priority=320, description="#131: The meaning of this number is not clear to screen reader users.")
+	public void verifyFilterPriceTag() throws IOException, Exception{
+		ADAActions.verifyFilterPriceTag(); 
+		}
+	@Test(priority=321, description="#133: When an element is activated that causes content on the page to change, screen reader users should be informed of this change.")
+	public void verifyPLPtags() throws IOException, Exception{
+		ADAActions.verifyPLPtags(); 
+		}
+	@Test(priority=322, description="#135: Pages must be scalable.")
+	public void verifymaxscale() throws IOException, Exception{
+		ADAActions.verifymaxscale(); 
+		}
+	@Test(priority=323, description="#136: Select dropdowns require labels.")
+	public void verifySortbyTag() throws IOException, Exception{
+		ADAActions.verifySortbyTag(); 
+		}
+	@Test(priority=324, description="#137: Accessible names of elements should properly match the visible labels.")
+	public void verifyButtonAria() throws IOException, Exception{
+		ADAActions.verifyButtonAria(); 
+		}
+	@Test(priority=325, description="#146: When content is marked up as a table, but is not semantically a table, it can be confusing to screen reader users.")
+	public void verifyCartTag() throws IOException, Exception{
+		ADAActions.verifyCartTag(); 
+		}
+	//Hidden on production
+	//@Test(priority=326, description="#147: Accessible names of elements should properly match the visible labels.")
+	public void verifyPayBtnTag() throws IOException, Exception{
+		ADAActions.verifyPayBtnTag(); 
+		}
+	@Test(priority=327, description="#149: Pages must be scalable.")
+	public void verifyCartMaxScale() throws IOException, Exception{
+		ADAActions.verifyCartMaxScale(); 
+		}
+	
+	@Test(priority=328, description="#153: This page requires a <footer> tag to assist screen reader users in understanding and navigating the structure of the page.")
+	public void verifyFooterTagCheckout() throws IOException, Exception{
+		ADAActions.verifyFooterTagCheckout(); 
+		}
+	@Test(priority=329, description="#154: This page requires a <header> tag to assist screen reader users in understanding and navigating the structure of the page.")
+	public void verifyHeaderCheckout() throws IOException, Exception{
+		ADAActions.verifyHeaderCheckout(); 
+		}
+	
+	@Test(priority=330, description="#155: This input fields must allow autofill via a valid autocomplete attribute, which helps users properly fill in the required information.")
+	public void verifyAutoFillOnInputField() throws IOException, Exception{
+		ADAActions.verifyAutoFillOnInputField(); 
+		}
+	
+	@Test(priority=331, description="#160: All form fields must be properly labeled.")
+	public void verifyLabelTagforGiftMessage() throws IOException, Exception{
+		ADAActions.verifyLabelTagforGiftMessage(); 
+		}
+	@Test(priority=332, description="#162: Text that functions as a heading should be marked up as such.")
+	public void verifyLabelTagforFAQ() throws IOException, Exception{
+		ADAActions.verifyLabelTagforFAQ(); 
+		}
+	//This has been removed in production site
+	//@Test(priority=333, description="#163: Buttons must have sufficient labels for all users.")
+	public void verifyLabelTagforButtons() throws IOException, Exception{
+		ADAActions.verifyLabelTagforButtons(); 
+		}
+	
+	@Test(priority=334, description="#164: All form fields must be properly labeled.")
+	public void verifyLabelTagOnShippingInformationForm() throws IOException, Exception{
+		ADAActions.verifyLabelTagOnShippingInformationForm(); 
+		}
+	
+	@Test(priority=335, description="#165: Input fields must allow autofill via a valid autocomplete attribute, which helps users properly fill in the required information.")
+	public void verifyAutoCompleteOnShippingInformationForm() throws IOException, Exception{
+		ADAActions.verifyAutoCompleteOnShippingInformationForm(); 
+		}
+	
+	@Test(priority=336, description="#167: The modal dialog container is not labeled as such.")
+	public void verifyLoginModoalDialogContainerLabel() throws IOException, Exception{
+		//ADAActions.verifyLoginModoalDialogContainerLabel(); 
+		}
+	@Test(priority=337, description="#173: Form field groupings must have a fieldset and legend.")
+	public void verifyFormFieldOnLogiAndContinueAsGuestButtons	() throws IOException, Exception{
+		ADAActions.verifyFormFieldOnLogiAndContinueAsGuestButtons(); 
+		}
+	@Test(priority=338, description="#176: Text that functions as a heading should be marked up as such.")
+	public void verifyTagOnNotification() throws IOException, Exception{
+		ADAActions.verifyTagOnNotification(); 
+		}
+	@Test(priority=339, description="#166: All form fields must be properly labeled.")
+	public void verfiyLabelTagOnLoginModal() throws IOException, Exception{
+		ADAActions.verfiyLabelTagOnLoginModal(); 
+		}
+}

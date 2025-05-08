@@ -1,0 +1,262 @@
+package com.modules;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.testng.Assert;
+import com.pageObjects.AddressBookObjects;
+import com.pageObjects.CheckoutObjects;
+import com.pageObjects.LoginObjects;
+import com.pageObjects.MyAccountObjects;
+import com.pageObjects.PDPObjects;
+import com.utility.BrowserUtils;
+import com.utility.DriverFactory;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class AddressBookActions {
+
+	public static void AddressFormAndSaveAddressFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickButtonThroughJS(MyAccountObjects.myProfileLink(), "myProfileLink");
+//		WebdriverUtils.goToURL("https://www.jellybelly.com/myaccount");
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		Thread.sleep(2000);
+		Assert.assertTrue(MyAccountObjects.addressBookLink().isDisplayed());
+
+	}
+
+	public static void EditAddressFunctionality1() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(500);
+		WebdriverUtils.clickAction(MyAccountObjects.addressBookLink());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+		Thread.sleep(2000);
+		PDPActions.disableEasterPopup();
+		Thread.sleep(5000);
+		Assert.assertTrue(AddressBookObjects.addNewAddress().isDisplayed());
+	}
+
+	public static void EditAddressFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		WebdriverUtils.clickAction(MyAccountObjects.addressBookLink());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+		if(AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size()>0){
+			for(int i=0 ; i<AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size() ; i++){
+				WebdriverUtils.clickAction(AddressBookObjects.newlySavedAddressDeleteButtons(pro.getProperty("newAddressFirstName")).get(0));
+				Thread.sleep(2000);
+				DriverFactory.getInstance().getDriver().switchTo().alert().accept();
+				Thread.sleep(2000);
+			}
+		}
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(AddressBookObjects.addNewAddress());
+		BrowserUtils.waitFor(AddressBookObjects.addressFormHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressFirstName(), pro.getProperty("newAddressFirstName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLastName(), pro.getProperty("newAddressLastName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineFirst(), pro.getProperty("newAddressFirst"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("newAddressSecond"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineCity(), pro.getProperty("newAddressCity"));
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressLineState(),  pro.getProperty("newAddressState"));
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressZipCode(), pro.getProperty("newAddressZipcode"));
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressPhoneNumber(), pro.getProperty("newAddressPhoneNumber"));
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressAddressType(),  pro.getProperty("newAddressAddressType"));
+		if(CheckoutObjects.iframeBlocks().size()>0){
+			for(int i=0;i<CheckoutObjects.iframeCloseButton().size();i++){
+				if(CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		Thread.sleep(3000);
+		WebdriverUtils.swipeDownUntillElement(AddressBookObjects.newAddressSaveButton());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(AddressBookObjects.newAddressSaveButton());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+		Thread.sleep(3500);
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressName(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirstName") +" "+pro.getProperty("newAddressLastName"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine1(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirst"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine2(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressSecond"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressStateCityZipCode(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressCity") +", "+pro.getProperty("newAddressState")+" "+pro.getProperty("newAddressZipcode"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressPhoneNumber(pro.getProperty("newAddressFirstName")).getText().replace("(", "").replace(")", "").replace("-", "").replace(" ", "").trim(), pro.getProperty("newAddressPhoneNumber"));
+
+		WebdriverUtils.swipeDownUntillElement(AddressBookObjects.newlySavedAddressEditButton(pro.getProperty("newAddressFirstName")));
+		WebdriverUtils.clickAction(AddressBookObjects.newlySavedAddressEditButton(pro.getProperty("newAddressFirstName")));
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(AddressBookObjects.addressFormEditHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("editNewAddressSecond"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressPhoneNumber(), pro.getProperty("editNewAddressPhoneNumber"));
+		WebdriverUtils.clickAction(AddressBookObjects.newAddressSaveButton());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+
+		Thread.sleep(3500);
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressName(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirstName") +" "+pro.getProperty("newAddressLastName"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine1(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirst"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine2(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("editNewAddressSecond"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressStateCityZipCode(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressCity") +", "+pro.getProperty("newAddressState")+" "+pro.getProperty("newAddressZipcode"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressPhoneNumber(pro.getProperty("newAddressFirstName")).getText().replace("(", "").replace(")", "").replace("-", "").replace(" ", "").trim(), pro.getProperty("editNewAddressPhoneNumber"));
+
+		WebdriverUtils.swipeDownUntillElement(AddressBookObjects.newlySavedAddressEditButton(pro.getProperty("newAddressFirstName")));
+
+		WebdriverUtils.clickAction(AddressBookObjects.newlySavedAddressEditButton(pro.getProperty("newAddressFirstName")));
+		BrowserUtils.waitFor(AddressBookObjects.addressFormEditHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("newAddressSecond"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressPhoneNumber(), pro.getProperty("newAddressPhoneNumber"));
+		WebdriverUtils.clickAction(AddressBookObjects.newAddressSaveButton());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+
+		Thread.sleep(3500);
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressName(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirstName") +" "+pro.getProperty("newAddressLastName"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine1(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressFirst"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressAddressLine2(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressSecond"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressStateCityZipCode(pro.getProperty("newAddressFirstName")).getText().trim(), pro.getProperty("newAddressCity") +", "+pro.getProperty("newAddressState")+" "+pro.getProperty("newAddressZipcode"));
+		Assert.assertEquals(AddressBookObjects.newlySavedAddressPhoneNumber(pro.getProperty("newAddressFirstName")).getText().replace("(", "").replace(")", "").replace("-", "").replace(" ", "").trim(), pro.getProperty("newAddressPhoneNumber"));
+	}
+
+
+	public static void ErrorMessageForMandatoryDetails() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		WebdriverUtils.clickAction(MyAccountObjects.addressBookLink());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+		if(AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size()>0){
+			for(int i=0 ; i<AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size() ; i++){
+				WebdriverUtils.clickAction(AddressBookObjects.newlySavedAddressDeleteButtons(pro.getProperty("newAddressFirstName")).get(0));
+				Thread.sleep(2000);
+				DriverFactory.getInstance().getDriver().switchTo().alert().accept();
+				Thread.sleep(2000);
+			}
+		}
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(AddressBookObjects.addNewAddress());
+		BrowserUtils.waitFor(AddressBookObjects.addressFormHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressFirstName(), pro.getProperty("newAddressFirstName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("newAddressSecond"));
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineCity(), pro.getProperty("newAddressCity"));
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressLineState(),  pro.getProperty("newAddressState"));
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressZipCode(), pro.getProperty("newAddressZipcode"));
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressPhoneNumber(), pro.getProperty("newAddressPhoneNumber"));
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressAddressType(),  pro.getProperty("newAddressAddressType"));
+		Thread.sleep(3000);
+		if(CheckoutObjects.iframeBlocks().size()>0){
+			for(int i=0;i<CheckoutObjects.iframeCloseButton().size();i++){
+				if(CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		Thread.sleep(3000);
+		WebdriverUtils.swipeDownUntillElement(AddressBookObjects.newAddressSaveButton());
+		WebdriverUtils.clickAction(AddressBookObjects.newAddressSaveButton());
+		BrowserUtils.waitFor(AddressBookObjects.emptyStreetAddressError(), 10);
+		Assert.assertEquals(AddressBookObjects.emptyLastNameError().getText().trim(), "Error: Please add your Last Name.");
+		Assert.assertEquals(AddressBookObjects.emptyStreetAddressError().getText().trim(), "Error: Please add your Street Address.");
+
+	}
+
+	public static void ErrorMessageForMandatoryDetails1() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+//		WebdriverUtils.goToURL("https://www.jellybelly.com/myaccount");
+//		Thread.sleep(2000);
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		//WebdriverUtils.refreshPage();
+		WebdriverUtils.clickAction(MyAccountObjects.addressBookLink());
+		BrowserUtils.waitFor(AddressBookObjects.addressBookHeader(), 10);
+		if(AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size()>0){
+			for(int i=0 ; i<AddressBookObjects.newlySavedAddresses(pro.getProperty("newAddressFirstName")).size() ; i++){
+				WebdriverUtils.clickAction(AddressBookObjects.newlySavedAddressDeleteButtons(pro.getProperty("newAddressFirstName")).get(0));
+				Thread.sleep(2000);
+				DriverFactory.getInstance().getDriver().switchTo().alert().accept();
+				Thread.sleep(2000);
+			}
+		}
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(AddressBookObjects.addNewAddress(),"New Address");
+		BrowserUtils.waitFor(AddressBookObjects.addressFormHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressFirstName(), pro.getProperty("newAddressFirstName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("newAddressSecond"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineCity(), pro.getProperty("newAddressCity"));
+		Thread.sleep(1000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(1000);
+		WebdriverUtils.clickButtonThroughJS(AddressBookObjects.addNewAddress(),"click add new email");
+		BrowserUtils.waitFor(AddressBookObjects.addressFormHeader(), 10);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddresscompanyName(), pro.getProperty("newAddressCompanyName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressFirstName(), pro.getProperty("newAddressFirstName"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineSecond(), pro.getProperty("newAddressSecond"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressLineCity(), pro.getProperty("newAddressCity"));
+		Thread.sleep(1000);
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressLineState(),  pro.getProperty("newAddressState"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressZipCode(), pro.getProperty("newAddressZipcode"));
+		Thread.sleep(500);
+		WebdriverUtils.sendKeys(AddressBookObjects.newAddressPhoneNumber(), pro.getProperty("newAddressPhoneNumber"));
+		Thread.sleep(500);
+		WebdriverUtils.selectByValue(AddressBookObjects.newAddressAddressType(),  pro.getProperty("newAddressAddressType"));
+		Thread.sleep(3000);
+		WebdriverUtils.swipeDownUntillElement(AddressBookObjects.newAddressSaveButton());
+		WebdriverUtils.clickButtonThroughJS(AddressBookObjects.newAddressSaveButton(),"click");
+		BrowserUtils.waitFor(AddressBookObjects.emptyStreetAddressError(), 10);
+		Assert.assertEquals(AddressBookObjects.emptyLastNameError().getText().trim(), "Error: Please add your Last Name.");
+		Assert.assertEquals(AddressBookObjects.emptyStreetAddressError().getText().trim(), "Error: Please add your Street Address.");
+
+	}
+}

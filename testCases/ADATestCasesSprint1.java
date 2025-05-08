@@ -1,0 +1,108 @@
+package com.testCases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.modules.ADAActions;
+import com.utility.TestBase;
+
+public class ADATestCasesSprint1 extends TestBase{
+	
+	//Sprint 1
+	@Test(priority=1,description="# 40 - Log In or Register button should be marked properly")
+	 public void loginRegister() throws IOException, Exception{
+		ADAActions.loginRegister();
+	}
+	//Descoped in redesign site @Test(priority=2,description="# 52 - Hero image should be marked with alt attribute")
+	 public void heroTittle() throws IOException, Exception{
+		ADAActions.heroTittle();
+	}
+	@Test(priority=3,description="# 55 - Page should have h1 heading and should be marked properly")
+	 public void heroTittleAlt() throws IOException, Exception{
+		ADAActions.heroTittleAlt();
+	}
+	@Test(priority=4,description="# 260 - Viewcart should be link not button")
+	 public void viewcart() throws IOException, Exception{
+		ADAActions.viewcart();
+	}
+	@Test(priority=5,description="#83 - pTag should be contain Aria attribute")
+	 public void ptag() throws IOException, Exception{
+		ADAActions.ptag();
+	}
+	@Test(priority=6,description="# 91 - Alt atrribute should not contain Image text in it")
+	 public void image() throws IOException, Exception{
+		ADAActions.image();
+	}
+	//Descoped in redesign site @Test(priority=7,description="# 17 - Beanboozled PLP should contain h1 heading and should be marked properly")
+	 public void h1() throws IOException, Exception{
+		ADAActions.h1();
+	}
+	@Test(priority=8,description="# 90 - Beanboozled PLP should not contain Article tag")
+	 public void extraArticle() throws IOException, Exception{
+		ADAActions.extraArticle();
+	}
+	//uncomment @Test(priority=9,description="# 106 - Birthday party page should contain h1 heading and should be marked properly")
+	 public void candyh1() throws IOException, Exception{
+		ADAActions.candyh1();
+	}
+	//uncomment @Test(priority=10,description="# 107 - Birthday party page get started button should be marked properly")
+	 public void candyButton() throws IOException, Exception{
+		ADAActions.candyButton();
+	}
+	@Test(priority=11,description="# 145 - Password field should be associated to relevant field")
+	 public void password() throws IOException, Exception{
+		ADAActions.password();
+	}
+	@Test(priority=12,description="# 146 - Email field should be associated to relevant field")
+	 public void email() throws IOException, Exception{
+		ADAActions.email();
+	}
+	@Test(priority=13,description="# 345 - Comapny history page Breadcrumb should be marked properly")
+	 public void breadcrumb() throws IOException, Exception{
+		ADAActions.breadcrumb();
+	}
+	/*@Test(priority=14,description="# 349 - Comapny history page Prev button should be marked properly")
+	 public void prevButton() throws IOException, Exception{
+		ADAActions.prevButton();
+	}
+	@Test(priority=15,description="# 350 - Comapny history page Next button should be marked properly")
+	 public void nextButton() throws IOException, Exception{
+		ADAActions.nextButton();
+	}*/
+	//Descoped in redesign site @Test(priority=16,description="# 325 - Wedding centre page Breadcrumb should be marked properly")
+	 public void breadcrumb1() throws IOException, Exception{
+		ADAActions.breadcrumb1();
+	}
+	/* descopped in redesign site @Test(priority=17,description="# 198 - JellyBelly bean page Breadcrumb should be marked properly")
+	 public void jbOfficialFlavor() throws IOException, Exception{
+		ADAActions.jbOfficialFlavor();
+	}
+	 descopped in redesign site @Test(priority=18,description="# 200 - JellyBelly bean page Button should be marked properly")
+	 public void jbOfficialFlavor1() throws IOException, Exception{
+		ADAActions.jbOfficialFlavor1();
+	}
+	*/
+	@Test(priority=19,description="# 209 - JellyBelly bean page Sort by should be labeled properly")
+	 public void sortBy() throws IOException, Exception{
+		ADAActions.sortBy();
+	}
+	@Test(priority=20,description="# 18 - PDP page should contain h1 heading and should be marked properly")
+	 public void pdph1() throws IOException, Exception{
+		ADAActions.pdph1();
+	}
+	@Test(priority=21,description="# 24 - Shipping info table should be marked as column")
+	 public void col() throws IOException, Exception{
+		ADAActions.col();
+	}
+	//The page moved to builder.io and it doesn't have rows and columns
+	//@Test(priority=22,description="# 24 - Shipping info table should be marked as row")
+	 //public void row() throws IOException, Exception{
+		//ADAActions.row();
+	//}
+	@Test(priority=23,description="# 148 - PDP page Breadcrumb should be marked properly")
+	 public void breadcrumb2() throws IOException, Exception{
+		ADAActions.breadcrumb2();
+	}
+	
+}

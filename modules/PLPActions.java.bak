@@ -1,0 +1,293 @@
+package com.modules;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.testng.Assert;
+
+import com.pageObjects.ADAObjects;
+import com.pageObjects.CheckoutObjects;
+import com.pageObjects.FlavourpageObjects;
+import com.pageObjects.HomePageObjects;
+import com.pageObjects.PDPObjects;
+import com.pageObjects.PLPObjects;
+import com.pageObjects.QuickViewObjects;
+import com.utility.BrowserUtils;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class PLPActions {
+	public static void PLPsort() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		//WebdriverUtils.moveToElement(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.PLPsort(), 10);
+		Double BeforeSort=Double.parseDouble(PLPObjects.SortPrice().getText().replace("$", "").trim());
+		Thread.sleep(5000);
+		
+		WebdriverUtils.selectByIndex(PLPObjects.PLPsort(), 1);
+		Thread.sleep(10000);
+		if(CheckoutObjects.iframeBlocks().size()>0){
+			for(int i=0;i<CheckoutObjects.iframeCloseButton().size();i++){
+				if(CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+					
+			}
+		}
+		Double AfterSort=0.00;
+		try{
+			Thread.sleep(5000);
+		 AfterSort=Double.parseDouble(PLPObjects.SortPrice().getText().replace("$", "").trim());
+		}
+		catch(Exception e){
+			Thread.sleep(5000);
+		AfterSort=Double.parseDouble(PLPObjects.SortPrice1().getText().replace("$", "").replace("SALE:", "").replace(" ", "").trim());
+		System.out.println(AfterSort);
+		}
+		BrowserUtils.waitFor(PLPObjects.Price(pro.getProperty("ProductName")), 15);
+		Assert.assertTrue(AfterSort<BeforeSort);
+	}
+	
+	public static void PLPtoPDPNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.MenuLink(pro.getProperty("CategoryName")),"click");
+		//BrowserUtils.waitFor(PLPObjects.shopAll(), 10);
+		//WebdriverUtils.clickAction(PLPObjects.shopAll());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.PLPProductName(pro.getProperty("ProductName")), 10);
+		PDPActions.disableEasterPopup();
+		//WebdriverUtils.swipeUpUntillElement(QuickViewObjects.Title());
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPProductName(pro.getProperty("ProductName")));
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPProductName(pro.getProperty("ProductName")),"click");
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(PLPObjects.PDPProductName1(), 10);
+		Assert.assertTrue(PLPObjects.PDPProductName1().isDisplayed());
+	}
+	
+	public static void PLPAddToCart() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(3500);
+		//BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		//BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+		//WebdriverUtils.clickAction(PLPObjects.showAll());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(PLPObjects.PLPProductName(pro.getProperty("ProductName")), 20);
+		PDPActions.disableEasterPopup();
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPAddToCart(pro.getProperty("ProductName")), "PLP Add to cart");
+//		WebdriverUtils.swipeUpUntillElement(QuickViewObjects.Title());
+//		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPProductName(pro.getProperty("ProductName")));
+//		WebdriverUtils.waitUntilValuePresentInElement(PLPObjects.Quantity(pro.getProperty("ProductName")), "1");
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(PLPObjects.PLPAddToCart(pro.getProperty("ProductName")));
+		Thread.sleep(8000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup1(), 20);	
+		if(FlavourpageObjects.productnameinpopup1().isDisplayed()) {
+			for(int i=0; i<=5;i++) {
+			WebdriverUtils.switchToiframe(FlavourpageObjects.productnameinpopup1());
+			String name = FlavourpageObjects.productnameinpopup1().getText();
+			System.out.println("Product name "+name);
+			String productName = pro.getProperty("ProductName");
+			System.out.println("Product name "+productName);
+			assertEquals(FlavourpageObjects.productnameinpopup1().getText(), productName);
+			assertEquals(FlavourpageObjects.quantityinpopup().getText(), "1");
+			assertEquals(FlavourpageObjects.ATCtextinpopup().getText(), "ADDED TO CART!");
+			break;
+			}
+		}
+		
+	}
+	
+	public static void PLPLoadMore() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.LoadMoreButton(), 10);
+		WebdriverUtils.scrollToElement(PLPObjects.LoadMoreButton());
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.LoadMoreButton(),"load More Button");
+		Thread.sleep(10000);
+		BrowserUtils.waitFor(PLPObjects.ProductCount(), 20);
+		int Products=PLPObjects.Products().size();		
+		String value = PLPObjects.totalProduct().getAttribute("data-total-results");
+		Assert.assertEquals(PLPObjects.ProductCount().getText().trim(),"Showing 1 - "+Products+" of "+value+" products" );
+		
+	}
+	
+	public static void AddToCartFromRecommendationSection() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+//		WebdriverUtils.clickAction(PLPObjects.showAll());
+		//Thread.sleep(1000);
+		PDPActions.disableEasterPopup();
+		//BrowserUtils.waitFor(PLPObjects.PLPProductName(pro.getProperty("RecommendationProduct")),10);
+//		WebdriverUtils.swipeUpUntillElement(QuickViewObjects.Title());
+//		Thread.sleep(3000);
+//		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPProductName(pro.getProperty("RecommendationProduct")));
+		WebdriverUtils.scrollToElement(PLPObjects.RecommendationSection());
+		Thread.sleep(1000);
+//		WebdriverUtils.waitUntilValuePresentInElement(PLPObjects.RecommendationQuanity(pro.getProperty("RecommendationProduct")), "1");
+		//LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.recommendationAddToCartFirst(), "Recommendation product");
+		//String recommendationProductFirst = PLPObjects.recommendationProductFirstName().getText();
+		//WebdriverUtils.scrollToElement("100");
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.recommendationAddToCartFirst(), "click");
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		//assertEquals(FlavourpageObjects.quantityinpopup().getText().trim(), "1");
+		assertEquals(FlavourpageObjects.ATCtextinpopup().getText().trim(), "ADDED TO CART!");
+	}
+	
+	public static void RecommendationtoPDPNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+		//WebdriverUtils.refreshPage();
+		Thread.sleep(8000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.recommendationProductFirstName(), "Recommendation product");
+//		WebdriverUtils.clickAction(PLPObjects.showAll());
+//		Thread.sleep(5000);
+//		PDPActions.disableEasterPopup();
+//		BrowserUtils.waitFor(PLPObjects.RecommendationProductName(pro.getProperty("RecommendationProduct")), 10);
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.RecommendationSection());
+		//WebdriverUtils.refreshPage();
+		//String ExpName = PLPObjects.recommendationProductFirstName().getText();
+		Thread.sleep(1000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.recommendationProductFirstName(),"click");
+		//BrowserUtils.waitFor(PLPObjects.PDPProductName(), 10);
+		Thread.sleep(5000);
+//		WebdriverUtils.clickAction(PLPObjects.PLPProductName());
+//		Thread.sleep(3000);
+		//assertTrue(PLPObjects.PDPProductName().getText().toLowerCase().trim().replace(" ", "").contains(ExpName.toLowerCase().trim().replace(" ", "").replace(".", "")));
+		Assert.assertTrue(PLPObjects.RecomendedProductName().isDisplayed());
+	}	
+	
+	public static void RecommendationtoNotifyFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.RecommendationSection());
+		Thread.sleep(1000);
+		if(PLPObjects.recommendationOutOfStockProductName()!=null)
+		{
+//		String outOfStockProduct = PLPObjects.recommendationOutOfStockProductName().getText();
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.recommendationOutOfStockProduct(),"click");
+		BrowserUtils.waitFor(PLPObjects.RecommendationNotifyEmail(), 10);
+		String email=WebdriverUtils.generateRandomEmail();
+		System.out.println(email);
+		WebdriverUtils.sendKeys(PLPObjects.RecommendationNotifyEmail(),email );
+		Thread.sleep(1000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.RecommendationNotifymeButton(), "click");
+		BrowserUtils.waitFor(PLPObjects.SuccessMsg(), 10);
+		Assert.assertEquals(PLPObjects.SuccessMsg().getText().trim(),pro.getProperty("SuccessMsg"));
+		}
+		else
+			System.out.println("There are no Out of stock products in Recommendation section");
+	}
+	
+	public static void PLPApplyFilter() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		//WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.Filter());
+		Thread.sleep(6000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.Filter(),"click");
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.FilterPrice());
+		WebdriverUtils.clickAction(PLPObjects.FilterPrice());
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.PriceRange());
+		WebdriverUtils.clickAction(PLPObjects.PriceRange());
+		Thread.sleep(2000);
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.Apply());
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.Apply(),"click");
+		BrowserUtils.waitFor(PLPObjects.FilterStrip(), 10);
+		Thread.sleep(4000);
+		System.out.println("FilterStrip="+PLPObjects.FilterStrip().getAttribute("aria-label"));
+		System.out.println("ResetButton="+PLPObjects.ResetButton().getAttribute("aria-label"));
+		Assert.assertEquals(PLPObjects.FilterStrip().getAttribute("aria-label").trim().toLowerCase(), "0 To 10 $".toLowerCase());
+		Assert.assertEquals(PLPObjects.ResetButton().getAttribute("aria-label").trim(), "Reset");
+
+	}
+	
+	public static void PLPProductDetailsDisplay() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+		System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+//		WebdriverUtils.clickAction(PLPObjects.showAll());
+		Thread.sleep(5000);
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPProductName4());
+		Assert.assertTrue(PLPObjects.PLPProductName4().isDisplayed());
+		
+
+		//WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPImage(pro.getProperty("ProductName")));
+		
+		//Assert.assertTrue(PLPObjects.PLPImage(pro.getProperty("ProductName")).isDisplayed());
+		//Assert.assertEquals(PLPObjects.PLPProductName(pro.getProperty("ProductName")).getText().trim(),pro.getProperty("PDPProductName").trim());
+//		Assert.assertEquals(PLPObjects.Price(pro.getProperty("ProductName")).getText().trim(), "$7.99");
+//		Assert.assertEquals(WebdriverUtils.getTextOfSelectedItem(PLPObjects.Quantity(pro.getProperty("ProductName"))), "1");
+//		Assert.assertTrue(PLPObjects.Ratings(pro.getProperty("ProductName")).isDisplayed());
+		//Assert.assertTrue(PLPObjects.Reviews(pro.getProperty("ProductName")).getText().trim().contains("Reviews"), "Reviews");
+		//Assert.assertEquals(PLPObjects.PLPAddToCart(pro.getProperty("ProductName")).getText().toLowerCase().trim(), "ADD TO CART".toLowerCase());
+	}
+}

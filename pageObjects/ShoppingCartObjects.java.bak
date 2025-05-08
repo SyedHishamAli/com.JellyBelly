@@ -1,0 +1,227 @@
+package com.pageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.utility.WebdriverUtils;
+
+public class ShoppingCartObjects {
+	
+	public static WebElement checkoutButtonTop() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//button[@id='cart-checkout']"));
+	}
+	public static WebElement emailPopUP() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//div[@id='email-dialog']"));
+	}
+	public static WebElement continueAsGuestTab() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//a[contains(text(),'Continue as Guest')]"));
+	}
+	public static WebElement loginContinueTab() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//a[@class='user-login labelmodel'][contains(text(),'Login & Continue')]"));
+	}
+	public static WebElement emailFieldInLoginPopUp() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//input[@id='email']"));
+	}
+	public static WebElement emailFieldInPaymentLoginPopUp() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@class='checkout_login form-content active']//input[@id='email']"));
+	}
+	public static WebElement passwordFieldInPaymentLoginPopUp() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@class='checkout_login form-content active']//input[@id='password']"));
+	}
+	public static WebElement paymentLoginPopUp() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@class='checkout_login form-content active']"));
+	}
+	public static WebElement passwordFieldInLoginPopUp() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//input[@id='password']"));
+	}
+	public static WebElement loginNextButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//input[@id='addbutton']"));
+	}
+	public static WebElement paymentLoginNextButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@class='checkout_login form-content active']//input[@id='addbutton']"));
+	}
+	public static WebElement forgotPasswordLink() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//a[@title='Forgot password - links to a new page'][contains(text(),'Forgot password?')]"));
+	}
+	public static WebElement checkBoxForNewsletters() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='guest_submit']//*[@class='checkmark-style'])[1]"));
+	}
+	
+	public static WebElement checkboxcheckout() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='guest_submit']//*[@name='guestmail-cpp-checkbox']"));
+	}
+	public static WebElement checkBoxForNewsletters1() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='guest_submit']//*[@class='checkmark-style'])[2]"));
+	}
+	public static WebElement nextButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@id='guest_addbutton']"));
+	}
+	public static WebElement termsAndConditionsCheck() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//a[text()=' Terms of Use'])[1]"));
+	}
+	public static WebElement invalidLoginError() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//span[@id='loginerror']"));
+	}	
+	public static WebElement emptyEmailError() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='checkoutmodal']//span[@id='useremailerror']"));
+	}
+	public static WebElement guestEmailError() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//span[@id='guestemailerror']"));
+	}
+	public static WebElement guestEmail() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//input[@id='guest_email']"));
+	}
+	public static WebElement shoppingCartHeader() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//h1[@class='mz-cartpagetitle']"));
+	}
+	
+	public static WebElement viewCart() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class=\"view-cart\"]"));
+	}
+	
+	public static WebElement ProductInformation() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//a[@class='mz-carttable-item-title'])[1]"));
+	}
+	public static WebElement KeepShoppingButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//div[@class='continue-shopping']/a)[1]"));
+	}
+	public static WebElement EstimatedTotal() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//td[@id='mz-carttable-estimated-total']/strong"));
+	}
+	public static WebElement CouponText() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='coupon-text']"));
+	}
+	public static WebElement RecommendedSection() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='monetate-block-title'])[2]"));
+	}
+	public static WebElement ProductPrice() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-item-price is-saleprice']"));
+	}
+	public static WebElement ProductPrice1(String ProductName2) throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//a[text()='"+ProductName2+"']/ancestor::tr[@class='mz-carttable-item ']/td[@class='mz-carttable-item-price']"));
+	}
+	public static WebElement ItemTotal() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//span[@class='mz-item-rowtotal is-saleprice']"));
+	}
+	public static WebElement Quantity() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='quantity-field-cart']"));
+	}
+	public static WebElement searchicon() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-searchbox-button']"));
+	}
+	public static WebElement RemoveIcon() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-carttable-item-remove']//span/img"));
+	}
+	public static WebElement CouponCheckbox() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[contains(text(),'Enter Coupon Code')]"));
+	}
+	public static WebElement CouponField() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@id='coupon-code']"));
+	}
+	public static WebElement ApplyButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//button[@id='cart-coupon-code']"));
+	}
+	public static WebElement CouponAppliedText() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='mleft18'][contains(text(),'10% discount.:')]"));
+	}
+	public static WebElement LoginPopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//h2[contains(text(),'Continue as Guest or Login')]"));
+	}
+	public static WebElement CouponErrormessage() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@class='mz-messagebar']//li"));
+	}
+	public static WebElement SubTotal() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//span[@id='mz-carttable-total']"));
+	}
+	public static WebElement SubTotalincart() throws Exception{
+		 // return WebdriverUtils.findElement(By.xpath("(//*[@class='price-table']//span[@id='mz-carttable-total'])[1]"));
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='price-table']//span[@class='mz-carttable-total']"));
+	}
+	public static WebElement RecommendationAddToCart() throws Exception{
+		//return WebdriverUtils.findElement(By.xpath("(//button[@id='add-to-cart-cur'])[1]"));
+		return WebdriverUtils.findElement(By.xpath("(//*[@id='monetate-recommendations']//*[@class='atc-wrapper']//button[contains(text(),'Add To Cart')])[1]"));
+	}
+	
+	public static WebElement adPopUp() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='usi_display']//*[@id='usi_close']"));
+	}
+	
+	public static WebElement RecommendationQuanity() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@class='mz-productdetail-qty quantity'])[1]"));
+	}
+	public static WebElement RecommendationProductName() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@id='monetate-recommendations']//*[@class='product-title']/h3)[1]"));
+	}
+	public static WebElement RecommendationProductNameinstock() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@class='row product-listing-row-content']//a)[1]"));
+	}
+	public static WebElement RecommendationProductPrice() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@class='priceSection']//*[@class='jb-quickprice '])[1]"));
+	}
+	public static WebElement RecommendationProductImage() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//div[@class='related-prod-owl-carousel owl-carousel owl-theme owl-loaded']//div[@class='row mz-productlisting   ']//div[@class='mz-subcategory-image-div mz-productlisting-image']/a/img)[2]"));
+	}
+	public static WebElement RecommendationHeader() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='recommended-prod-head']"));
+	}
+	public static WebElement ShippingLabel() throws Exception{
+		//return WebdriverUtils.findElement(By.xpath("//span[@id='mz-carttable-freeshipping']/a"));
+		return WebdriverUtils.findElement(By.xpath("//span[@id='mz-carttable-freeshipping']/a"));
+	}
+	public static WebElement GlobalShippingLabel() throws Exception{
+		//return WebdriverUtils.findElement(By.xpath("//p[@class='text-content']/strong"));
+		return WebdriverUtils.findElement(By.xpath("//*[contains(text(),'Free Ground Shipping')]"));
+	}
+	public static WebElement CancelIcon() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='layer-wiziwig']//strong"));
+	}
+	public static WebElement cartLoginCheckbox() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@id='guestlogin-cpp-checkbox']"));
+	}
+	public static WebElement cartLoginSubmit() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[@id='addbutton'])[2]"));
+	}
+	public static WebElement cartProductName() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='summary-item  noborder']/th"));
+	}
+	public static WebElement cartProductName1() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[@class='summary-item  ']/th"));
+	}
+	public static WebElement shippinginfoTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[text()='Shipping Information']/..)[1]"));
+	}
+	public static WebElement shippingMethodTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[text()='Shipping Method']/..)[1]"));
+	}
+	public static WebElement paymentinforTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("(//*[text()='Payment Information']/..)[1]"));
+	}
+	public static WebElement ordersumTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[text()='Order Summary']"));
+	}
+	public static WebElement checkoutusingTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[text()='Checkout using']"));
+	}
+	public static WebElement chooseShipMethod() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[text()='Choose Shipping Method']"));
+	}
+	
+	public static WebElement paymethodLabelTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[text()='Payment Method']"));
+	}
+	public static WebElement billadrsTag() throws Exception{
+		return WebdriverUtils.findElement(By.xpath("//*[text()='Billing Address']"));
+	}
+	public static WebElement userNameCheckOutPage() throws Exception {
+		return WebdriverUtils.findElement(By.xpath("//*[@id='signup-firstname']"));
+	}
+	public static WebElement passwordCheckOutPage() throws Exception {
+		return WebdriverUtils.findElement(By.xpath("//*[@id='password']"));
+	}
+	
+	
+	
+	
+	
+	
+}

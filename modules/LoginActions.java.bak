@@ -1,0 +1,214 @@
+package com.modules;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+
+import com.pageObjects.ADAObjects;
+import com.pageObjects.BLPObjects;
+import com.pageObjects.HomePageObjects;
+import com.pageObjects.LoginObjects;
+import com.pageObjects.PLPObjects;
+import com.pageObjects.SignUpObjects;
+import com.utility.BrowserUtils;
+import com.utility.DriverFactory;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class LoginActions {
+	public static void verifyLoginElements() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInLink(),"click");
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		Assert.assertTrue(LoginObjects.StaticText().isDisplayed());
+		Assert.assertTrue(LoginObjects.EmailField().isDisplayed());
+		Assert.assertTrue(LoginObjects.PasswordField().isDisplayed());
+		Assert.assertTrue(LoginObjects.checkbox().isDisplayed());
+		Assert.assertTrue(LoginObjects.LogInButton().isDisplayed());
+		Assert.assertTrue(LoginObjects.ForgotPasswordLink().isDisplayed());
+		Assert.assertTrue(LoginObjects.CreateaccountLink().isDisplayed());
+
+	}
+
+	public static void verifyForgotPasswordFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickAction(LoginObjects.LogInLink());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(LoginObjects.ForgotPasswordLink(), 20);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.ForgotPasswordLink(),"Click");
+		BrowserUtils.waitFor(LoginObjects.ForgotPasswordEmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.ForgotPasswordEmailField(), pro.getProperty("Email"));
+		WebdriverUtils.clickAction(LoginObjects.SendEmailButton());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(LoginObjects.ConfirmationErrText(), 10);
+		Assert.assertTrue(LoginObjects.ConfirmationErrText().isDisplayed());
+	}
+
+	public static void verifyLoginFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+	//	BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+	//	LoginActions.waitAndProceed();
+	//	WebdriverUtils.waitForElementToBeClickable(LoginObjects.LogInLink(),"Login link");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInLink(), "LogInLink");
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInLinkAfterHover(), "LogInLinkAfterHover");
+		Thread.sleep(30000);
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 30);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.checkbox(), "checkbox");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInButton(), "LogInButton");
+		Thread.sleep(14000);
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 30);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		Thread.sleep(6000);
+		System.out.println("email : "+LoginObjects.MyAccountEmail().getText().trim().toLowerCase());
+		Assert.assertEquals(pro.getProperty("Email").trim().toLowerCase(),LoginObjects.MyAccountEmail().getText().trim().toLowerCase());
+	}	
+
+	public static void verifyInvalidLoginFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInLink(),"login");
+		Thread.sleep(20000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("InvalidEmail"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password"));
+		Thread.sleep(2000);	 
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.checkbox(),"click");
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInButton(),"click");
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(LoginObjects.LoginErrorMessage(), 20);
+		Assert.assertTrue(LoginObjects.LoginErrorMessage().isDisplayed());
+	}	
+
+	public static void verifyMandatoryFieldValidation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		LoginActions.waitAndProceed();
+		WebdriverUtils.clickButtonThroughJS(LoginObjects.LogInLink(),"login");
+		//	WebdriverUtils.clickAction(LoginObjects.LogInLinkAfterHover());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		Thread.sleep(10000);
+		WebdriverUtils.refreshPage();
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password4"));
+		WebdriverUtils.clickAction(LoginObjects.checkbox());
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(LoginObjects.LogInButton());
+		WebdriverUtils.clickAction(LoginObjects.LogInButton());
+		//BrowserUtils.waitFor(LoginObjects.LoginErrorMessage(), 10);
+		Thread.sleep(4000);
+		Assert.assertTrue(WebdriverUtils.currentURL().contains("https://www.jellybelly.com/user/login"));
+
+	}
+
+	public static void verifyLoginlayoverElements() throws Exception, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.myAccount());
+		Thread.sleep(5000);
+		Assert.assertTrue(LoginObjects.RegisterLink().isDisplayed());
+		Assert.assertTrue(LoginObjects.OrderstatusLink().isDisplayed());
+		Assert.assertTrue(LoginObjects.Sweetrewardsinlayover().isDisplayed());
+		Thread.sleep(1000);
+
+	}
+
+	public static void verifyLogoutfunctionality() throws Exception, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		verifyLoginFunctionality();
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		WebdriverUtils.clickAction(LoginObjects.logoutlink());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(HomePageObjects.myAccount(), 10);
+		WebdriverUtils.moveToElement(HomePageObjects.myAccount());
+		Assert.assertTrue(LoginObjects.LogInLinkAfterHover().isDisplayed());
+	}
+	public static void waitAndProceed() throws Exception {
+		Thread.sleep(10000);
+		for(int i=0;i<3;i++) {
+			try {
+				WebdriverUtils.esc();
+				BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+				WebdriverUtils.waitForElementToBeClickable(LoginObjects.LogInLink(), "Login link");
+				break;
+			}
+			catch(Exception e) {
+				Thread.sleep(2000);
+				WebdriverUtils.refreshPage();
+			}
+		}
+	}
+	public static void waitAndProceedWhenItemdisplayed(WebElement WebElement, String WebElementLink) throws Exception {
+		Thread.sleep(10000);
+		for(int i=0;i<3;i++) {
+			try {
+				WebdriverUtils.esc();
+				BrowserUtils.waitFor(WebElement, 10);
+				WebdriverUtils.waitForElementToBeClickable(WebElement, WebElementLink);
+				break;
+			}
+			catch(Exception e) {
+				Thread.sleep(2000);
+				WebdriverUtils.refreshPage();
+			}
+		}
+	}
+}

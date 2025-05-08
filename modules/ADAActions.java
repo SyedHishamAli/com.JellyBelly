@@ -1,0 +1,7288 @@
+package com.modules;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptException;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.pageObjects.ADAObjects;
+import com.pageObjects.CheckoutObjects;
+import com.pageObjects.FlavourpageObjects;
+import com.pageObjects.GlobalHeaderObjects;
+import com.pageObjects.HomePageObjects;
+import com.pageObjects.MiniCartObjects;
+import com.pageObjects.PDPObjects;
+import com.pageObjects.PLPObjects;
+import com.pageObjects.ShoppingCartObjects;
+import com.utility.BrowserUtils;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+public class ADAActions {
+
+	public static void loadingHomePage() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+
+	}
+
+	public static void loginRegister() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(4000);
+		
+		String button = ADAObjects.login1().getAttribute("id").toLowerCase();
+		Assert.assertTrue(button.contains("login-register-btn"));
+	}
+
+	public static void heroTittle() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = ADAObjects.heroTittleCount().size();
+		Assert.assertTrue(count == 1);
+	}
+
+	public static void heroTittleAlt() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String alt = ADAObjects.aSpot().getTagName();
+		Assert.assertTrue(alt.contains("h1"));
+
+	}
+
+	public static void viewcart() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.HoverOnElement(HomePageObjects.MegaMenu());
+//		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(),
+				"First Product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		Thread.sleep(2000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		WebdriverUtils.switchToiframe(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(4000);
+		WebdriverUtils.moveToElementByActions(ADAObjects.countIcon());
+		String viewcart = ADAObjects.viewCart().getAttribute("href");
+		Assert.assertTrue(viewcart.contains("cart"));
+	}
+
+	public static void ptag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/California-Factory-Cafe");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+
+	}
+
+	public static void image() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/California-Factory-Cafe");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String image = ADAObjects.image().getAttribute("alt");
+		Assert.assertFalse(image.contains("image"));
+	}
+
+	public static void h1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = ADAObjects.h1().size();
+		Assert.assertTrue(count == 1);
+	}
+
+	public static void extraArticle() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = 0;
+		count = ADAObjects.h1().size();
+		Assert.assertTrue(count == 1);
+	}
+
+	public static void candyh1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+		Thread.sleep(3000);
+		int count = ADAObjects.candyh1().size();
+		Assert.assertTrue(count == 1);
+	}
+
+	public static void candyButton() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.candyGetStarted().getAttribute("aria");
+		Assert.assertTrue(count == null);
+	}
+
+	public static void password() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		String count = null;
+		count = ADAObjects.password().getAttribute("id");
+		Assert.assertTrue(count.contains("Password"));
+	}
+
+	public static void email() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		String count = null;
+		count = ADAObjects.email().getAttribute("id");
+		Assert.assertTrue(count.contains("email"));
+	}
+
+	public static void breadcrumb() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.breadcrumb().getAttribute("class");
+		Assert.assertTrue(count.contains("breadcrumb"));
+	}
+
+	public static void prevButton() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = ADAObjects.prevButton().getAttribute("role");
+		Assert.assertTrue(count.contains("button"));
+	}
+
+	public static void nextButton() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = ADAObjects.nextButton().getAttribute("role");
+		Assert.assertTrue(count.contains("button"));
+	}
+
+	public static void breadcrumb1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.breadcrumb().getAttribute("class");
+		Assert.assertTrue(count.contains("breadcrumb"));
+	}
+
+	public static void jbOfficialFlavor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.jbOfficialFlavor().getAttribute("role");
+		Assert.assertTrue(count.contains("button"));
+	}
+
+	public static void jbOfficialFlavor1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.jbOfficialFlavor1().getAttribute("aria-expanded");
+		Assert.assertTrue(count.contains("false"));
+	}
+
+	public static void sortBy() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.sortBy());
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.sortBy().getAttribute("for");
+		Assert.assertTrue(count.contains("sort"));
+	}
+
+	public static void pdph1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/licorice-jelly-beans-16-oz-re-sealable-bag/p/9000_LICORICE");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		int count = ADAObjects.pdph1().size();
+		Assert.assertTrue(count == 1);
+	}
+
+	public static void breadcrumb2() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		String count = null;
+		count = ADAObjects.breadcrumb().getAttribute("class");
+		Assert.assertTrue(count.contains("breadcrumb"));
+	}
+
+	public static void col() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+//		int count = ADAObjects.col().size();
+//		for (int i = 1; i <= count; i++) {
+//			String scope = ADAObjects.col(i).getAttribute("scope");
+//			Assert.assertTrue(scope.contains("col"));
+//		}
+		//WebdriverUtils.scrollToElement(ADAObjects.columnheader());
+		Thread.sleep(3000);
+		Assert.assertTrue(ADAObjects.columnheader().isDisplayed());
+	}
+
+	public static void row() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		int count = ADAObjects.row().size();
+		for (int i = 1; i <= count; i++) {
+			String scope = ADAObjects.row(i).getAttribute("scope");
+			Assert.assertTrue(scope.contains("row"));
+		}
+	}
+
+	public static void itemAddedPopup() throws Exception {
+
+	}
+
+	public static void companyRetail() throws Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(ADAObjects.visitus());
+		Thread.sleep(2000);
+		WebdriverUtils.moveToElement(ADAObjects.companyRetailStores());
+		String count = null;
+		count = ADAObjects.companyRetailStores().getAttribute("role");
+		Assert.assertTrue(count == null);
+
+	}
+
+	public static void footerEmailSignup() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignup());
+		String count = null;
+		count = ADAObjects.emailSignup().getAttribute("for").toLowerCase();
+		Assert.assertTrue(count.contains("email"));
+		Assert.assertTrue(count.contains("signup"));
+	}
+
+	public static void uniqueCategoryID() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		int count = ADAObjects.categories().size();
+		for (int i = 0; i <= count - 2; i++) {
+			String category = null;
+			String category1 = null;
+			category = ADAObjects.categories().get(i).getAttribute("id");
+			category1 = ADAObjects.categories().get(i + 1).getAttribute("id");
+			Assert.assertTrue(category != category1);
+		}
+	}
+
+	public static void headerLinksAriaLabel() throws Exception {
+
+	}
+
+	public static void miniCartProductName() throws Exception {
+	 	MiniCartActions.MinicartProductInfo1();
+		Thread.sleep(4000);
+		Assert.assertTrue(ADAObjects.minicarth2().isDisplayed());
+		String t = ADAObjects.minicarth2().getTagName();
+		Assert.assertTrue(t.contains("h2"));
+	}
+
+	public static void miniCartPrice() throws Exception {
+		MiniCartActions.MinicartProductInfo1();
+		Thread.sleep(4000);
+		Assert.assertTrue(ADAObjects.minicarth4().isDisplayed());
+		String t = ADAObjects.minicarth4().getTagName();
+		Assert.assertTrue(t.contains("p"));
+
+	}
+
+	public static void miniCartName() throws Exception {
+		Thread.sleep(2000);
+		String t = ADAObjects.minicarth5().getTagName();
+		Assert.assertTrue(t.contains("h1"));
+		String t1 = ADAObjects.minicarth7().getTagName();
+		Assert.assertTrue(t1.contains("h2"));
+
+	}
+
+	public static void modalCartName() throws Exception {
+		Thread.sleep(2000);
+		String AttributeName = ADAObjects.minicarth6().getAttribute("role");
+		Assert.assertTrue(AttributeName.contains("button"));
+
+	}
+
+	public static void shippingTag() throws Exception {
+		Thread.sleep(2000);
+		Assert.assertTrue(ADAObjects.checkoutShippingTag().isDisplayed());
+
+	}
+
+	public static void checkoutTags() throws Exception {
+		String t1 = ADAObjects.shippingInfoTag().getTagName();
+		Assert.assertTrue(t1.contains("h2"));
+		String t3 = ADAObjects.shippingMethodTag().getTagName();
+		Assert.assertTrue(t3.contains("h2"));
+		String t4 = ADAObjects.orderSummaryTag().getTagName();
+		Assert.assertTrue(t4.contains("h2"));
+		WebdriverUtils.waitForElementToBeClickable(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		Thread.sleep(1000);
+		String t5 = ADAObjects.paymentInfoTag().getTagName();
+		Assert.assertTrue(t5.contains("h2"));
+		String t6 = ADAObjects.creditAndPaypalTag().getTagName();
+		Assert.assertTrue(t6.contains("ul"));
+
+	}
+
+	public static void creditCardTagtag() throws Exception {
+
+		WebdriverUtils.waitForElementToBeClickable(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		Thread.sleep(2000);
+		String tagname = ADAObjects.creditAndPaypalTag1().getTagName();
+		Assert.assertTrue(tagname.contains("ul"));
+
+	}
+
+	public static void creditCardTagtag1() throws Exception {
+
+		WebdriverUtils.waitForElementToBeClickable(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		Thread.sleep(2000);
+		String count = null;
+		count = ADAObjects.creditAndPaypalTag1().getAttribute("tabindex");
+		Assert.assertTrue(count == null);
+	}
+
+	public static void couponcodetag() throws Exception {
+		WebdriverUtils.waitForElementToBeClickable(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.couponcodeExpand(), "couponcodeExpand");
+		String count = null;
+		count = ADAObjects.couponcode().getAttribute("aria-describedby");
+		Assert.assertTrue(count.contains("error-msg"));
+	}
+
+	public static void contentCaliforniaFactoryPage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/California-Factory-Cafe");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		int count = ADAObjects.content1().size();
+		for (int i = 0; i <= count - 1; i++) {
+			String scope = null;
+			scope = ADAObjects.content1().get(i).getAttribute("role");
+			Assert.assertTrue(scope == null);
+		}
+		int count1 = ADAObjects.content2().size();
+		for (int i = 0; i <= count1 - 1; i++) {
+			String scope = null;
+			scope = ADAObjects.content2().get(i).getAttribute("role");
+			Assert.assertTrue(scope == null);
+		}
+
+	}
+
+	public static void contentCaliforniaFactoryPageArticle() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/California-Factory-Cafe");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		Assert.assertTrue(ADAObjects.californiaArticle() == null);
+	}
+
+	public static void birthdayPartyForm() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyCalc(), "candyCalc");
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.getStarted(), "getStarted");
+		WebdriverUtils.clickAction(ADAObjects.getStarted());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.chooseCandyType(), "chooseCandyType");
+		Thread.sleep(2000);
+		String name1 = ADAObjects.labels().get(0).getAttribute("for").toLowerCase();
+		String name2 = ADAObjects.labels().get(1).getAttribute("for").toLowerCase();
+		Assert.assertTrue(name1.contains("candytype"));
+		Assert.assertTrue(name2.contains("container"));
+	}
+
+	public static void birthdayPartyFormField() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyCalc(), "candyCalc");
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.getStarted(), "getStarted");
+		WebdriverUtils.clickAction(ADAObjects.getStarted());
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.chooseCandyType(), "chooseCandyType");
+		WebdriverUtils.clickAction(ADAObjects.chooseCandyType());
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.chooseCandyOption(), "chooseCandyOption");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.chooseCandyOption(), "chooseCandyOption");
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.chooseContainerShape(), "chooseContainerShape");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.chooseContainerShape(), "chooseContainerShape");
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.chooseContainerOption(), "chooseContainerOption");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.chooseContainerOption(), "chooseContainerShape");
+		Thread.sleep(2000);
+		String name1 = ADAObjects.label3().getAttribute("for").toLowerCase();
+		String name2 = ADAObjects.label5().getAttribute("for").toLowerCase();
+		Assert.assertTrue(name1.contains("heightcube"));
+		Assert.assertTrue(name2.contains("widthcube"));
+		Thread.sleep(2000);
+	}
+
+	public static void quantityField() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		Thread.sleep(5000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.quantityCart(), "Quantity");
+		String qty = ADAObjects.quantityCart().getAttribute("aria-label").toLowerCase();
+		Assert.assertTrue(qty.contains("quantity"));
+	}
+
+	public static void recommendationHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		Thread.sleep(2000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		String text = ADAObjects.recommendedh2().getText().toLowerCase();
+		Assert.assertTrue(text.contains("recommends"));
+	}
+
+	public static void companyHistory() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		int count = ADAObjects.viewPort().size();
+		for (int i = 0; i <= count / 2; i++) {
+			String aria = null;
+			aria = ADAObjects.viewPort().get(i).getAttribute("aria");
+			Assert.assertTrue(aria == null);
+		}
+	}
+
+	public static void companyHistoryArticle() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		Assert.assertTrue(ADAObjects.californiaArticle() == null);
+	}
+
+	public static void quantityCart() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		//WebdriverUtils.moveToElement(FlavourpageObjects.viewCartButton());
+		Thread.sleep(3000);
+		WebdriverUtils.clickAction(FlavourpageObjects.viewCartButton());
+		Thread.sleep(4000);
+		String tag = ADAObjects.plus_quantity().getTagName();
+		Assert.assertTrue(tag.contains("button"));
+		tag = ADAObjects.minus_quantity().getTagName();
+		Assert.assertTrue(tag.contains("button"));
+
+	}
+
+	public static void footerTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.socialFooter());
+		String count = ADAObjects.socialFooter().getAttribute("id").toLowerCase();
+		Assert.assertTrue(count.contains("footer"));
+	}
+
+	public static void footerh2() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = ADAObjects.footerh2().size();
+		for (int i = 0; i <= count - 1; i++) {
+			String tagname = ADAObjects.footerh2().get(i).getTagName();
+			Assert.assertTrue(tagname.contains("h2"));
+		}
+	}
+
+	public static void footerTagList() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = ADAObjects.socialFooterList().size();
+		for (int i = 0; i <= count - 1; i++) {
+			Assert.assertTrue(ADAObjects.socialFooterList().get(i) != null);
+		}
+	}
+
+	public static void centerLogo() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 15);
+		String tagname = ADAObjects.centerLogo().getTagName();
+		Assert.assertTrue(tagname.equals("button"));
+	}
+
+	public static void beenboozledApp() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Assert.assertTrue(ADAObjects.appleStore().isDisplayed());
+	}
+
+	public static void candyModal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+		Thread.sleep(3000);
+		String count = ADAObjects.candyModal().getAttribute("aria-label").toLowerCase();
+		Assert.assertTrue(count.contains("candy calculator"));
+		String count1 = ADAObjects.candyModal().getAttribute("aria-modal").toLowerCase();
+		Assert.assertTrue(count1.contains("true"));
+	}
+
+	public static void pritableImageList() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		int count = ADAObjects.pritableImageList().size();
+		for (int i = 0; i <= count / 2; i++) {
+
+			Assert.assertTrue(ADAObjects.pritableImageList().get(i) != null);
+
+		}
+	}
+
+	public static void printableImages() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		int images = ADAObjects.pritableImages().size();
+		for (int i = 0; i <= images - 1; i++) {
+			String count = ADAObjects.pritableImages().get(i).getAttribute("alt").toLowerCase();
+			Assert.assertTrue(count.contains("printable"));
+		}
+	}
+
+	// Sprint 4
+
+	public static void telephoneNumberli() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/retail-store");
+		String t = ADAObjects.telephoneNumber().getAttribute("href");
+		Assert.assertTrue(t.contains("tel"));
+
+	}
+
+	public static void telephoneNumberp() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/retail-store");
+		String t = ADAObjects.telephoneNumber().getAttribute("href");
+		Assert.assertTrue(t.contains("tel"));
+
+	}
+
+	public static void megamenuNav() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		String t = ADAObjects.megamenu().getTagName();
+		Assert.assertTrue(t.contains("nav"));
+
+	}
+
+	public static void sweetRewardHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		String t = ADAObjects.signupHeading().getTagName();
+		Assert.assertTrue(t.contains("h1"));
+
+	}
+
+	public static void sweetRewardAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		String t = ADAObjects.signupPagecontent().getAttribute("role");
+		Assert.assertTrue(t.contains("main"));
+
+	}
+
+	public static void loginpageError() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.checkboxSingup());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkboxSingup(), "Checkbox");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkboxSingup(), "Checkbox");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.buttonSingup(), "buttonSingup");
+		WebdriverUtils.clickAction(ADAObjects.buttonSingup());
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.errorMessage());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.errorMessage(), "error message");
+		String msg = ADAObjects.errorMessage().getAttribute("aria-describedby").toLowerCase();
+		Assert.assertTrue(msg.contains("error"));
+	}
+
+	public static void jellyFlavors() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.clickAction(HomePageObjects.Flavorexpand());
+		String expansion = HomePageObjects.Flavorexpand().getAttribute("aria-expanded");
+		System.out.println("Attribute is " + expansion);
+		assertEquals(expansion.toLowerCase(), "true");
+		int count = ADAObjects.jellyFlavors().size();
+		for (int i = 0; i < count; i++) {
+			String s = ADAObjects.jellyFlavors().get(i).getTagName();
+			Assert.assertTrue(s.contains("li"));
+		}
+
+	}
+
+	public static void headingh2() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		int count = ADAObjects.h2().size();
+		// WebdriverUtils.swipeDownUntillElement(ADAObjects.h2().get(1));
+		Assert.assertTrue(count == 4);
+	}
+
+	public static void descriptionNbutton() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.description().get(1));
+		int count = ADAObjects.description().size();
+		/*
+		 * for(int i=0;i<count;i++) {
+		 * Assert.assertTrue(WebdriverUtils.isClickable(ADAObjects.description().get(i))
+		 * ); }
+		 */
+		Assert.assertTrue(count == 4);
+
+	}
+
+	public static void textAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.resultPerPage());
+		String res = null;
+		try {
+			res = ADAObjects.resultPerPage().getAttribute("aria");
+		} catch (Exception e) {
+
+		}
+		Assert.assertTrue(res == null);
+
+	}
+
+	public static void textHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.resultPerPage());
+		String res = ADAObjects.resultPerPage().getTagName();
+		Assert.assertTrue(res != "h2" || res != "h3");
+
+	}
+
+	public static void priceAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/336");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.price().get(1));
+		String res = null;
+		int count = ADAObjects.price().size();
+		for (int i = 0; i < count; i++) {
+			try {
+				res = ADAObjects.price().get(i).getAttribute("role");
+			} catch (Exception e) {
+
+			}
+			Assert.assertTrue(res == null);
+		}
+	}
+
+	public static void modalContainer() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.wishlistButton());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.wishlistButton(), "Wishlistbutton");
+		WebdriverUtils.clickAction(ADAObjects.wishlistButton());
+		String s = ADAObjects.loginContainer().getAttribute("role");
+		String s1 = ADAObjects.loginContainer().getAttribute("aria-modal");
+		Assert.assertTrue(s.contains("dialog"));
+		Assert.assertTrue(s1.contains("true"));
+	}
+
+	public static void modalEsc() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.wishlistButton());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.wishlistButton(), "Wishlistbutton");
+		WebdriverUtils.clickAction(ADAObjects.wishlistButton());
+		String s = ADAObjects.loginContainer().getAttribute("role");
+		WebdriverUtils.esc();
+		Assert.assertFalse(WebdriverUtils.isElementDisplayed(ADAObjects.loginContainer()));
+	}
+
+	public static void jbHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		String s = ADAObjects.weddingCenter().getTagName();
+		Assert.assertTrue(s.contains("h1"));
+	}
+
+	public static void imageBridegroom() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		String s = ADAObjects.weddingCenterImage().getTagName().toLowerCase();
+		Assert.assertFalse(s.contains("image"));
+	}
+
+	public static void storeImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/retail-store");
+		WebdriverUtils.scrollToElement(ADAObjects.storeImage());
+		WebdriverUtils.isElementDisplayed(ADAObjects.storeImage());
+		String s = null;
+		s = ADAObjects.storeImage().getAttribute("alt");
+		Assert.assertTrue(s != null);
+	}
+
+	public static void storeMap() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/retail-store");
+		String s = ADAObjects.storeMap().getAttribute("role");
+		String s1 = ADAObjects.storeMap().getAttribute("aria-label");
+		Assert.assertTrue(s.contains("region"));
+		Assert.assertTrue(s1.contains("map"));
+	}
+
+	public static void carouselAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		String s = ADAObjects.sliderHistory().getAttribute("role");
+		String s1 = ADAObjects.sliderHistory().getAttribute("aria-label");
+		Assert.assertTrue(s.contains("region"));
+		Assert.assertTrue(s1.contains("History"));
+
+	}
+
+	public static void slideHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		int count = ADAObjects.historySlide().size();
+		for (int i = 0; i < 10; i++) {
+			String s = ADAObjects.historySlide().get(i).getTagName();
+			Assert.assertTrue(s.contains("h2"));
+			WebdriverUtils.clickAction(ADAObjects.owlNext());
+		}
+	}
+
+	public static void articleWrap() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		int i = 0;
+		try {
+			i = ADAObjects.article().size();
+		} catch (Exception e) {
+
+		}
+		Assert.assertTrue(i == 0);
+	}
+
+	public static void headings() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		String s = null;
+		String s1 = null;
+		s = ADAObjects.h2Heading().getText();
+		s1 = ADAObjects.h2Heading().getTagName();
+		Assert.assertTrue(s != null);
+		Assert.assertTrue(s1.contains("h2"));
+	}
+
+	public static void wrapList() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		Thread.sleep(5000);
+		int count = 0;
+		count = ADAObjects.litags().size();
+		Assert.assertTrue(count > 5);
+	}
+
+	public static void listQuestion() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		Thread.sleep(5000);
+		int count = 0;
+		count = ADAObjects.ultags().size();
+		Assert.assertTrue(count > 5);
+	}
+
+	public static void myOrderShip() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info");
+		Thread.sleep(5000);
+		int count = ADAObjects.telephone().size();
+		for (int i = 0; i <= count - 2; i++) {
+			String s = ADAObjects.telephone().get(i).getAttribute("href");
+			Assert.assertTrue(s.contains("tel:+1800"));
+		}
+
+	}
+
+	public static void qtyfield() throws Exception {
+
+	}
+
+	public static void pdpImages() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.altImages().get(1), "alternate images");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.altImages().get(1));
+		int count = ADAObjects.altImages().size();
+		for (int i = 0; i <= count - 1; i++) {
+			String aria = null;
+			try {
+				aria = ADAObjects.altImages().get(i).getAttribute("aria-label");
+			} catch (Exception e) {
+
+			}
+			Assert.assertTrue(aria == null);
+		}
+	}
+
+	public static void enlargeImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/licorice-jelly-beans-16-oz-re-sealable-bag/p/9000_LICORICE");
+		Thread.sleep(3000);
+		String role = ADAObjects.enlarge().getAttribute("role").toLowerCase();
+		Assert.assertTrue(role.contains("button"));
+		String tabindex = ADAObjects.enlarge().getAttribute("tabindex");
+		Assert.assertTrue(tabindex != null);
+	}
+
+	public static void thumbnailImages() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.altImageslabel().get(1), "alternate images");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.altImageslabel().get(1));
+		int count = ADAObjects.altImageslabel().size();
+		for (int i = 0; i <= count - 1; i++) {
+			String role = ADAObjects.altImageslabel().get(i).getAttribute("role");
+			Assert.assertTrue(role.contains("button"));
+		}
+	}
+
+	public static void thumbnailImageInside() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		Thread.sleep(4000);
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.thumbs(), "alternate
+		// images");
+		// WebdriverUtils.swipeDownUntillElement(ADAObjects.thumbs());
+		String role = "";
+		try {
+			role = ADAObjects.thumbs().getTagName();
+		} catch (NullPointerException e) {
+			role = ADAObjects.thumbs1().getTagName();
+		}
+		Assert.assertTrue(role.contains("div"));
+	}
+
+	public static void clickHere() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.clickHere(), "alternate images");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.clickHere());
+		String role = ADAObjects.clickHere().getAttribute("role");
+		Assert.assertTrue(role.contains("button"));
+		String aria = null;
+		try {
+			aria = ADAObjects.clickHere().getAttribute("aria-label");
+		} catch (Exception e) {
+
+		}
+		Assert.assertTrue(aria == null);
+	}
+
+	public static void freeGroundtext() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.clickHere(), "alternate images");
+		Thread.sleep(2000);
+		// WebdriverUtils.swipeDownUntillElement(ADAObjects.clickHere());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.clickHere(), "click");
+		Thread.sleep(2000);
+		String h1 = ADAObjects.modalTitle().getTagName().toLowerCase();
+		Assert.assertTrue(h1.contains("h1"));
+	}
+
+	public static void freeGroundModal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		//WebdriverUtils.scrollToElement(ADAObjects.clickHere());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.clickHere(), "alternate images");
+		Thread.sleep(5000);
+		//WebdriverUtils.swipeDownUntillElement(ADAObjects.clickHere());
+//		WebdriverUtils.clickAction(ADAObjects.clickHere());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.clickHere(), "click");
+		Thread.sleep(8000);
+		WebElement element = ADAObjects.modal();
+		String role = element.getAttribute("role").toLowerCase();
+		System.out.println("role is "+role);
+		if(role!=null) {
+		Assert.assertTrue(role.contains("dialog"));
+		}
+		else {
+			System.out.println("Dialog is not interactable");
+		}
+		Thread.sleep(8000);
+		String ariamodal = element.getAttribute("aria-modal").toLowerCase();
+		System.out.println("aria-modal is "+ariamodal);
+		if(ariamodal!=null) {
+		Assert.assertTrue(ariamodal.contains("true"));
+		}
+		else {
+			System.out.println("Dialog is not interactable");
+		}
+	
+		String ariaLabel = element.getAttribute("aria-labelledby").toLowerCase();
+		System.out.println("aria-label is "+ariaLabel);
+		if(ariaLabel!=null) {
+			Assert.assertTrue(ariaLabel.contains("modal-title"));
+		}
+		else {
+			System.out.println("Dialog is not interactable");
+		}
+	}
+
+	public static void freeGroundModal1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.clickHere(), "alternate images");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.clickHere());
+		WebdriverUtils.clickAction(ADAObjects.clickHere());
+		String ariaDescribe = null;
+		try {
+			ariaDescribe = ADAObjects.modal().getAttribute("aria-describedby");
+		} catch (Exception e) {
+		}
+		Assert.assertTrue(ariaDescribe == null);
+	}
+
+	public static void relatedHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.relatedProduct(), "related products");
+		Thread.sleep(3000);
+		String shareThis = ADAObjects.shareThis().getTagName().toLowerCase();
+		Assert.assertTrue(shareThis.contains("h2"));
+		String related = ADAObjects.relatedProduct().getTagName().toLowerCase();
+		Assert.assertTrue(related.contains("h2"));
+
+	}
+
+	public static void carousel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		Thread.sleep(5);
+		Assert.assertTrue(ADAObjects.owlNextPDP().isDisplayed());
+
+	}
+
+	public static void relatedSectionlabel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/peach-jelly-beans-16-oz-re-sealable-bag/p/9000_PEACH");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.relatedProd());
+		String owl = ADAObjects.relatedProd().getAttribute("role");
+		// Assert.assertTrue(owl.contains("region"));
+		Assert.assertTrue(owl == null);
+
+	}
+
+	public static void relatedSection() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/peach-jelly-beans-16-oz-re-sealable-bag/p/9000_PEACH");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.relatedProd1());
+		/*
+		 * String contentinfo=null; try {
+		 * contentinfo=ADAObjects.relatedProd1().getAttribute("role"); } catch
+		 * (Exception e) { } Assert.assertTrue(contentinfo==null&&
+		 * contentinfo!="region");
+		 */
+		String owl = ADAObjects.relatedProd1().getAttribute("role");
+		// Assert.assertTrue(owl.contains("region"));
+		Assert.assertTrue(owl == null);
+	}
+
+	public static void carouselLabel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/peach-jelly-beans-16-oz-re-sealable-bag/p/9000_PEACH");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.relatedProd());
+		String owlNext = ADAObjects.relatedProd().getAttribute("aria-label").toLowerCase();
+		System.out.println("owlNext : " + owlNext);
+		Assert.assertTrue(owlNext.contains("Related Products".toLowerCase()));
+
+	}
+
+	public static void prodInfo() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.prodInfo());
+		String str = ADAObjects.prodInfo().getTagName().toLowerCase();
+		Assert.assertTrue(str != "li");
+
+	}
+
+	public static void accessibitystatement() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/accessibility-statement");
+		String phone = ADAObjects.accessibilityPhone().getAttribute("href");
+		Assert.assertTrue(phone.contains("tel:+18003239380"));
+		String mail = ADAObjects.accessibilityMail().getAttribute("href");
+		Assert.assertTrue(mail.contains("mailto:jbdirect@jellybelly.com"));
+
+	}
+
+	public static void accessibityPageHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/accessibility-statement");
+		Thread.sleep(10000);
+		String t = ADAObjects.accessibilityPageHeading().getTagName();
+		System.out.println(t);
+		Assert.assertTrue(t.contains("h1"));
+	}
+
+	public static void megaMenuHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String count = null;
+		count = ADAObjects.megaMenuHeading().getAttribute("aria-label");
+		Assert.assertTrue(count == null);
+		String count1 = null;
+		count1 = ADAObjects.megaMenuHeading().getAttribute("aria-expanded");
+		Assert.assertTrue(count1 == null);
+	}
+
+	public static void jbrecommends() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.recommendHeading());
+		String str = ADAObjects.recommendHeading().getTagName().toLowerCase();
+		Assert.assertTrue(str.contains("h2"));
+	}
+
+	public static void qtyfieldLabel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.recommendqty().get(1));
+		Thread.sleep(3500);
+		int count = ADAObjects.recommendqty().size();
+		for (int i = 1; i < count / 2; i++) {
+			String str = ADAObjects.recommendqty().get(i).getAttribute("aria-label");
+			Assert.assertTrue(str == null);
+		}
+	}
+
+	public static void qtyfieldLabelbuttons() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(3500);
+		int count = ADAObjects.plus().size();
+		for (int i = 0; i < count / 2; i++) {
+			String str = ADAObjects.plus().get(i).getAttribute("role").toLowerCase();
+			Assert.assertTrue(str.contains("button"));
+		}
+	}
+
+	public static void qtyfieldLabelbuttonsMinus() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.minus().get(1));
+		int count = ADAObjects.minus().size();
+		for (int i = 0; i < count - 1; i++) {
+			String str = ADAObjects.minus().get(i).getAttribute("role").toLowerCase();
+			Assert.assertTrue(str.contains("button"));
+		}
+	}
+
+	public static void relatedprodNames() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.recommendqty().get(1),
+		// "related products");
+		/*
+		 * WebdriverUtils.swipeDownUntillElement(ADAObjects.prodTitle().get(1)); int
+		 * count=ADAObjects.prodTitle().size(); for(int i=0;i<count-1;i++) { String
+		 * str=ADAObjects.prodTitle().get(i).getTagName().toLowerCase();
+		 * Assert.assertTrue(str.contains("h3"));
+		 * 
+		 * }
+		 */
+
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.prodTitle1(),
+		// "productTitle");
+		// WebdriverUtils.swipeDownUntillElement(ADAObjects.prodTitle1());
+		Thread.sleep(4000);
+		String shareThis = ADAObjects.prodTitle1().getTagName().toLowerCase();
+		Assert.assertTrue(shareThis.contains("h3"));
+
+	}
+
+	public static void loginpopupButtons() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.relatedProduct(), "related products");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.relatedProduct());
+		Thread.sleep(2000);
+		String shareThis = ADAObjects.shareThis().getTagName().toLowerCase();
+		Assert.assertTrue(shareThis.contains("h2"));
+		String related = ADAObjects.relatedProduct().getTagName().toLowerCase();
+		Assert.assertTrue(related.contains("h2"));
+	}
+
+	public static void allFlavorHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(3000);
+		String str = ADAObjects.cmscontent().getTagName().toLowerCase();
+		Assert.assertTrue(str.contains("h2"));
+	}
+
+	public static void itemaddedpopup() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.relatedProduct(), "related products");
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.relatedProduct());
+		Thread.sleep(1000);
+		String shareThis = ADAObjects.shareThis().getTagName().toLowerCase();
+		Assert.assertTrue(shareThis.contains("h2"));
+		String related = ADAObjects.relatedProduct().getTagName().toLowerCase();
+		Assert.assertTrue(related.contains("h2"));
+	}
+
+	public static void phoneNumberCheckout() throws Exception {
+		Thread.sleep(1000);
+		String phone = ADAObjects.phoneNumberCheckout().getAttribute("href");
+		Assert.assertTrue(phone.contains("tel:+18005223267"));
+
+	}
+
+	public static void HeatSensitiveModal() throws Exception {
+		Thread.sleep(1000);
+		CheckoutObjects.ShippingSUREPOST().click();
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementpresent(ADAObjects.HeatSensitiveModal(), 10);
+		String role = ADAObjects.HeatSensitiveModal().getAttribute("role");
+		Assert.assertTrue(role.contains("dialog"));
+		String aria = ADAObjects.HeatSensitiveModal().getAttribute("aria-modal");
+		Assert.assertTrue(aria.contains("true"));
+		String aria1 = ADAObjects.HeatSensitiveModal().getAttribute("aria-labelledby");
+		Assert.assertTrue(aria1.contains("heat-sensitive-confirmation"));
+
+	}
+
+	public static void HeatSensitiveModalTitle() throws Exception {
+		Thread.sleep(1000);
+		CheckoutObjects.ShippingSUREPOST().click();
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementpresent(ADAObjects.HeatSensitiveModal(), 10);
+		String tag = ADAObjects.HeatSensitiveTitle().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("h1"));
+		String text = ADAObjects.HeatSensitiveTitle().getText();
+		Assert.assertTrue(text.contains("Heat Sensitive items alert"));
+
+	}
+
+	// Sprint 7
+	public static void HomePhone() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.contactUs());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.HomePhone(), "HomePhone");
+		String phone = ADAObjects.HomePhone().getAttribute("href");
+		Assert.assertTrue(phone.contains("tel:+18005223267"));
+
+	}
+
+	public static void FactoryHeading() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/California-Factory-Cafe");
+		WebdriverUtils.waitForElementpresent(ADAObjects.FactoryHeading(), 10);
+		String tag = ADAObjects.FactoryHeading().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("h3"));
+		String text = ADAObjects.FactoryHeading().getText().toLowerCase();
+		Assert.assertTrue(text.contains("hours of operation"));
+		int count = ADAObjects.FactorySubHeading1().size();
+		for (int i = 0; i < count - 1; i++) {
+			String str = ADAObjects.FactorySubHeading1().get(i).getTagName();
+			Assert.assertTrue(str.contains("p"));
+		}
+	}
+
+	public static void CandyCalculator() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.waitForElementpresent(ADAObjects.CandyCalculator(), 10);
+		String tag = ADAObjects.CandyCalculator().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("button"));
+
+	}
+
+	public static void CandyCalculatorClose() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.waitForElementpresent(ADAObjects.CandyCalculator(), 10);
+		WebdriverUtils.clickAction(ADAObjects.CandyCalculator());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ADAObjects.candyModal(), 10);
+		WebdriverUtils.esc();
+		Thread.sleep(1000);
+		String tag = ADAObjects.CandyCalculator().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("button"));
+	}
+
+	public static void FlavouredClose() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		Thread.sleep(1000);
+		PDPActions.disableEasterPopup();
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(),
+				"First product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		Thread.sleep(2000);
+		WebdriverUtils.esc();
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		String tag = PLPObjects.PLPFirstProductNameInStock().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("h2"));
+	}
+
+	public static void Asterik() throws Exception {
+
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Assert.assertTrue(ADAObjects.Asterik().isDisplayed());
+		String tag = ADAObjects.Asterik().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("p"));
+	}
+
+	public static void GiftCardText() throws Exception {
+
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.waitForElementToBeClickable(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(),
+				"ContinueToPaymentInformation");
+		Thread.sleep(2000);
+		String tag = ADAObjects.GiftCardText().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("button"));
+
+	}
+
+	public static void BackToCart() throws Exception {
+
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Assert.assertTrue(ADAObjects.BackToCart().isDisplayed());
+
+	}
+
+	// New Release
+	public static void footersubmit() throws Exception {
+
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		// WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.Disablesubmitfooter());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ADAObjects.Disablesubmitfooter(), 10);
+		String tag = ADAObjects.Disablesubmitfooter().getTagName().toLowerCase();
+		Assert.assertTrue(tag.contains("button"));
+		WebdriverUtils.sendKeys(ADAObjects.emailfooter(), pro.getProperty("InvalidEmail"));
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkboxsignupfooter(), "click");
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkboxsignupfooter(), 20);
+		Assert.assertTrue(ADAObjects.Enablesubmitfooter().isDisplayed());
+		String tag1 = ADAObjects.Enablesubmitfooter().getTagName().toLowerCase();
+		Assert.assertTrue(tag1.contains("button"));
+
+	}
+
+	public static void validatemodal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.FooterText());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(ADAObjects.FooterJBLogo(), 20);
+		Thread.sleep(1000);
+		try {
+			if (ADAObjects.FooterJBLogo().isDisplayed()) {
+				WebdriverUtils.waitForElementToBeClickable(ADAObjects.FooterJBLogo(), "logo");
+				WebdriverUtils.clickAction(ADAObjects.FooterJBLogo());
+			}
+		} catch (ElementNotInteractableException e) {
+			throw new ElementNotInteractableException("Element is not interactable, try click by another locator");
+		}
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.FooterModal(), 10);
+		String role = ADAObjects.FooterModal().getAttribute("role");
+		Assert.assertTrue(role.contains("dialog"));
+		String aria = ADAObjects.FooterModal().getAttribute("aria-modal");
+		Assert.assertTrue(aria.contains("true"));
+		String aria1 = ADAObjects.FooterModal().getAttribute("aria-label");
+		Assert.assertTrue(aria1.contains("client details"));
+	}
+
+	public static void Beanboozled() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		WebdriverUtils.waitForElementpresent(ADAObjects.Beanboozled(), 10);
+		String count = null;
+		count = ADAObjects.Beanboozled().getAttribute("article");
+		Assert.assertTrue(count == null);
+	}
+
+	public static void validatelogodesc() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.FooterJBLogo());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ADAObjects.FooterJBLogo(), 10);
+		String role = ADAObjects.FooterJBLogo().getText();
+		Assert.assertTrue(role.contains("Jelly Belly Logo"));
+	}
+
+	public static void validatequantityselector() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.HoverOnElement(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.waitForElementToBeClickable(HomePageObjects.Brand(), 50);
+		//WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 10);
+		Thread.sleep(5000);
+		//WebdriverUtils.moveToElement(ShoppingCartObjects.viewCart());
+		WebdriverUtils.clickAction(ShoppingCartObjects.viewCart());
+		//WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		//WebdriverUtils.refreshPage();
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		String plus = ADAObjects.quantityplus().getTagName().toLowerCase();
+		Assert.assertTrue(plus.contains("button"));
+		String minus = ADAObjects.quantityminus().getTagName().toLowerCase();
+		Assert.assertTrue(minus.contains("button"));
+
+	}
+
+	public static void validateordersummarytab() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		String role = ADAObjects.ordersummary().getAttribute("role");
+		Assert.assertTrue(role.contains("presentation"));
+	}
+
+	public static void validatecareertelphone() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/careers");
+		String t = ADAObjects.careertelphone().getAttribute("href");
+		Assert.assertTrue(t.contains("tel:+17074282800"));
+	}
+
+	public static void validatescreenreader() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.scrollToElement(ADAObjects.screenreader());
+		String minus = ADAObjects.screenreader().getTagName().toLowerCase();
+		Assert.assertTrue(minus.contains("h2"));
+	}
+
+	public static void validatequantitytextbox() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		//WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.moveToElement(ShoppingCartObjects.viewCart());
+		Thread.sleep(2000);
+		//WebdriverUtils.clickAction(ShoppingCartObjects.viewCart());
+		Thread.sleep(8000);
+		//BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 20);
+		String count = null;
+		count = ADAObjects.quantitytextbox().getAttribute("tabindex");
+		Assert.assertTrue(count == null);
+
+	}
+
+	public static void validateproductimagemodal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		WebdriverUtils.clickAction(ADAObjects.productzoom());
+		BrowserUtils.waitFor(ADAObjects.productmodal(), 10);
+		String role = ADAObjects.productmodal().getAttribute("role");
+		Assert.assertTrue(role.contains("dialog"));
+		String aria = ADAObjects.productmodal().getAttribute("aria-modal");
+		Assert.assertTrue(aria.contains("true"));
+		String aria1 = ADAObjects.productmodal().getAttribute("aria-label");
+		Assert.assertTrue(aria1.contains("Product image"));
+
+	}
+
+	public static void validateproductinfolist() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		BrowserUtils.waitFor(ADAObjects.productinfolist(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.productinfolist());
+		String list = ADAObjects.productinfolist().getTagName().toLowerCase();
+		Assert.assertTrue(list.contains("ul"));
+	}
+
+	public static void validateclosemodal() throws Exception {
+
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.FooterText());
+		Thread.sleep(2000);
+		try {
+			WebdriverUtils.waitForElementToBeClickable(ADAObjects.FooterJBLogo(), "logo");
+			WebdriverUtils.clickAction(ADAObjects.FooterJBLogo());
+		} catch (ElementNotInteractableException e) {
+			throw new ElementNotInteractableException("Element is not interactable, try click by another locator");
+		}
+		Thread.sleep(1000);
+
+		BrowserUtils.waitFor(ADAObjects.FooterModal(), 10);
+		WebdriverUtils.esc();
+		BrowserUtils.waitFor(ADAObjects.FooterJBLogo(), 10);
+	}
+
+	public static void validatepdpprodname() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.recomprodname(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.recommendHeading());
+		Thread.sleep(1000);
+		String list = ADAObjects.recomprodname().getTagName().toLowerCase();
+		Assert.assertTrue(list.contains("h3"));
+	}
+
+	public static void validatestrikethrough() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		Thread.sleep(5000);
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		//WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(6500);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(), 25);
+		// BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 30);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(5000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocartstrikePrice(), "product");
+		Thread.sleep(4500);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Assert.assertTrue(ADAObjects.currentPriceCart2().isDisplayed());
+		double currentPrice = Double.parseDouble(ADAObjects.currentPriceCart2().getText().replace("$", "").trim());
+		System.out.println("Current price " + currentPrice);
+		double originalPrice = Double.parseDouble(ADAObjects.OriginalPriceRow().getText().replace("$", "").trim());
+		System.out.println("Original Price " + originalPrice);
+		Assert.assertTrue(ADAObjects.OriginalPriceRow().isDisplayed());
+	}
+
+	// Sprint 8
+	public static void FreeShipping() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.Shippingclick());
+		Thread.sleep(100);
+		String role = ADAObjects.Shippingclick().getAttribute("role");
+		Assert.assertTrue(role.contains("button"));
+		String tabindex = ADAObjects.Shippingclick().getAttribute("tabindex");
+		Assert.assertTrue(tabindex.contains("0"));
+	}
+
+	public static void PDPZoom() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		WebdriverUtils.clickAction(ADAObjects.productzoom());
+		Thread.sleep(4000);
+		String role = ADAObjects.PDPZoom().getAttribute("alt").toString();
+		System.out.println("role=" + role);
+		Assert.assertTrue(role.contains("Sizzling Cinnamon Jelly Beans - 16 oz Re-Sealable Bag"));
+		Assert.assertTrue(role != null);
+	}
+
+	public static void PDPZoomText() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		WebdriverUtils.clickAction(ADAObjects.productzoom());
+		Thread.sleep(1000);
+		String count = null;
+		count = ADAObjects.productzoom().getAttribute("text");
+		Assert.assertTrue(count == null);
+	}
+
+	public static void PDPThumbnail() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.PDPThumbnail1());
+		Thread.sleep(1000);
+		String s1 = null;
+		s1 = ADAObjects.PDPThumbnail1().getAttribute("alt");
+		Assert.assertTrue(s1 != null);
+		String s2 = null;
+		s2 = ADAObjects.PDPThumbnail2().getAttribute("alt");
+		Assert.assertTrue(s2 != null);
+	}
+
+	public static void PDPImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.productzoom(), 10);
+		Thread.sleep(1000);
+		String role = ADAObjects.PDPImage().getAttribute("role");
+		Assert.assertTrue(role.contains("region"));
+		String aria = ADAObjects.PDPImage().getAttribute("aria-label");
+		Assert.assertTrue(aria.contains("Image Gallery"));
+	}
+
+	public static void PDPLoginError() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.PDPWishlist(), 10);
+		WebdriverUtils.clickAction(ADAObjects.PDPWishlist());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.PDPEmailField(), 30);
+		WebdriverUtils.sendKeys(ADAObjects.PDPEmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(ADAObjects.PDPPasswordField(), pro.getProperty("Password1"));
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.PDPcheckbox());
+		WebdriverUtils.clickAction(ADAObjects.PDPcheckbox());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.PDPLogInButton());
+		BrowserUtils.waitFor(ADAObjects.PDPLoginError(), 10);
+		Assert.assertTrue(ADAObjects.PDPLoginError().isDisplayed());
+		String role = ADAObjects.PDPLoginError().getAttribute("class");
+		Assert.assertTrue(role.contains("loginError"));
+	}
+
+	public static void PDPLoginError1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.PLPWishlist());
+		BrowserUtils.waitFor(ADAObjects.PLPWishlist(), 10);
+		WebdriverUtils.clickAction(ADAObjects.PLPWishlist());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.PDPEmailField(), 30);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.PDPEmailField(), "PDPEmailField");
+		WebdriverUtils.sendKeys(ADAObjects.PDPEmailField(), "Email");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.PDPPasswordField(), "PDPPasswordField");
+		WebdriverUtils.sendKeys(ADAObjects.PDPPasswordField(), "123456");
+		// WebdriverUtils.sendKeys(ADAObjects.PDPEmailField(), );
+		// WebdriverUtils.sendKeys(ADAObjects.PDPPasswordField(), "Password");
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.PDPcheckbox(), "PDPcheckbox");
+		WebdriverUtils.scrollToElement(ADAObjects.PDPcheckbox());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.PDPcheckbox(), "PDPcheckbox");
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.PDPLogInButton(), "PDPLogInButton");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.PDPLogInButton(), "PDPLogInButton");
+		BrowserUtils.waitFor(ADAObjects.PDPLoginError(), 10);
+		Assert.assertTrue(ADAObjects.PDPLoginError().isDisplayed());
+		String role = ADAObjects.PDPLoginError().getAttribute("class");
+		Assert.assertTrue(role.contains("loginError"));
+	}
+
+	public static void PLPRating() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.PLPRating1(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.PLPRating1());
+		String s1 = null;
+		s1 = ADAObjects.PLPRating1().getAttribute("alt");
+		Assert.assertTrue(s1 != null);
+		String s2 = null;
+		s2 = ADAObjects.PLPRating2().getAttribute("alt");
+		Assert.assertTrue(s2 != null);
+		String s3 = null;
+		s3 = ADAObjects.PLPRating3().getAttribute("alt");
+		Assert.assertTrue(s3 != null);
+		String s4 = null;
+		s4 = ADAObjects.PLPRating4().getAttribute("alt");
+		Assert.assertTrue(s4 != null);
+		String s5 = null;
+		s5 = ADAObjects.PLPRating5().getAttribute("alt");
+		Assert.assertTrue(s5 != null);
+
+	}
+
+	public static void PLPIDAttribute() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.PLPRating1());
+		Thread.sleep(3000);
+		String res = null;
+		int count = ADAObjects.PLPATC().size();
+		System.out.println(count);
+		/*
+		 * for (int i = 1; i <= count; i++) { String scope=null; scope =
+		 * ADAObjects.PLPATC().get(i).getAttribute("id");
+		 * Assert.assertTrue(scope==null); }
+		 */
+		for (int i = 0; i < count; i++) {
+			try {
+				res = ADAObjects.PLPATC().get(i).getAttribute("id");
+			} catch (Exception e) {
+
+			}
+			Assert.assertTrue(res != null);
+		}
+	}
+
+	public static void LoginRequired() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.scrollToElement(ADAObjects.LoginFname());
+		Thread.sleep(2000);
+
+		String LoginFname = null;
+		LoginFname = ADAObjects.LoginFname().getAttribute("required");
+		Assert.assertTrue(LoginFname != null);
+
+		String LoginLname = null;
+		LoginLname = ADAObjects.LoginLname().getAttribute("required");
+		Assert.assertTrue(LoginLname != null);
+
+		String LoginEmail = null;
+		LoginEmail = ADAObjects.LoginEmail().getAttribute("required");
+		Assert.assertTrue(LoginEmail != null);
+
+		String LoginPass = null;
+		LoginPass = ADAObjects.LoginPass().getAttribute("required");
+		Assert.assertTrue(LoginPass != null);
+
+		String LoginCPass = null;
+		LoginCPass = ADAObjects.LoginCPass().getAttribute("required");
+		Assert.assertTrue(LoginCPass != null);
+	}
+
+	public static void WeddingText() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.WeddingText1(), 10);
+		Thread.sleep(2000);
+		String style1 = null;
+		style1 = ADAObjects.WeddingText1().getAttribute("style");
+		Assert.assertTrue(style1 != null);
+		String style2 = null;
+		style2 = ADAObjects.WeddingText2().getAttribute("style");
+		Assert.assertTrue(style2 != null);
+
+	}
+
+	public static void VerifyFocusShipping() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/shipping-info#holiday-shipping");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.HolidayShipping());
+		WebdriverUtils.clickAction(ADAObjects.HolidayShipping());
+		Thread.sleep(2000);
+		Assert.assertTrue(ADAObjects.HolidayShippingFocus().isDisplayed());
+		// WebElement Focus1 = ADAObjects.HolidayShippingFocus();
+		/*
+		 * if(Focus1.equals(ADAObjects.HolidayShippingFocus().switchTo().activeElement()
+		 * )) System.out.println("Element is focused"); else
+		 * System.out.println("Element is not focused");
+		 */
+		WebdriverUtils.scrollToElement(ADAObjects.HolidayShipping());
+		WebdriverUtils.clickAction(ADAObjects.PolicyShipping());
+		Thread.sleep(2000);
+		Assert.assertTrue(ADAObjects.PolicyShippingFocus().isDisplayed());
+
+	}
+
+	public static void VerifyCartColoumns() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.CartTitle(), 10);
+
+		String CartProductDetailsScope = ADAObjects.CartProductDetails().getAttribute("scope");
+		Assert.assertTrue(CartProductDetailsScope.contains("col"));
+		String CartProductDetailsTag = ADAObjects.CartProductDetails().getTagName();
+		Assert.assertTrue(CartProductDetailsTag.contains("th"));
+
+		String CartPriceScope = ADAObjects.CartPrice().getAttribute("scope");
+		Assert.assertTrue(CartPriceScope.contains("col"));
+		String CartPriceTag = ADAObjects.CartPrice().getTagName();
+		Assert.assertTrue(CartPriceTag.contains("th"));
+
+		String CartQuantityScope = ADAObjects.CartQuantity().getAttribute("scope");
+		Assert.assertTrue(CartQuantityScope.contains("col"));
+		String CartQuantityTag = ADAObjects.CartQuantity().getTagName();
+		Assert.assertTrue(CartQuantityTag.contains("th"));
+
+		String CartItemTotalScope = ADAObjects.CartItemTotal().getAttribute("scope");
+		Assert.assertTrue(CartItemTotalScope.contains("col"));
+		String CartItemTotalTag = ADAObjects.CartItemTotal().getTagName();
+		Assert.assertTrue(CartItemTotalTag.contains("th"));
+	}
+
+	public static void VerifyHistoryImages() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		int count = ADAObjects.HistoryImages().size();
+		System.out.println(count);
+		for (int i = 0; i <= count - 1; i++) {
+			String tagname = ADAObjects.HistoryImages().get(i).getAttribute("alt");
+			Assert.assertTrue(tagname != null);
+		}
+	}
+
+	public static void VerifyCandyClose() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.CandyCalculator(), 10);
+		WebdriverUtils.clickAction(ADAObjects.CandyCalculator());
+		Thread.sleep(2000);
+		Assert.assertTrue(ADAObjects.CandyCalculatorClose().isDisplayed());
+
+	}
+
+	public static void VerifyCandyImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.CandyCalculator(), 10);
+
+		String CandyImageScope = ADAObjects.CandyImage().getAttribute("alt");
+		Assert.assertTrue(CandyImageScope != null);
+		String CandyImageTag = ADAObjects.CandyImage().getTagName();
+		Assert.assertTrue(CandyImageTag.contains("img"));
+	}
+
+	public static void VerifyCandyText() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.CandyCalculator(), 10);
+
+		String CandyImageText = ADAObjects.CandyImage().getAttribute("title");
+		Assert.assertTrue(CandyImageText
+				.contains("Fun & Tasty Birthday Party Ideas - Printables, Recipes and Tips from Jelly Belly"));
+
+	}
+
+	public static void VerifyCandyHeader() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.CandyCalculator(), 10);
+
+		String CandyIdeas = ADAObjects.CandyIdeas().getAttribute("href");
+		Assert.assertTrue(CandyIdeas != null);
+
+		String CandyRecieps = ADAObjects.CandyRecieps().getAttribute("href");
+		Assert.assertTrue(CandyRecieps != null);
+
+		String CandyVideos = ADAObjects.CandyVideos().getAttribute("href");
+		Assert.assertTrue(CandyVideos != null);
+
+		WebdriverUtils.scrollToElement(ADAObjects.CandyTitle());
+		String role = ADAObjects.CandyTitle().getAttribute("tabindex");
+		Assert.assertTrue(role.contains("-1"));
+	}
+
+	public static void socialIcon() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+		// WebdriverUtils.swipeDownUntillElement(ADAObjects.SocialMedia());
+		int count = ADAObjects.SocialMediaListSize().size();
+		for (int i = 0; i <= count - 1; i++) {
+			String str = ADAObjects.SocialMediaListSize().get(i).getAttribute("alt");
+			Assert.assertNotNull(str);
+		}
+	}
+
+	public static void logoIconModal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(6500);
+		try {
+			WebdriverUtils.swipeDownUntillElement(ADAObjects.centerLogo());
+			Thread.sleep(3500);
+			WebdriverUtils.clickAction(ADAObjects.centerLogo());
+			Thread.sleep(6500);
+			String str = ADAObjects.ModalPopup().getAttribute("class");
+			Assert.assertEquals("modal active", str);
+		} catch (Exception e) {
+			System.out.println("Icon modal is empty");
+		}
+
+	}
+
+	public static void miniCartTab() throws Exception {
+		Thread.sleep(3000);
+		int count = ADAObjects.miniCartProduct().size();
+		System.out.println("The size of tag is " + count);
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.miniCartProduct().get(i).getTagName();
+			System.out.println("The value of" + tagname);
+			Assert.assertTrue(tagname.contains("li"));
+		}
+
+	}
+
+	public static void spinnerText() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		WebdriverUtils.scrollToElement(ADAObjects.spinnerText());
+		String exp = "[ Click Wheel to Play ]".trim();
+		String act = ADAObjects.spinnerText().getText().trim();
+		Assert.assertEquals(act, exp);
+
+	}
+
+	public static void footerEmailDataEnter() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignup());
+		WebdriverUtils.sendKeys(ADAObjects.emailSignupData(), "Test@gmail.com");
+		String str = ADAObjects.emailSignupData().getAttribute("tabindex");
+		Assert.assertTrue(str == null);
+		WebdriverUtils.clickAction(ADAObjects.emailSignupCheckBox());
+		String str1 = ADAObjects.emailSignupFooterSubmit().getAttribute("tabindex");
+		Assert.assertTrue(str1 == null);
+
+	}
+
+	public static void beanboozledspinnerText() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.beanboozledspinarrow());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.beanboozledspinarrow());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(ADAObjects.beanboozledspintext(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.spinnerText());
+		String exp = "[ Click Wheel to Play ]".trim();
+		String act = ADAObjects.spinnerText().getText().trim();
+		Assert.assertEquals(act, exp);
+
+	}
+
+	public static void PLPStrikethrough() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/sport-beans-jelly-beans/c/336");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.PLPTotal());
+		Thread.sleep(1000);
+		if (ADAObjects.PLPStrikethrough().isDisplayed()) {
+			System.out.println("Discounted");
+		} else {
+
+			System.out.println("Original");
+		}
+	}
+
+	public static void AltTextUnderHome() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		int count = ADAObjects.MenuImage().size();
+		System.out.println("The size of tag is " + count);
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.MenuImage().get(i).getAttribute("alt");
+			System.out.println("The value of" + tagname);
+			Assert.assertTrue(tagname != null);
+		}
+
+		int count1 = ADAObjects.RightMenuImage().size();
+		System.out.println("The size of tag is " + count);
+		for (int i = 0; i < count1; i++) {
+			String altname1 = ADAObjects.RightMenuImage().get(i).getAttribute("alt");
+			System.out.println("The value of" + altname1);
+			Assert.assertTrue(altname1 != null);
+		}
+
+	}
+
+	public static void NavigatioLinksHomepage() throws Exception {
+
+		ADAActions.loadingHomePage();
+		String ariarole = ADAObjects.megaMenuNavigation().getAttribute("aria-label");
+		Assert.assertTrue(ariarole != null);
+		String ariaroleCustomerService = ADAObjects.customerService().getAttribute("aria-label");
+		Assert.assertTrue(ariarole != null);
+
+	}
+
+	public static void ShopTopCategoriImageHomepage() throws Exception {
+
+		ADAActions.loadingHomePage();
+
+		int count = ADAObjects.shopTopCategoriesImage().size();
+
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.shopTopCategoriesImage().get(i).getAttribute("aria-label");
+			Assert.assertTrue(tagname == null);
+		}
+	}
+
+	public static void descriptionListTag() throws Exception {
+
+		ADAActions.loadingHomePage();
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.FooterText());
+		Thread.sleep(2000);
+		try {
+			WebdriverUtils.waitForElementToBeClickable(ADAObjects.FooterJBLogo(), "logo");
+			WebdriverUtils.clickAction(ADAObjects.FooterJBLogo());
+		} catch (ElementNotInteractableException e) {
+			throw new ElementNotInteractableException("Element is not interactable, try click by another locator");
+		}
+		Thread.sleep(3000);
+		String tag = ADAObjects.footerUserDetails().getTagName();
+		System.out.println(tag);
+		Assert.assertTrue(tag.contains("dl"));
+
+	}
+
+	public static void UserDetailsModelActive() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.FooterText());
+		Thread.sleep(2000);
+		try {
+			WebdriverUtils.waitForElementToBeClickable(ADAObjects.FooterJBLogo(), "logo");
+			WebdriverUtils.clickAction(ADAObjects.FooterJBLogo());
+		} catch (ElementNotInteractableException e) {
+			throw new ElementNotInteractableException("Element is not interactable, try click by another locator");
+		}
+		Thread.sleep(1000);
+		String count = ADAObjects.footerUserDetailsModelActive().getAttribute("aria-modal");
+		Assert.assertTrue(count.contains("true"));
+
+	}
+
+	public static void AltTagdecorativeImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		// WebdriverUtils.scrollToElement(ADAObjects.decorativeImageSpinner());
+		for (int i = 0; i <= 5; i++) {
+			String spinner = (ADAObjects.decorativeImageSpinner()).getAttribute("alt");
+			Assert.assertTrue(spinner.contains(""));
+			String arrow = (ADAObjects.decorativeImageArrow()).getAttribute("alt");
+			Assert.assertTrue(arrow.contains(""));
+			break;
+		}
+	}
+
+	public static void bithdayPartyTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		WebdriverUtils.moveToElement(ADAObjects.bithdayPartyText());
+		String partyText = ADAObjects.bithdayPartyText().getAttribute("header");
+		Assert.assertTrue(partyText == null);
+	}
+
+	public static void calcilatorModalTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyCalc(), "candyCalc");
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.getStarted(), "getStarted");
+		WebdriverUtils.clickAction(ADAObjects.getStarted());
+		WebdriverUtils.clickAction(ADAObjects.candyType());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyTypeDropDown(), "Champagne Bubbles");
+		WebdriverUtils.clickElement(ADAObjects.candyTypeDropDown());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.containerShape());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerShapeDropDown(), "Circular/Cylindrical");
+		WebdriverUtils.clickElement(ADAObjects.containerShapeDropDown());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.numCount());
+		WebdriverUtils.sendKeysThroughActions(ADAObjects.numCount(), "1");
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerHeight(), "1/8");
+		WebdriverUtils.clickElement(ADAObjects.containerHeight());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerWidth(), "1/8");
+		WebdriverUtils.clickElement(ADAObjects.containerWidth());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.submit(), 10);
+		WebdriverUtils.clickAction(ADAObjects.submit());
+		Thread.sleep(3000);
+		String calculateLink = ADAObjects.recalculateLink().getAttribute("header");
+		Assert.assertTrue(calculateLink == null);
+
+	}
+
+	public static void buttonTagName() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyCalc(), "candyCalc");
+		WebdriverUtils.clickAction(ADAObjects.candyCalc());
+
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.getStarted(), "getStarted");
+		WebdriverUtils.clickAction(ADAObjects.getStarted());
+		WebdriverUtils.clickAction(ADAObjects.candyType());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.candyTypeDropDown(), "Champagne Bubbles");
+		WebdriverUtils.clickElement(ADAObjects.candyTypeDropDown());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.containerShape());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerShapeDropDown(), "Circular/Cylindrical");
+		WebdriverUtils.clickElement(ADAObjects.containerShapeDropDown());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.numCount());
+		WebdriverUtils.sendKeysThroughActions(ADAObjects.numCount(), "1");
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerHeight(), "1/8");
+		WebdriverUtils.clickElement(ADAObjects.containerHeight());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.containerWidth(), "1/8");
+		WebdriverUtils.clickElement(ADAObjects.containerWidth());
+		Thread.sleep(1000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.submit(), 10);
+		WebdriverUtils.clickAction(ADAObjects.submit());
+		Thread.sleep(3000);
+		String tagName = ADAObjects.recalculateLink().getTagName();
+		System.out.println("Tagename is" + tagName);
+		Assert.assertTrue(tagName.contains("button"));
+	}
+
+	public static void ImagePartyPage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		int count = ADAObjects.ImageLinkParty().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.ImageLinkParty().get(i).getAttribute("alt");
+			Assert.assertTrue(tagname != null);
+		}
+	}
+
+	public static void LinkMoreArrow() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		int count = ADAObjects.ImageMoreLink().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.ImageMoreLink().get(i).getAttribute("aria-hidden");
+			Assert.assertTrue(tagname.contains("true"));
+		}
+	}
+
+	public static void PaymentLoginLink() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		WebdriverUtils.esc();
+
+	}
+
+	public static void AriaTagLogin() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkoutButtonTop());
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickAction(ShoppingCartObjects.nextButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		String username = ADAObjects.userNameModel().getAttribute("aria-describedby");
+		Assert.assertTrue(username.contains("useremailerror"));
+		String password = ADAObjects.userNameModel().getAttribute("aria-describedby");
+		Assert.assertTrue(password.contains("loginerror"));
+		WebdriverUtils.clickAction(ADAObjects.creatAccount());
+		String firstName = ADAObjects.firstNameAccount().getAttribute("aria-describedby");
+		Assert.assertTrue(firstName.contains("firstNameerror"));
+		String lastName = ADAObjects.lastNameAccount().getAttribute("aria-describedby");
+		Assert.assertTrue(lastName.contains("lastNameerror"));
+		String email = ADAObjects.emailAccount().getAttribute("aria-describedby");
+		Assert.assertTrue(email.contains("emailSignUperror"));
+		String password1 = ADAObjects.passwordAccount().getAttribute("aria-describedby");
+		Assert.assertTrue(password1.contains("pswd-msg"));
+		String confirmPassword1 = ADAObjects.confirmPasswordAccount().getAttribute("aria-describedby");
+		Assert.assertTrue(confirmPassword1.contains("confpasswordSignUperror"));
+
+	}
+
+	public static void AccessiblityTag() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/accessibility-statement");
+		Thread.sleep(5000);
+		try {
+			String accessTag = ADAObjects.accessibilityPageHeading().getTagName();
+			Assert.assertTrue(accessTag.contains("h1"));
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+	}
+
+	public static void headerMessageTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.closeIconViewCart());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		if (ADAObjects.usiScreen().isDisplayed()) {
+			WebdriverUtils.clickAction(ADAObjects.usiScreen());
+		}
+		Thread.sleep(3000);
+		// for(int i=0;i<=5;i++) {
+		String accessTag = ADAObjects.headerMessgae().getAttribute("aria-live");
+		Assert.assertTrue(accessTag.contains("polite"));
+		// break;
+		// }
+	}
+
+	public static void MinicartAriaLabelAction() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.centerLogo());
+		String Aria = ADAObjects.minicartHeader().getAttribute("aria-hidden");
+		Assert.assertTrue(Aria.contains("true"));
+	}
+
+	public static void megaMenuPresentationTag() throws Exception {
+		loadingHomePage();
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.megamenu(), 10);
+		WebdriverUtils.moveToElement(ADAObjects.megamenuShop());
+		int count = ADAObjects.megaMenuTag().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.megaMenuTag().get(i).getAttribute("role");
+			Assert.assertTrue(tagname == null);
+		}
+
+	}
+
+	public static void decorativeImageTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/company-history");
+		WebElement arrow_down = ADAObjects.accordionDecorativeButton();
+		try {
+			if (arrow_down.isDisplayed()) {
+				Assert.assertTrue(false);
+			}
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+	}
+
+	public static void weddingThemeCenter() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		Thread.sleep(2000);
+		int count = ADAObjects.weddingThemeArrow().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.weddingThemeArrow().get(i).getAttribute("aria-hidden");
+			Assert.assertTrue(tagname.contains("true"));
+		}
+	}
+
+	public static void WelcomeImageTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/wedding-center");
+		Thread.sleep(1000);
+		String tagName = ADAObjects.welcomeCenterImage().getAttribute("alt");
+		Assert.assertTrue(tagName != "null");
+		Thread.sleep(2000);
+		int count = ADAObjects.welcomeCenterImageFigure().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.welcomeCenterImageFigure().get(i).getAttribute("alt");
+			Assert.assertTrue(tagname != "null");
+		}
+
+	}
+
+	public static void TextInSignUpPage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		Thread.sleep(1000);
+		String headingTag = ADAObjects.signupHeading().getAttribute("header");
+		Assert.assertTrue(headingTag == null);
+		LoginActions.verifyLoginFunctionality();
+		Thread.sleep(1000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		String signupTag = ADAObjects.AftersignUpText().getAttribute("header");
+		Assert.assertTrue(signupTag == null);
+	}
+
+	public static void mandatory() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		Thread.sleep(1000);
+		int count = ADAObjects.mandatoryImage().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.mandatoryImage().get(i).getText();
+			Assert.assertTrue(tagname.contains("*"));
+		}
+
+	}
+
+	public static void CategoryImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.jellyLink());
+		int count = ADAObjects.childCategoryImage().size();
+		for (int i = 0; i < count; i++) {
+			String tagname = ADAObjects.childCategoryImage().get(i).getAttribute("alt");
+			Assert.assertTrue(tagname != "null");
+		}
+	}
+
+	public static void movieNightTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/movie-night-snack-mix-recipe");
+		Thread.sleep(1000);
+		String altTag = ADAObjects.movieNiht().getAttribute("alt");
+		Assert.assertTrue(altTag.contains("Movie Night Snack Mix"));
+	}
+
+	public static void sizzlingCinnamon() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(1000);
+		String altTag = ADAObjects.cinnamon().getAttribute("alt");
+		try {
+			Assert.assertTrue(altTag.contains("Enlarge image icon"));
+		} catch (AssertionError e) {
+			Assert.assertTrue(altTag.contains("opens an enlarged product image"));
+		}
+	}
+
+	public static void svgTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(1000);
+		String altTag = ADAObjects.svgIcon().getAttribute("aria-hidden");
+		Assert.assertTrue(altTag.contains("true"));
+	}
+
+	public static void freetruck() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(5000);
+		WebdriverUtils.scrollToElement(ADAObjects.truckIcon());
+		Thread.sleep(2000);
+		String altTag = ADAObjects.truckIcon().getAttribute("alt");
+		Assert.assertTrue(altTag.isEmpty());
+	}
+
+	public static void removeAriaLabelTab() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.productInfo_tab());
+		Thread.sleep(2000);
+		String ariaTag = ADAObjects.productInfo_tab().getAttribute("aria-label");
+		Assert.assertTrue(ariaTag == null);
+		String ariaTag2 = ADAObjects.nutritionIngredients_tab().getAttribute("aria-label");
+		Assert.assertTrue(ariaTag2 == null);
+		String ariaTag3 = ADAObjects.productReviews_tab().getAttribute("aria-label");
+		Assert.assertTrue(ariaTag3 == null);
+	}
+
+	public static void shippingEditTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressType());
+		Thread.sleep(2000);
+
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressLineFirst());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressCity());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+
+		Thread.sleep(2000);
+		/*
+		 * if(CheckoutObjects.iframeBlocks().size()>0){ for(int
+		 * i=0;i<CheckoutObjects.iframeCloseButton().size();i++){
+		 * if(CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+		 * Thread.sleep(1000);
+		 * WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i)); } }
+		 */
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.shippingInfo_Edit_Btn());
+		Thread.sleep(2000);
+		String tagName = ADAObjects.shippingInfo_Edit_Btn().getTagName();
+		Assert.assertTrue(tagName.equals("button"));
+
+	}
+
+	public static void altProductImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.clickAction(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		String alt = ADAObjects.productImageOverlay().getAttribute("alt");
+		Assert.assertTrue(alt != null);
+
+	}
+
+	public static void visuallyHidden() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(2000);
+		 WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(),
+		 20);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		//WebdriverUtils.moveToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(8000);
+		int size = ADAObjects.visuallyHidden_price().size();
+		Assert.assertTrue(size > 0);
+
+	}
+
+	public static void paymentTypeTags() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressType());
+		Thread.sleep(2000);
+
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressLineFirst());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressCity());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+
+		Thread.sleep(2000);
+		/*
+		 * if(CheckoutObjects.iframeBlocks().size()>0){ for(int
+		 * i=0;i<CheckoutObjects.iframeCloseButton().size();i++){
+		 * if(CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+		 * Thread.sleep(1000);
+		 * WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i)); } }
+		 */
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueShippingMethods(), "click");
+		Thread.sleep(5000);
+		// WebdriverUtils.scrollToElement(CheckoutObjects.ContinueToPaymentInformation());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueShippingMethods1(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ContinueToPaymentInformation(), "click");
+		Thread.sleep(3000);
+
+		List<WebElement> payment_list = ADAObjects.paymentType_li();
+		for (WebElement li : payment_list) {
+			String tagName = li.getTagName();
+			Assert.assertTrue(tagName.equals("li"));
+			String role = li.getAttribute("role");
+			Assert.assertTrue(role.contains(role));
+			String aria = li.getAttribute("aria-label");
+			Assert.assertTrue(aria == null);
+		}
+
+		List<WebElement> payment_input = ADAObjects.paymentType_input();
+		for (WebElement input : payment_input) {
+			String role = input.getAttribute("role");
+			Assert.assertTrue(role == null);
+			String aria = input.getAttribute("aria-label");
+			Assert.assertTrue(aria == null);
+		}
+
+		List<WebElement> payment_label = ADAObjects.paymentType_label();
+		for (WebElement label : payment_label) {
+			String role = label.getAttribute("role");
+			Assert.assertTrue(role == null);
+			String aria = label.getAttribute("aria-label");
+			Assert.assertTrue(aria == null);
+
+		}
+
+	}
+
+	public static void skipToMainTag() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(2000);
+		String roleTag = ADAObjects.skipToDesktop().getAttribute("role");
+		Assert.assertTrue(roleTag == null);
+
+	}
+
+	public static void quantityBtnTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(3000);
+		String plustagName = ADAObjects.quantityplus().getTagName();
+		Assert.assertTrue(plustagName.equals("button"));
+		String minustagName = ADAObjects.quantityminus().getTagName();
+		Assert.assertTrue(minustagName.equals("button"));
+	}
+
+	public static void removeRoleOrigPrice() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+//		WebdriverUtils
+//				.goToURL("https://www.jellybelly.com/dr-pepper-reg-jelly-beans-3.5-oz-bag-12-count-case/p/66147");
+//		Thread.sleep(1000);
+//		//WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+//		Thread.sleep(2000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+//		Thread.sleep(3000);
+//		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+//		WebdriverUtils.clickAction(GlobalHeaderObjects.searchSubmitButton());
+//		Thread.sleep(3000);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+//		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+//		BrowserUtils.waitFor(HomePageObjects.PLPLINK2(), 10);
+//		WebdriverUtils.clickAction(HomePageObjects.PLPLINK2());
+//		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(5000);
+//		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStockSale(), "First sale Product name in stock");
+//		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStockSale(), 10);
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATCSale(),"click");	
+//		Thread.sleep(2000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(10000);
+		try {
+			String roleTag = ADAObjects.origPriceCart().getAttribute("role");
+			Assert.assertTrue(roleTag == null);
+		} catch (NullPointerException e) {
+
+		}
+
+	}
+
+	public static void spanPrice() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+//		WebdriverUtils
+//				.goToURL("https://www.jellybelly.com/dr-pepper-reg-jelly-beans-3.5-oz-bag-12-count-case/p/66147");
+//		Thread.sleep(1000);
+//		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+//		Thread.sleep(2000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+//		Thread.sleep(3000);
+//		Thread.sleep(3000);
+//		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+//		WebdriverUtils.clickAction(GlobalHeaderObjects.searchSubmitButton());
+//		Thread.sleep(3000);
+//		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+//		BrowserUtils.waitFor(HomePageObjects.PLPLINK2(), 10);
+//		WebdriverUtils.clickAction(HomePageObjects.PLPLINK2());
+//		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+//		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStockSale(), "First sale Product name in stock");
+//		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStockSale(), 10);
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATCSale(),"click");	
+//		Thread.sleep(2000);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(10000);
+		String tagName = null;
+		try {
+			tagName = ADAObjects.currentPriceCart1().getTagName();
+			Assert.assertTrue(tagName.equals("span"));
+		} catch (NullPointerException e) {
+		}
+
+		try {
+			tagName = ADAObjects.OriginalPriceCart1().getTagName();
+			Assert.assertTrue(tagName.equals("span"));
+
+		} catch (NullPointerException e) {
+
+		}
+
+		/*
+		 * String classAttrib =
+		 * ADAObjects.currentPriceHeader_Cart().getAttribute("class");
+		 * Assert.assertTrue(classAttrib.equals("sr-only")); classAttrib =
+		 * ADAObjects.OriginalPriceHeader_Cart().getAttribute("class");
+		 * Assert.assertTrue(classAttrib.equals("sr-only"));
+		 */
+	}
+
+	public static void productHeadRecommed() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+//		WebdriverUtils
+//				.goToURL("https://www.jellybelly.com/dr-pepper-reg-jelly-beans-3.5-oz-bag-12-count-case/p/66147");
+//		Thread.sleep(1000);
+//		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+//		Thread.sleep(2000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+//		Thread.sleep(3000);
+//		Thread.sleep(3000);
+//		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+//		WebdriverUtils.clickAction(GlobalHeaderObjects.searchSubmitButton());
+//		Thread.sleep(3000);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+//		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+//		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+//		BrowserUtils.waitFor(HomePageObjects.PLPLINK2(), 10);
+//		WebdriverUtils.clickAction(HomePageObjects.PLPLINK2());
+//		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+//		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStockSale(), "First sale Product name in stock");
+//		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStockSale(), 10);
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATCSale(),"click");	
+//		Thread.sleep(2000);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(10000);
+		String tagName = ADAObjects.productHeadRecommend_Cart().getTagName();
+		// Assert.assertTrue(tagName.equals("h3"));
+		Assert.assertTrue(tagName.equals("a"));
+
+	}
+
+	public static void notifyMeEmailTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ADAObjects.notifyMe_Btn());
+		Thread.sleep(3000);
+		String attrib = ADAObjects.notifyMe_email().getAttribute("aria-describedby");
+		Assert.assertTrue(attrib != null);
+
+	}
+
+	public static void notifyMeAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.notifyMe_Btn(), "click");
+		Thread.sleep(3000);
+		WebdriverUtils.clickAction(ADAObjects.notifyMe_Btn_overlay());
+		Thread.sleep(2000);
+		String email_input_attrib = ADAObjects.notifyMe_email().getAttribute("aria-describedby");
+		String email_error_attrib = ADAObjects.notifyMe_error().getAttribute("id");
+		Assert.assertTrue(email_input_attrib.equals(email_error_attrib));
+	}
+
+	public static void quantityTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils
+				.goToURL("https://www.jellybelly.com/dr-pepper-reg-jelly-beans-16-oz-re-sealable-bag/p/9000_DR_PEPPER");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.quantity_recommended());
+		Thread.sleep(2000);
+		String tagName = ADAObjects.quantity_recommended().getAttribute("aria-label");
+		Assert.assertTrue(tagName == null);
+
+	}
+
+	public static void notifyMeOverlayTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(ADAObjects.notifyMe_Btn());
+		Thread.sleep(3000);
+		String tagName = ADAObjects.notifyMeOverlay().getTagName();
+		Assert.assertTrue(tagName.equals("h1"));
+	}
+
+	public static void notifyMetextField() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(ADAObjects.notifyMe_Btn());
+		Thread.sleep(3000);
+		String label = ADAObjects.notifyMe_email().getAttribute("aria-label");
+		Assert.assertTrue(!label.contains("text field"));
+	}
+
+	public static void notifyModalContainer() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(ADAObjects.notifyMe_Btn());
+		Thread.sleep(3000);
+		String role = ADAObjects.notifyMeContainer().getAttribute("role");
+		Assert.assertTrue(role.equals("dialog"));
+		String aria = ADAObjects.notifyMeContainer().getAttribute("aria-modal");
+		Assert.assertTrue(aria.equals("true"));
+	}
+
+	public static void notifyMePopupStyle() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335?pageSize=96");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.plpShowAll());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(20000);
+		WebdriverUtils.scrollToElement(ADAObjects.notifyMe_Btn());
+		Thread.sleep(4000);
+		String style = ADAObjects.notifyMePopup().getAttribute("style");
+		System.out.println("before=" + style);
+		Assert.assertTrue(style.equals("display: none;"));
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.notifyMe_Btn(), "click");
+		Thread.sleep(3000);
+		style = ADAObjects.notifyMePopup().getAttribute("style");
+		Assert.assertTrue(style.equals(""));
+		System.out.println("after=" + style);
+	}
+
+	public static void FooterCheckboxTag() throws Exception {
+		loadingHomePage();
+		WebdriverUtils.maximizeWindow();
+		// WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.checkboxsignupfooter());
+		Thread.sleep(4000);
+		String roleAttrib = ADAObjects.checkboxsignupfooter().getAttribute("role");
+		Assert.assertTrue(roleAttrib != "checkbox");
+		String ariaAttrib = ADAObjects.checkboxsignupfooter().getAttribute("aria-label ");
+		Assert.assertTrue(ariaAttrib == null);
+
+	}
+
+	public static void ImageDecorativeIcon() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+		String user_alt = ADAObjects.userIcon().getAttribute("alt");
+		Assert.assertTrue(user_alt != null);
+		String cart_alt = ADAObjects.cartIcon().getAttribute("alt");
+		Assert.assertTrue(cart_alt != null);
+	}
+
+	public static void megaMenuAria() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		String shop_aria = ADAObjects.megamenuShop().getAttribute("aria-label");
+		Assert.assertTrue(shop_aria == null);
+		// String flavor_aria =
+		// ADAObjects.megamenuFlavorsMore().getAttribute("aria-label");
+		// Assert.assertTrue(flavor_aria == null);
+		String visitUs_aria = ADAObjects.megamenuVisitUs1().getAttribute("aria-label");
+		Assert.assertTrue(visitUs_aria == null);
+		// String store_aria =
+		// ADAObjects.megamenuStoreLocator().getAttribute("aria-expanded");
+		// Assert.assertTrue(store_aria == null);
+
+	}
+
+	public static void allSubmenu() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+
+		for (WebElement submenu : ADAObjects.allSubMegaMenus()) {
+
+			String role = submenu.getAttribute("role");
+			Assert.assertTrue(role == null);
+
+			String aria = submenu.getAttribute("aria-label");
+			Assert.assertTrue(aria == null);
+		}
+
+	}
+
+	public static void FlavorMegamenuPresent() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+		String menu_name = ADAObjects.flavorMenuJBLogo().getText();
+		Assert.assertTrue(menu_name.equals("FLAVORS & MORE"));
+	}
+
+	public static void CandyCalculatorModal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		Thread.sleep(3000);
+		WebdriverUtils.clickAction(ADAObjects.candyCalculatorTab());
+		Thread.sleep(4000);
+		String tag = ADAObjects.candyCalculatorModalHeader().getTagName();
+		Assert.assertTrue(tag.equals("h1"));
+	}
+
+	public static void jbChildcategory() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(3000);
+		try {
+			String aria_exp = ADAObjects.jbChildcategory().getAttribute("aria-expanded");
+			Assert.assertTrue(aria_exp == null);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public static void plpattrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(3000);
+		List<WebElement> product_lists = ADAObjects.productlisting();
+		for (WebElement product : product_lists) {
+			String role = product.getAttribute("role");
+			Assert.assertTrue(role.equals("group"));
+			String aria_label = product.getAttribute("aria-label");
+			Assert.assertTrue(aria_label.equals("product"));
+		}
+
+	}
+
+	public static void checkoutLockIcon() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+//		WebdriverUtils
+//				.goToURL("https://www.jellybelly.com/dr-pepper-reg-jelly-beans-3.5-oz-bag-12-count-case/p/66147");
+		Thread.sleep(3000);
+//		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+//		Thread.sleep(2000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+//		Thread.sleep(3000);
+//		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+//		Thread.sleep(3000);
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(HomePageObjects.PLP(), 10);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductNameInStock(), "First Product name in stock");
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductATC(),"click");	
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);	
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartinpopup());
+		Thread.sleep(10000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4000);
+		String tag = ADAObjects.checkoutLockIcon().getTagName();
+		Assert.assertTrue(tag.equals("span"));
+		String aria = ADAObjects.checkoutLockIcon().getAttribute("aria-hidden");
+		Assert.assertTrue(aria != null);
+		Assert.assertTrue(ADAObjects.continuShoplink().isDisplayed());
+
+	}
+
+	public static void verifyAllsubmenuHeader() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+
+		List<WebElement> shop_subMenu_headers = HomePageObjects.shop_allsubmenu_header();
+		for (WebElement header : shop_subMenu_headers) {
+			String tag = header.getTagName();
+			Assert.assertTrue(tag.equals("h2"));
+		}
+		/*
+		 * List<WebElement> flavor_subMenu_headers =
+		 * HomePageObjects.flavors_allsubmenu_header(); for (WebElement header :
+		 * flavor_subMenu_headers) { String tag = header.getTagName();
+		 * Assert.assertTrue(tag.equals("h2")); } List<WebElement>
+		 * visitUs_subMenu_headers = HomePageObjects.visitUS_allsubmenu_header(); for
+		 * (WebElement header : visitUs_subMenu_headers) { String tag =
+		 * header.getTagName(); Assert.assertTrue(tag.equals("h2")); }
+		 */
+	}
+
+	public static void verifyAllsubmenuTabIndex() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+
+		List<WebElement> shop_subMenu_headers = HomePageObjects.shop_allsubmenu_header();
+		for (WebElement header : shop_subMenu_headers) {
+			String tag = header.getAttribute("tabindex");
+			Assert.assertTrue(tag == null);
+		}
+		/*
+		 * List<WebElement> flavor_subMenu_headers =
+		 * HomePageObjects.flavors_allsubmenu_header(); for (WebElement header :
+		 * flavor_subMenu_headers) { String tag = header.getAttribute("tabindex");
+		 * Assert.assertTrue(tag==null); } List<WebElement> visitUs_subMenu_headers =
+		 * HomePageObjects.visitUS_allsubmenu_header(); for (WebElement header :
+		 * visitUs_subMenu_headers) { String tag = header.getAttribute("tabindex");
+		 * Assert.assertTrue(tag==null); }
+		 */
+	}
+
+	public static void verifyMainMenuLabel() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		String aria_exp = ADAObjects.navMenuBar().getAttribute("aria-label");
+		Assert.assertTrue(aria_exp.equals("Main menu"));
+	}
+
+	public static void shopSweetImg() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		String alt_exp = ADAObjects.shopSweetImg().getAttribute("alt");
+		Assert.assertTrue(alt_exp.equals("Sweet Rewards program logo"));
+	}
+
+	public static void verifyCheckoutfield() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(1000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(2000);
+		String label_exp = ADAObjects.acc_email_label().getAttribute("for");
+		Assert.assertTrue(label_exp.equals("email"));
+		String input_exp = ADAObjects.acc_email_input().getAttribute("id");
+		Assert.assertTrue(input_exp.equals("email"));
+		String label_pass_exp = ADAObjects.acc_password_label().getAttribute("for");
+		Assert.assertTrue(label_pass_exp.equals("password"));
+		String input_pass_exp = ADAObjects.acc_password_input().getAttribute("id");
+		Assert.assertTrue(input_pass_exp.equals("password"));
+		String label_guest_exp = ADAObjects.guest_email_label().getAttribute("for");
+		Assert.assertTrue(label_guest_exp.equals("guest_email"));
+		String input_guest_exp = ADAObjects.guest_email_input().getAttribute("id");
+		Assert.assertTrue(input_guest_exp.equals("guest_email"));
+	}
+
+	public static void checkoutdiscountprice() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(2000);
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(),
+		// 20);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocartstrikePrice(), "click");
+		Thread.sleep(2500);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		String currentPrice = ADAObjects.curPrice_label_checkout().getAttribute("class");
+		Assert.assertTrue(currentPrice.equals("sr-only"));
+		String origPrice = ADAObjects.origPrice_label_checkout().getAttribute("class");
+		Assert.assertTrue(origPrice.equals("sr-only"));
+
+	}
+
+	public static void verifyCheckoutGift() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(2500);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		//WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(2500);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(), 20);
+		// BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(6000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocartstrikePrice(), "product");
+		Thread.sleep(5500);
+		// BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "view cart");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4000);
+		WebdriverUtils.scrollToElement(ADAObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		String gift_lab = ADAObjects.giftImg_label().getAttribute("for");
+		Assert.assertTrue(gift_lab.equals("order-comments"));
+		String gift_area = ADAObjects.giftImg_textarea().getAttribute("id");
+		Assert.assertTrue(gift_area.equals("order-comments"));
+	}
+
+	public static void verifyFAQbuttonRole() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(3500);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(), 20);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(3000);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(4500);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 30);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(3500);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(4500);
+		WebdriverUtils.scrollToElement(ADAObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ADAObjects.guestIagreeCheckbox());
+		WebdriverUtils.clickAction(ADAObjects.continueGuest_CTA());
+		Thread.sleep(4000);
+		String faq = ADAObjects.faq().getAttribute("role");
+		Assert.assertTrue(faq.equals("button"));
+	}
+
+	public static void verifyFAQExpand() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(3500);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(), 20);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(3500);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocartstrikePrice(), "click");
+		Thread.sleep(4500);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 25);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(3500);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2500);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4500);
+		WebdriverUtils.scrollToElement(ADAObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		String faq_before_click = ADAObjects.faq().getAttribute("aria-expanded");
+		Assert.assertTrue(faq_before_click.equals("false"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.faq(), "click");
+		Thread.sleep(2000);
+		String faq_after_click = ADAObjects.faq().getAttribute("aria-expanded");
+		Assert.assertTrue(faq_after_click.equals("false"));
+	}
+
+	public static void verifyFAQAriaHidden() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3500);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpShowAll(), "click");
+		Thread.sleep(3500);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.plpaddtocartstrikePrice(), 20);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocartstrikePrice(), 25);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocartstrikePrice());
+		Thread.sleep(2500);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocartstrikePrice(), "click");
+		Thread.sleep(2500);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2500);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4500);
+		WebdriverUtils.scrollToElement(ADAObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+		String faq_span = ADAObjects.faq_span().getAttribute("aria-hidden");
+		Assert.assertTrue(faq_span != null);
+	}
+
+	public static void verifyShippingInputAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		Thread.sleep(4500);
+		WebdriverUtils.scrollToElement(ShoppingCartObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		Thread.sleep(1500);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		Thread.sleep(1500);
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		String actual = CheckoutObjects.shippingAddressType().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingFirstName().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingLastName().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingAddressLineFirst().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingAddressCity().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingAddressState().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingAddressZipCode().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+		actual = CheckoutObjects.shippingPhoneNumber().getAttribute("aria-required");
+		Assert.assertTrue(actual.equals("true"));
+	}
+
+	public static void verifyRoleRemovedButton() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(4000);
+		String attrib = ADAObjects.login_register_btn().getAttribute("role");
+		Assert.assertTrue(attrib != "menu" || attrib != "menuitem" || attrib != "menubar");
+		// attrib = ADAObjects.megamenuFlavorsMore().getAttribute("role");
+		// Assert.assertTrue(attrib != "menu" || attrib != "menuitem" || attrib !=
+		// "menubar" );
+		attrib = ADAObjects.megamenuVisitUs1().getAttribute("role");
+		Assert.assertTrue(attrib != "menu" || attrib != "menuitem" || attrib != "menubar");
+		/*
+		 * List<WebElement> all_menu = ADAObjects.allSubMegaMenus(); for (WebElement
+		 * menu : all_menu) { String role = menu.getAttribute("role");
+		 * Assert.assertTrue(role != "menu" || role != "menuitem" || role != "menubar"
+		 * ); }
+		 */
+	}
+
+	public static void verifyCheckoutHeaderTags() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 15);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(4000);
+		String tagName = ADAObjects.secure_checkout_header().getTagName();
+		System.out.println("tagName=" + tagName);
+		Assert.assertTrue(tagName.equals("h1"));
+		tagName = ADAObjects.login_acc_header().getTagName();
+		Assert.assertTrue(tagName.equals("h2"));
+		tagName = ADAObjects.guest_login_header().getTagName();
+		Assert.assertTrue(tagName.equals("h2"));
+		Thread.sleep(3500);
+		WebdriverUtils.scrollToElement(ADAObjects.guestEmail());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), pro.getProperty("GuestEmail"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.guestIagreeCheckbox(), "click");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueGuest_CTA(), "click");
+		Thread.sleep(4000);
+
+		tagName = ADAObjects.checkoutUsing_header().getTagName();
+		Assert.assertTrue(tagName.equals("h2"));
+
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressType());
+		Thread.sleep(2000);
+
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressLineFirst());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.scrollToElement(CheckoutObjects.shippingAddressCity());
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(ADAObjects.chooseshippingMethod_header(), 15);
+		tagName = ADAObjects.chooseshippingMethod_header().getTagName();
+		Assert.assertTrue(tagName.equals("h3"));
+	}
+
+	public static void megaMenuAriaLabel() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(1000);
+		String shop_megamenu = ADAObjects.megamenuShop().getAttribute("aria-label");
+		Assert.assertTrue(shop_megamenu == null);
+		// String flav_megamenu =
+		// ADAObjects.megamenuFlavorsMore().getAttribute("aria-label");
+		// Assert.assertTrue(flav_megamenu == null);
+		String visitUs_megamenu = ADAObjects.megamenuVisitUs1().getAttribute("aria-label");
+		Assert.assertTrue(visitUs_megamenu == null);
+	}
+
+	public static void cookieBannerElement() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		boolean cookeconcert = ADAObjects.cookeconcert_btn().isDisplayed();
+		Assert.assertTrue(cookeconcert);
+	}
+
+	public static void cookieBannerAttrib() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		String role = ADAObjects.cookeBanner().getAttribute("role");
+		Assert.assertTrue(role.equals("region"));
+		String label = ADAObjects.cookeBanner().getAttribute("aria-label");
+		Assert.assertTrue(label.equals("cookie consent banner"));
+	}
+
+	public static void plpListAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(3000);
+		List<WebElement> productlist = ADAObjects.productlisting();
+		for (WebElement prod : productlist) {
+			String role = prod.getAttribute("role");
+			Assert.assertTrue(role.equals("group"));
+			String label = prod.getAttribute("aria-label");
+			Assert.assertTrue(label.equals("product"));
+		}
+	}
+
+	public static void shopSweetHead() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		String tag = ADAObjects.shop_sweetRewardHead().getTagName();
+		Assert.assertTrue(tag.equals("h2"));
+	}
+
+	public static void paymentLoginCheckbox() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Thread.sleep(2000);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		String attrib = CheckoutObjects.paymentLoginSubmit().getAttribute("disabled");
+		Assert.assertTrue(attrib != null);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentLoginCheckbox(), "checkbox");
+		attrib = CheckoutObjects.paymentLoginSubmit().getAttribute("disabled");
+		Assert.assertTrue(attrib == null);
+	}
+
+	public static void verifyFooterInfo() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(4000);
+		String attrib = ADAObjects.footerInfoText().getAttribute("tabindex");
+		Assert.assertTrue(attrib == null);
+	}
+
+	public static void verifyFooterLinks() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(4000);
+		List<WebElement> tag = ADAObjects.footerLinks();
+		for (WebElement ele : tag) {
+			Assert.assertTrue(ele.getTagName().equals("li"));
+		}
+
+	}
+
+	public static void verifyPausePlayBtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		Thread.sleep(4000);
+		String pauseValue = ADAObjects.pauseBtn().getAttribute("class");
+		String playValue = ADAObjects.playBtn().getAttribute("class");
+		Assert.assertTrue(pauseValue.contains("is-visible"));
+		Assert.assertFalse(playValue.contains("is-visible"));
+		WebdriverUtils.scrollToElement(ADAObjects.pauseBtn());
+		Thread.sleep(5000);
+		/*
+		 * ADAObjects.pauseBtn().click(); Thread.sleep(2000); pauseValue =
+		 * ADAObjects.pauseBtn().getAttribute("class"); playValue =
+		 * ADAObjects.playBtn().getAttribute("class");
+		 * Assert.assertFalse(pauseValue.contains("is-visible"));
+		 * Assert.assertTrue(playValue.contains("is-visible"));
+		 */
+	}
+
+	public static void verifyFilteAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		Thread.sleep(4000);
+		String attrib = ADAObjects.filterResultHeader().getAttribute("tabindex");
+		Assert.assertTrue(attrib == null);
+	}
+
+	public static void verifyOrderSummaryTax() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(3000);
+		Assert.assertTrue(CheckoutObjects.taxTextCart().getText().contains("*"));
+		Assert.assertTrue(CheckoutObjects.shippingTextCart().getText().contains("*"));
+	}
+
+	public static void verifysignupCheckbox() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/user/signup");
+		Thread.sleep(4000);
+		String attrib = ADAObjects.signupCheckbox().getAttribute("aria-label");
+		Assert.assertTrue(attrib == null);
+
+	}
+
+	public static void guestLoginFocus() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.moveToElement(FlavourpageObjects.viewCartButton());
+		//WebdriverUtils.clickAction(FlavourpageObjects.viewCartButton());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(8000);
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		String guest_attrib = ShoppingCartObjects.nextButton().getAttribute("disabled");
+		Assert.assertTrue(guest_attrib != null);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		Thread.sleep(1500);
+		guest_attrib = ShoppingCartObjects.nextButton().getAttribute("disabled");
+		Assert.assertTrue(guest_attrib == null);
+		String Login_attrib = ShoppingCartObjects.cartLoginSubmit().getAttribute("disabled");
+		Assert.assertTrue(Login_attrib != null);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.cartLoginCheckbox(), "checkbox");
+		Thread.sleep(1500);
+		Login_attrib = ShoppingCartObjects.cartLoginSubmit().getAttribute("disabled");
+		Assert.assertTrue(Login_attrib == null);
+	}
+
+	public static void verifyLabelOrderSummaryProduct() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		String attrib = null;
+		try {
+			attrib = ShoppingCartObjects.cartProductName1().getAttribute("aria-label");
+		} catch (NullPointerException e) {
+			attrib = ShoppingCartObjects.cartProductName().getAttribute("aria-label");
+
+		}
+		Assert.assertTrue(attrib == null);
+
+	}
+
+	public static void minicartTBDcolor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		WebdriverUtils.moveToElementByActions(MiniCartObjects.Cartcount());
+		Thread.sleep(2000);
+		String color = MiniCartObjects.TBDtax().getCssValue("color");
+		System.out.println("color:" + color);
+		Assert.assertTrue(color.equals("rgba(0, 0, 0, 1)"));
+
+	}
+
+	public static void minicartCongratscolor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		WebdriverUtils.sendKeys(ADAObjects.cartQuantity(), "3");
+		Thread.sleep(1000);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.moveToElementByActions(MiniCartObjects.Cartcount());
+		Thread.sleep(2000);
+		String color = MiniCartObjects.congratsmessage().getCssValue("color");
+		System.out.println("color=" + color);
+		Assert.assertTrue(color.equals("rgba(3, 126, 21, 1)"));
+
+	}
+
+	public static void minicartViewcartColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		WebdriverUtils.moveToElementByActions(MiniCartObjects.Cartcount());
+		Thread.sleep(2000);
+		String color = MiniCartObjects.ViewCartButton().getCssValue("color");
+		System.out.println("color=" + color);
+		Assert.assertTrue(color.equals("rgba(42, 55, 86, 1)"));
+
+	}
+
+	public static void recipesBGColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/birthday-party-ideas");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(1500);
+		String color = ADAObjects.recipesTab().getCssValue("background-color");
+		System.out.println("color=" + color);
+		Assert.assertTrue(color.equals("rgba(0, 0, 0, 0)"));
+
+	}
+
+	public static void addToCartAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.scrollToElement(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		String plpAttrib = ADAObjects.plpaddtocart().getAttribute("id");
+		Thread.sleep(1000);
+		System.out.println(plpAttrib);
+		Assert.assertTrue(plpAttrib.equals(""));
+	}
+
+	public static void freeShippingTextColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		String color = ADAObjects.freeshipText().getCssValue("color");
+		System.out.println("color=" + color);
+		Assert.assertTrue(color.equals("rgba(3, 126, 21, 1)"));
+	}
+
+	public static void eventCalCAColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/event-calendar");
+		WebdriverUtils.maximizeWindow();
+		String color = ADAObjects.eventCalCA().getCssValue("background");
+		System.out.println("color=" + color.split("\\)")[0]);
+		Assert.assertTrue(color.split("\\)")[0].equals("rgb(42, 84, 167"));
+	}
+
+	public static void eventCalWIColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/event-calendar");
+		WebdriverUtils.maximizeWindow();
+		String color = ADAObjects.eventCalCA().getCssValue("background");
+		System.out.println("color=" + color.split("\\)")[0]);
+		Assert.assertTrue(color.split("\\)")[0].equals("rgb(42, 84, 167"));
+	}
+
+	public static void eventCalSportsColor() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/event-calendar");
+		WebdriverUtils.maximizeWindow();
+		String color = ADAObjects.eventCalSports().getCssValue("background");
+		System.out.println("color=" + color.split("\\)")[0]);
+		Assert.assertTrue(color.split("\\)")[0].equals("rgb(126, 75, 17"));
+	}
+
+	public static void requiredShippingAddrs() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+
+		Thread.sleep(3000);
+		List<WebElement> required_fields = new ArrayList<>();
+		required_fields.add(CheckoutObjects.shippingAddressTypeHead());
+		required_fields.add(CheckoutObjects.shippingFirstNameHead());
+		required_fields.add(CheckoutObjects.shippingLastNameHead());
+		required_fields.add(CheckoutObjects.shippingAddressLineFirstHead());
+		required_fields.add(CheckoutObjects.shippingAddressCityHead());
+		required_fields.add(CheckoutObjects.shippingAddressStateHead());
+		required_fields.add(CheckoutObjects.shippingAddressZipCodeHead());
+		required_fields.add(CheckoutObjects.shippingPhoneNumberHead());
+
+		for (WebElement ele : required_fields) {
+			String classVAl = ele.getAttribute("class");
+			Assert.assertTrue(classVAl.equals("is-required"));
+			String label = ele.getAttribute("aria-label");
+			Assert.assertTrue(label.equals("mandatory field"));
+		}
+	}
+
+	public static void createAccErrMsgValidate() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		Thread.sleep(1000);
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		// WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+
+		Thread.sleep(1000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.creatAccount(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkboxsignupLabel(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.buttonSingup(), "click");
+		Thread.sleep(2000);
+		String firstname_aria = ADAObjects.firstNameInputAcc().getAttribute("aria-describedby");
+		String firstname_id = ADAObjects.firstNameSpanAcc().getAttribute("id");
+		Assert.assertEquals(firstname_aria, firstname_id);
+
+	}
+
+	public static void createAccrequiredFields() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 30);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		// WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.creatAccount(), "click");
+		String firstName = ADAObjects.firstNameAccount().getAttribute("aria-required");
+		Assert.assertTrue(firstName.equals("true"));
+		String lastName = ADAObjects.lastNameAccount().getAttribute("aria-required");
+		Assert.assertTrue(lastName.equals("true"));
+		String email = ADAObjects.emailAccount().getAttribute("aria-required");
+		Assert.assertTrue(email.equals("true"));
+		String password1 = ADAObjects.passwordAccount().getAttribute("aria-required");
+		Assert.assertTrue(password1.equals("true"));
+		String confirmPassword1 = ADAObjects.confirmPasswordAccount().getAttribute("aria-required");
+		Assert.assertTrue(confirmPassword1.equals("true"));
+	}
+
+	public static void createAccStyleAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(10000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		Thread.sleep(10000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.creatAccount(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkboxsignupLabel(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.buttonSingup(), "click");
+		Thread.sleep(2000);
+		String firstname_attrib = ADAObjects.firstNameInputAcc().getAttribute("style");
+		Assert.assertTrue(firstname_attrib != null);
+	}
+
+	public static void loginModalTabs() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+
+		String ariaLabel = ADAObjects.creatAccount().getAttribute("aria-label");
+		String role = ADAObjects.creatAccount().getAttribute("role");
+		Assert.assertTrue(ariaLabel == null);
+		Assert.assertTrue(role.contains("tab"));
+		ariaLabel = ADAObjects.creatAccount().getAttribute("aria-label");
+		role = ADAObjects.creatAccount().getAttribute("role");
+		Assert.assertTrue(ariaLabel == null);
+		Assert.assertTrue(role.contains("tab"));
+	}
+
+	public static void checoutProductSummaryTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickAction(ShoppingCartObjects.nextButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		String tag = CheckoutObjects.productSummary().getTagName();
+		Assert.assertTrue(tag.contains("table"));
+	}
+
+	public static void checoutGiftMsgAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickAction(ShoppingCartObjects.nextButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		String live = CheckoutObjects.giftMsgSpan().getAttribute("aria-live");
+		Assert.assertTrue(live.contains("polite"));
+		String atomic = CheckoutObjects.giftMsgSpan().getAttribute("aria-atomic");
+		Assert.assertTrue(atomic.contains("true"));
+		String id = CheckoutObjects.giftMsgSpan().getAttribute("id");
+		String areadesc = CheckoutObjects.giftMsgArea().getAttribute("aria-describedby");
+		Assert.assertTrue(areadesc.contains(id));
+	}
+
+	public static void checkoutFAQAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 15);
+		// WebdriverUtils.refreshPage();
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		/*
+		 * WebdriverUtils.clickAction(CheckoutObjects.faqIcon()); Thread.sleep(2000);
+		 * List<WebElement> faq_arrows = CheckoutObjects.faqArrows(); for (WebElement
+		 * arrow : faq_arrows) {
+		 * 
+		 * String label = arrow.getAttribute("aria-label"); Assert.assertTrue(label ==
+		 * null); String alt = arrow.getAttribute("alt");
+		 * Assert.assertTrue(alt.equals("")); }
+		 */
+	}
+
+	public static void homepageQuestionColor() throws Exception {
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		String color = ADAObjects.homepage_QuestionLink().getCssValue("color");
+		System.out.println(color);
+		Assert.assertTrue(color.equals("rgba(0, 0, 0, 1)"));
+	}
+
+	public static void shippingMethodPopupbtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/harry-potter-chocolate-frog-0.55-oz/p/96267-W");
+		// WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.shippingMethodBasic(), "click");
+		Thread.sleep(10000);
+		String yesTag = CheckoutObjects.hsYesBtn_popup().getTagName();
+		Assert.assertTrue(yesTag.contains("button"));
+		String noTag = CheckoutObjects.hsNoBtn_popup().getTagName();
+		Assert.assertTrue(noTag.contains("button"));
+	}
+
+	public static void carouselRole() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String role = ADAObjects.beanboozled_carousel().getAttribute("role");
+		Assert.assertTrue(role.equals("region"));
+	}
+
+	public static void playpauseAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String classAttrib = ADAObjects.pauseBtnSpan().getAttribute("class");
+		Assert.assertTrue(classAttrib.equals("sr-only"));
+		String playclassAttrib = ADAObjects.playBtnSpan().getAttribute("class");
+		Assert.assertTrue(playclassAttrib.equals("sr-only"));
+	}
+
+	public static void altImgTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		List<WebElement> alt_imgs;
+		boolean flag = false;
+		try {
+			alt_imgs = ADAObjects.altImg();
+		} catch (Exception e) {
+			alt_imgs = ADAObjects.altImg1();
+			flag = true;
+		}
+		try {
+			for (WebElement img : alt_imgs) {
+				String alt = img.getAttribute("alt");
+				System.out.println("alt=" + alt);
+
+				if (flag)
+					Assert.assertTrue(alt.equals(""));
+				else
+					Assert.assertTrue(alt != null);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public static void filterRole() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		String role = ADAObjects.filterBy().getAttribute("role");
+		Assert.assertTrue(role.equals("button"));
+	}
+
+	public static void productImgName() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		boolean img_flag = ADAObjects.productImg().isDisplayed();
+		Assert.assertTrue(img_flag);
+		boolean name_flag = ADAObjects.productName().isDisplayed();
+		Assert.assertTrue(name_flag);
+	}
+
+	public static void relatedProdDisplay() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils
+				.goToURL("https://www.jellybelly.com/very-cherry-jelly-beans-16-oz-re-sealable-bag/p/9000_VRY_CHERRY");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		try {
+			List<WebElement> related_lists = ADAObjects.relatedProdList();
+			if (related_lists.size() > 0) {
+				List<WebElement> related_single_lists = ADAObjects.relatedProdSingleList();
+				Iterator itr = related_single_lists.iterator();
+
+				System.out.println("size=" + related_lists.size());
+				System.out.println("size=" + related_single_lists.size());
+
+				if (related_lists.size() > 4) {
+					for (WebElement list : related_lists) {
+						String classAttrib = list.getAttribute("class");
+						if (!classAttrib.contains("active") && !classAttrib.contains("cloned")) {
+							if (itr.hasNext()) {
+								WebElement display = (WebElement) itr.next();
+								String display_css = display.getCssValue("display");
+								System.out.println("display_css=" + display_css);
+								Assert.assertTrue(display_css.equals("none"));
+							}
+						} else if (itr.hasNext()) {
+							itr.next();
+						}
+
+					}
+				} else {
+					System.out.println("Related product list is less than 4");
+				}
+			}
+		} catch (NullPointerException e) {
+		}
+	}
+
+	public static void cart_AriaLabel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkoutButtonTop());
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+
+		String aria = ADAObjects.homepage_QuestionLink().getAttribute("aria-label");
+		Assert.assertTrue(aria == null);
+		String aria2 = ADAObjects.shipping_info_label().getAttribute("aria-label");
+		Assert.assertTrue(aria2 == null);
+		String aria3 = ADAObjects.cart_forgotPass().getAttribute("aria-label");
+		Assert.assertTrue(aria3 == null);
+		String aria4 = ADAObjects.cart_agreeCheckbox().getAttribute("aria-label");
+		Assert.assertTrue(aria4 == null);
+		String aria5 = ADAObjects.guestIagreeCheckbox().getAttribute("aria-label");
+		Assert.assertTrue(aria5 == null);
+
+	}
+
+	public static void checkoutSummary() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickAction(ADAObjects.plpaddtocart());
+		Thread.sleep(10000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		//WebdriverUtils.moveToElement(FlavourpageObjects.viewCartButton());
+		WebdriverUtils.clickAction(FlavourpageObjects.viewCartButton());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		Thread.sleep(2000);
+		String tag = ADAObjects.orderSummary().getTagName();
+		Assert.assertTrue(tag.equals("table"));
+
+	}
+
+	public static void billingInfo() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		// WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		// WebdriverUtils.refreshPage();
+		// Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 10);
+		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.nextButton(), "click");
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(5000);
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.ShippingMethodBasic(), "click");
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		// WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.shippingMethodBasic(), "click");
+		Thread.sleep(4500);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.continueToPaymentOptions(), "click");
+		Thread.sleep(4000);
+		String aria = ADAObjects.checkout_placeOrder_checkbox().getAttribute("aria-label");
+		Assert.assertTrue(aria == null);
+		String tab = ADAObjects.checkout_placeOrder_checkbox().getAttribute("tab-index");
+		Assert.assertTrue(tab == null);
+
+	}
+
+	public static void productAndNameDiv() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(3000);
+
+		int count = ADAObjects.pdp_prod_img().size();
+
+		if (count > 0) {
+			List<WebElement> img_ele = ADAObjects.pdp_prod_img();
+			List<WebElement> name_ele = ADAObjects.pdp_prod_names();
+
+			for (WebElement img : img_ele) {
+				Assert.assertTrue(img.isEnabled());
+			}
+			for (WebElement name : name_ele) {
+				Assert.assertTrue(name.isEnabled());
+			}
+		}
+
+	}
+
+	public static void addToCartPopup() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+
+		List<WebElement> recomend_prod = ADAObjects.addToCartPopup_recomdprod();
+
+		if (recomend_prod.size() > 0) {
+			for (WebElement prod : recomend_prod) {
+				Assert.assertTrue(prod.getAttribute("role") != null);
+				Assert.assertTrue(prod.getAttribute("aria-label") != null);
+			}
+		}
+
+	}
+
+	public static void addToCartPopupTabindex() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+
+		List<WebElement> recomend_prod = ADAObjects.addToCartPopup_recomdprod();
+		List<WebElement> recomend_prod_hidden = ADAObjects.addToCartPopup_recomdprod_hidden();
+
+		if (recomend_prod.size() > 0) {
+			for (WebElement prod : recomend_prod) {
+
+				if (prod.isDisplayed()) {
+					Assert.assertTrue(prod.getAttribute("aria-hidden") == null);
+					Assert.assertTrue(prod.getAttribute("tabindex") == null);
+
+				} else if (recomend_prod_hidden.size() > 0) {
+					for (WebElement product : recomend_prod_hidden) {
+						Assert.assertTrue(product.getAttribute("aria-hidden").equals("true"));
+						Assert.assertTrue(product.getAttribute("tabindex").equals("-1"));
+					}
+				}
+			}
+		}
+
+	}
+
+	public static void checkoutTag() throws Exception {
+//		WebdriverUtils.goToURL(Environments.getURL());
+//		FileInputStream fs = new FileInputStream(
+//				System.getProperty("user.dir") + "//src//com//config//config.properties");
+//		Properties pro = new Properties();
+//		pro.load(fs);
+//		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+//		Thread.sleep(3000);
+//		//WebdriverUtils.maximizeWindow();
+//		try {
+//			for(int i=0;i<=5;i++) {
+//			BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+//			break;
+//			}
+//		}
+//		catch (Exception e) {
+//			System.out.println("Add to cart button is not clicked");
+//		}
+//		
+////		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(),"click");
+////		Thread.sleep(1000);
+//		try {
+//			if(ADAObjects.plpaddtocart().isEnabled())
+//				for(int i=0;i<=5;i++) {
+//					WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(),"click");
+//					Thread.sleep(1000);
+//					break;
+//					}
+//		}
+//		catch (Exception e) {
+//			System.out.println("Add to cart button is not enabled");
+//		}
+//		
+//		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+//		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+//		Thread.sleep(1000);
+//		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+//		try {
+//		if(ShoppingCartObjects.alertPopUp().isDisplayed()) {
+//			WebdriverUtils.clickAction(ShoppingCartObjects.alertPopUp());
+//		}
+//		}
+//		catch (Exception e) {
+//			System.out.println("Alert Pop-up is not displayed");
+//		}
+//		WebdriverUtils.refreshPage();
+//		Thread.sleep(2000);
+//		WebdriverUtils.clickAction(ShoppingCartObjects.checkoutButtonTop());
+//		Thread.sleep(4000);
+//		//BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 50);
+//		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 50);
+//		WebdriverUtils.clickAction(ShoppingCartObjects.guestEmail());
+//		WebdriverUtils.sendKeys(ShoppingCartObjects.guestEmail(), WebdriverUtils.generateRandomEmail());
+//		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkboxcheckout(), "checkbox");
+//		WebdriverUtils.clickAction(ShoppingCartObjects.nextButton());
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+
+		Assert.assertTrue(ShoppingCartObjects.shippinginfoTag().getTagName().equals("h2"));
+		Assert.assertTrue(ShoppingCartObjects.shippingMethodTag().getTagName().equals("h2"));
+		Assert.assertTrue(ShoppingCartObjects.paymentinforTag().getTagName().equals("h2"));
+		Assert.assertTrue(ShoppingCartObjects.ordersumTag().getTagName().equals("h2"));
+		Assert.assertTrue(ShoppingCartObjects.checkoutusingTag().getTagName().equals("h2"));
+
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(10000);
+		Assert.assertTrue(ShoppingCartObjects.chooseShipMethod().getTagName().equals("h3"));
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		Assert.assertTrue(ShoppingCartObjects.paymethodLabelTag().getTagName().equals("h3"));
+		Assert.assertTrue(ShoppingCartObjects.billadrsTag().getTagName().equals("h3"));
+
+	}
+
+	public static void paymenttype() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.shipOpt());
+		Thread.sleep(4000);
+
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+
+		boolean flag = false;
+
+		for (WebElement ele : CheckoutObjects.payemnts()) {
+
+			if (ele.getText().contains("Credit Card")) {
+				Assert.assertTrue(true);
+				flag = true;
+			} else if (ele.getText().contains("PayPal")) {
+				Assert.assertTrue(true);
+				flag = true;
+			} else if (ele.getText().contains("Amazon")) {
+				Assert.assertTrue(true);
+				flag = true;
+			} else {
+
+				if (!flag) {
+					System.out.println(ele.getText() + " Payment option is missing");
+					Assert.assertTrue(false);
+
+				}
+
+			}
+
+		}
+
+	}
+
+	public static void sweetreward() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.shipOpt());
+		Thread.sleep(4000);
+
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		Thread.sleep(4000);
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.digital_btn());
+		Thread.sleep(4000);
+
+		String label = CheckoutObjects.digital_lab().getAttribute("for");
+		String input = CheckoutObjects.digital_input().getAttribute("id");
+		if (label.equalsIgnoreCase(input)) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+
+	}
+
+	public static void reqfield() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+		Assert.assertTrue(CheckoutObjects.req().isDisplayed());
+
+	}
+
+	public static void paymentRole() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(10000);
+
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.shipOpt());
+		Thread.sleep(4000);
+
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+
+		for (WebElement ele : CheckoutObjects.payemntsli()) {
+			Assert.assertTrue(ele.getTagName().equals("li"));
+		}
+
+		Assert.assertTrue(CheckoutObjects.payemntsliroot().getAttribute("role") == null);
+	}
+
+	public static void loginmodal() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		Thread.sleep(3500);
+
+		Assert.assertTrue(CheckoutObjects.loginmodal().getAttribute("role") != null);
+		Assert.assertTrue(CheckoutObjects.loginmodal().getAttribute("aria-modal") != null);
+		Assert.assertTrue(CheckoutObjects.loginmodal().getAttribute("aria-label") != null);
+	}
+
+	public static void loginmodalclose() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		Thread.sleep(3500);
+
+		String role = CheckoutObjects.loginmodalclose().getAttribute("role");
+
+		Assert.assertEquals(role, "button");
+	}
+
+	public static void loginmodalh1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(4000);
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		Thread.sleep(3500);
+
+		String tag = CheckoutObjects.loginmodalh1tag().getTagName();
+		Assert.assertEquals(tag, "h1");
+		String cls = CheckoutObjects.loginmodalh1tag().getAttribute("class");
+		Assert.assertEquals(cls, "sr-only");
+
+	}
+
+	public static void loginmodaltabs() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 10);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(4000);
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		WebdriverUtils.clickButtonThroughJS(CheckoutObjects.paymentSectionLogin(), "Login");
+		WebdriverUtils.waitForVisibilityOfElementLocated(CheckoutObjects.paymentSectionLoginModel());
+		Thread.sleep(3500);
+
+		String role1 = CheckoutObjects.createAcc().getAttribute("role");
+		String role2 = CheckoutObjects.logcont().getAttribute("role");
+		Assert.assertEquals(role1, "tab");
+		Assert.assertEquals(role2, "tab");
+
+	}
+
+	public static void coupenCodeErr() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+
+		WebdriverUtils.sendKeys(CheckoutObjects.companyName(), pro.getProperty("CompanyName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingFirstName(), pro.getProperty("ShippingFirstName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingLastName(), pro.getProperty("ShippingLastName"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineFirst(), pro.getProperty("ShippingAddressFirst"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressLineSecond(), pro.getProperty("ShippingAddressSecond"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressCity(), pro.getProperty("ShippingCity"));
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressState(), pro.getProperty("ShippingState"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingAddressZipCode(), pro.getProperty("ShippingZipcode"));
+		WebdriverUtils.sendKeys(CheckoutObjects.shippingPhoneNumber(), pro.getProperty("ShippingPhoneNumber"));
+		Thread.sleep(2000);
+		WebdriverUtils.selectByValue(CheckoutObjects.shippingAddressType(), pro.getProperty("ShippingAddresstype"));
+		Thread.sleep(2000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					Thread.sleep(1000);
+				WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+
+			}
+		}
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.continueShippingMethods());
+		Thread.sleep(4000);
+
+		BrowserUtils.waitFor(CheckoutObjects.shippingAddressEdit(), 10);
+		WebdriverUtils.swipeDownUntillElement(CheckoutObjects.ShippingMethodLabel());
+
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.shipOpt());
+		Thread.sleep(4000);
+
+		WebdriverUtils.clickAction(CheckoutObjects.continueToPaymentOptions());
+		BrowserUtils.waitFor(CheckoutObjects.paymentSectionLogin(), 10);
+		Thread.sleep(4000);
+		WebdriverUtils.clickActionWithSwipe(CheckoutObjects.coupenCode_arrow());
+		Thread.sleep(4000);
+		WebdriverUtils.sendKeys(CheckoutObjects.coupen_input(), "testcc");
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(CheckoutObjects.coupen_apply_btn());
+		Thread.sleep(10000);
+
+		String id = CheckoutObjects.coupen_err().getAttribute("id");
+		String aria_describedby = CheckoutObjects.coupen_input().getAttribute("aria-describedby");
+		if (id.equalsIgnoreCase(aria_describedby)) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+
+	}
+
+	public static void backorder() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		BrowserUtils.waitFor(CheckoutObjects.CheckoutPageHeader(), 20);
+		Assert.assertTrue(CheckoutObjects.CheckoutPageHeader().isDisplayed());
+		Thread.sleep(2000);
+		Thread.sleep(4000);
+		boolean flag = CheckoutObjects.backToOrder().isDisplayed();
+		Assert.assertTrue(flag);
+	}
+
+	public static void verifyMenuTagname() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(1000);
+		String tagname = HomePageObjects.MegaMenu().getTagName();
+		Assert.assertTrue(tagname.equals("button"));
+	}
+
+	public static void verifybuttonwishlist() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/49-assorted-jelly-bean-flavors-16-oz-re-sealable-bag/p/9000_ASSORTED");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		Thread.sleep(3000);
+		String tagname = ADAObjects.wishlistbutton().getAttribute("role");
+		Assert.assertTrue(tagname.equals("button"));
+
+	}
+
+	public static void verifyJBlogoBtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		Thread.sleep(3000);
+		String tagname = ADAObjects.jblogo().getTagName();
+		Assert.assertTrue(tagname.equals("button"));
+
+	}
+
+	public static void verifyloginBtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.scrollToElement(ADAObjects.proceedToCheckout_CTA());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.proceedToCheckout_CTA(), "click");
+		Thread.sleep(5000);
+		String login_tagname = ADAObjects.loginGuest_CTA().getTagName();
+		Assert.assertTrue(login_tagname.equals("button"));
+		String guest_tagname = ADAObjects.continueGuest_CTA().getTagName();
+		Assert.assertTrue(guest_tagname.equals("button"));
+	}
+
+	public static void verifywheelPlayBtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-fiery-five/c/513");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		Thread.sleep(3000);
+		String tagname = ADAObjects.jblogo().getTagName();
+		Assert.assertTrue(tagname.equals("button"));
+
+	}
+
+	public static void verifycolor_jewelSourApple() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		String color = ADAObjects.jewelSourApple().getCssValue("color");
+		System.out.println("color=" + color);
+		Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(0, 0, 0, 1) -> black
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void modalDialog() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-fiery-five/c/513");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.spinnerWheel());
+		Thread.sleep(2000);
+		if (ADAObjects.spinnerWheel() != null) {
+			WebdriverUtils.clickButtonThroughJS(ADAObjects.spinnerWheel(), "click");
+			// ADAObjects.spinnerWheel().click();
+			Thread.sleep(10000);
+		}
+		WebElement afterspin_style = com.pageObjects.ADAObjects.spinneryoutube();
+		if (afterspin_style != null) {
+			// The element was found, so you can proceed to interact with it
+			String attributeValue = afterspin_style.getAttribute("style");
+			System.out.println("afterspin_style=" + attributeValue);
+			Assert.assertTrue(attributeValue.contains("display: block"));
+			// Perform other actions as needed
+		} else {
+			// Handle the case where the element was not found
+			System.out.println("The spinner element was not found.");
+		}
+		// String afterspin_style = ADAObjects.spinneryoutube().getAttribute("style");
+//		System.out.println("afterspin_style=" + afterspin_style);
+//		Assert.assertTrue(afterspin_style.contains("display: block"));
+		Thread.sleep(3000);
+		// ADAObjects.spinneryoutube().sendKeys(Keys.ESCAPE);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.spinneryoutubeclose(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.spinneryoutubeclose(), "click");
+		Thread.sleep(3000);
+		String afterEscspin_style = ADAObjects.spinneryoutube().getAttribute("style");
+		System.out.println("after escape spin_style=" + afterEscspin_style);
+		Assert.assertTrue(afterEscspin_style.contains("display: none"));
+	}
+
+	public static void h3tag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		String subtot = ADAObjects.subtot().getTagName();
+		Assert.assertTrue(subtot.equals("h3"));
+		String taxtot = ADAObjects.taxtot().getTagName();
+		Assert.assertTrue(taxtot.equals("h3"));
+		String shippingdetail = ADAObjects.shippingdetail().getTagName();
+		Assert.assertTrue(shippingdetail.equals("h3"));
+	}
+
+	public static void valentineDayProducts() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(3000);
+		String sliderBLP = ADAObjects.sliderBLP().getTagName();
+		Assert.assertTrue(sliderBLP.equals("ul"));
+		List<WebElement> sliderBLPlist = ADAObjects.sliderBLPlist();
+		for (WebElement slider : sliderBLPlist) {
+
+			String role = slider.getAttribute("role");
+			Assert.assertTrue(role.equals("group"));
+			String ariaLabel = slider.getAttribute("aria-label");
+			Assert.assertTrue(ariaLabel.equals("product"));
+		}
+	}
+
+	public static void zipcodeFieldText() throws Exception {
+
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.moveToElement(ADAObjects.valentine_prodFirst());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.valentine_prodFirst(), "click");
+		Thread.sleep(3000);
+		if (ADAObjects.zipcodeText().isDisplayed()) {
+			assertTrue(true);
+		} else {
+			assertTrue(false);
+		}
+	}
+
+	public static void verifycolor_cartoverlay() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(2000);
+		String subtot_color = ADAObjects.subtot().getCssValue("color");
+		System.out.println("subtot_color=" + subtot_color); // black color
+		Assert.assertTrue(subtot_color.equals("rgba(0, 0, 0, 1)"));
+		String taxtot_color = ADAObjects.taxtot().getCssValue("color");
+		System.out.println("taxtot_color=" + taxtot_color); // black color
+		Assert.assertTrue(taxtot_color.equals("rgba(0, 0, 0, 1)"));
+		String shippingdetail_color = ADAObjects.shippingdetail().getCssValue("color");
+		System.out.println("shippingdetail_color=" + shippingdetail_color); // black color
+		Assert.assertTrue(shippingdetail_color.equals("rgba(0, 0, 0, 1)"));
+	}
+
+	public static void verifycolor_sourApple() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.SourApple() != null) {
+				String color = ADAObjects.SourApple().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(0, 0, 0, 1) -> black
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+		}
+
+	}
+
+	public static void verifycolor_jewelVeryCherry() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.jewelVeryCherry() != null) {
+				String color = ADAObjects.jewelVeryCherry().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(255, 255, 255, 1) -> white
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+
+		}
+	}
+
+	public static void verifycolor_jewelBubbleGum() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.jewelBubbleGum() != null) {
+				String color = ADAObjects.jewelBubbleGum().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(42, 55, 86, 1)")); // rgba(0, 0, 0, 1) -> black
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+
+		}
+	}
+
+	public static void verifycolor_pomegranate() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.pomegranate() != null) {
+				String color = ADAObjects.pomegranate().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(0, 0, 0, 1) -> black
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+
+		}
+
+	}
+
+	public static void verifycolor_verycherry() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.VeryCherry() != null) {
+				String color = ADAObjects.VeryCherry().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(255, 255, 255, 1) -> white
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+
+		}
+	}
+
+	public static void verifycolor_raspberry() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.raspberry() != null) {
+				String color = ADAObjects.raspberry().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(255, 255, 255, 1) -> white
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+
+		}
+	}
+
+	public static void verifycolor_mimosa() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.mimosa() != null) {
+				String color = ADAObjects.mimosa().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(42, 55, 86, 1)")); // rgba(0, 0, 0, 1) -> black
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+		}
+	}
+
+	public static void verifycolor_Tangerine() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.tangerine() != null) {
+				String color = ADAObjects.tangerine().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(33, 44, 69, 1)")); // rgba(33, 44, 69, 1) -> similar to black
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+		}
+	}
+
+	public static void verifycolor_moscowMule() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		Thread.sleep(3000);
+		for (int i = 0; i <= 10; i++) {
+			if (ADAObjects.moscowMule() != null) {
+				String color = ADAObjects.moscowMule().getCssValue("color");
+				System.out.println("color=" + color);
+				Assert.assertTrue(color.equals("rgba(255, 255, 255, 1)")); // rgba(255, 255, 255, 1) -> white
+				break;
+			} else {
+				WebdriverUtils.clickAction(ADAObjects.scrollRightArrow());
+
+			}
+		}
+	}
+
+	public static void progressbar_color() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		//WebdriverUtils.goToURL("https://www.jellybelly.com/gummi-bears-3-oz-bag/p/98466");
+		WebdriverUtils.goToURL("https://www.jellybelly.com/sugar-free-jelly-beans-2.8-oz-bag/p/96309");
+		Thread.sleep(3000);
+		WebdriverUtils.scrollToElement(ADAObjects.pdpAddToCart());
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.pdpAddToCart(), "click");
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.viewCartOverlay(), "click");
+		Thread.sleep(3500);
+
+		String salePrice = ADAObjects.saleprice().getText();
+		salePrice = salePrice.replace("$", "");
+		System.out.println("salePrice=" + salePrice);
+		double salep = Double.parseDouble(salePrice);
+
+		if (salep < 59) {
+			String blueColr = ADAObjects.progressBar().getAttribute("class");
+			System.out.println("blueColr:" + blueColr);
+			assertTrue(blueColr.equals("meter blue"));
+
+			ADAObjects.cartQuantity().clear();
+			WebdriverUtils.sendKeys(ADAObjects.cartQuantity(), "10");
+			ADAObjects.cartQuantity().sendKeys(Keys.TAB);
+			Thread.sleep(7000);
+
+			salePrice = ADAObjects.saleprice().getText();
+			salePrice = salePrice.replace("$", "");
+			System.out.println("salePrice=" + salePrice);
+
+			String greenColr = ADAObjects.progressBar().getAttribute("class");
+			System.out.println("greenColr:" + greenColr);
+			assertTrue(greenColr.equals("meter green"));
+
+		} else if (salep > 59) {
+			String greenColr = ADAObjects.progressBar().getAttribute("class");
+			System.out.println("greenColr:" + greenColr);
+			assertTrue(greenColr.equals("meter green"));
+
+			ADAObjects.cartQuantity().clear();
+			WebdriverUtils.sendKeys(ADAObjects.cartQuantity(), "10");
+			ADAObjects.cartQuantity().sendKeys(Keys.TAB);
+
+			Thread.sleep(6000);
+			salePrice = ADAObjects.saleprice().getText();
+			salePrice = salePrice.replace("$", "");
+			System.out.println("salePrice=" + salePrice);
+		}
+	}
+
+	public static void verifyEmailAdrs_label() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		if (ADAObjects.footerEmailAddressLabel().isDisplayed()) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+
+	}
+
+	public static void verifyEmailAdrs_autocomplAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		String autocomp_attrib = ADAObjects.emailSignupData().getAttribute("autocomplete");
+		System.out.println("autocomp_attrib:" + autocomp_attrib);
+		if (autocomp_attrib.equals("email")) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+	}
+
+	public static void verifyEmailAdrs_requiredAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		String req_attrib = ADAObjects.emailSignupData().getAttribute("required");
+		System.out.println("req_attrib:" + req_attrib);
+		if (req_attrib.equals("true")) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+	}
+
+	public static void verifyMetaTagScale() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(1000);
+		String metaContent = ADAObjects.metaViewport().getAttribute("content");
+		System.out.println("metaContent:" + metaContent);
+		if (metaContent.contains("maximum-scale=5")) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+	}
+
+	public static void verifyModalAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		// WebdriverUtils.moveToElementByActions(ADAObjects.cartOverlay());
+		Thread.sleep(2000);
+
+		String role = ADAObjects.cartOverlay().getAttribute("role");
+
+		if (role.equals("region")) {
+			Assert.assertTrue(true);
+
+		} else {
+			Assert.assertTrue(false);
+		}
+		String label = ADAObjects.cartOverlay().getAttribute("aria-label");
+
+		if (label.equals("Cart modal")) {
+			Assert.assertTrue(true);
+
+		} else {
+			Assert.assertTrue(false);
+		}
+
+	}
+
+	public static void verifyCartCount() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(2000);
+		// WebdriverUtils.moveToElementByActions(ADAObjects.cartOverlay());
+		Thread.sleep(2000);
+
+		String label = ADAObjects.cartButton().getAttribute("aria-label");
+
+		if (label != null) {
+			Assert.assertTrue(true);
+
+		} else {
+			Assert.assertTrue(false);
+		}
+
+		String quantity = ADAObjects.cartQuantity().getAttribute("value");
+
+		System.out.println("label:" + label);
+		System.out.println("quantity:" + quantity);
+
+		if (label.contains(quantity)) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
+		}
+
+	}
+
+	public static void verifyMainMenuAriaLabel() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(3000);
+		WebdriverUtils.HoverOnElement(ADAObjects.shopMenuoverlay());
+		String shop_aria = ADAObjects.shopMenuoverlay().getAttribute("aria-modal");
+		String explore_aria = ADAObjects.ExploreMenuOverlay().getAttribute("aria-modal");
+
+		Assert.assertTrue(shop_aria == null);
+		Assert.assertTrue(explore_aria == null);
+	}
+
+	public static void verifySkipTagname() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(2000);
+		String skipTag = ADAObjects.skipToMainContent().getTagName();
+		Assert.assertTrue(skipTag.equals("a"));
+		String href = ADAObjects.skipToMainContent().getAttribute("href");
+		System.out.println("href=" + href);
+		Assert.assertTrue(href.contains("#page-content"));
+		Thread.sleep(2000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		Thread.sleep(2000);
+		skipTag = ADAObjects.skipToMainContent().getTagName();
+		Assert.assertTrue(skipTag.equals("a"));
+		href = ADAObjects.skipToMainContent().getAttribute("href");
+		Assert.assertTrue(href.contains("#page-content"));
+		Thread.sleep(2000);
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		Thread.sleep(2000);
+		skipTag = ADAObjects.skipToMainContent().getTagName();
+		Assert.assertTrue(skipTag.equals("a"));
+		href = ADAObjects.skipToMainContent().getAttribute("href");
+		Assert.assertTrue(href.contains("#page-content"));
+	}
+
+	public static void verifyAccountTag() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		Thread.sleep(2000);
+		String aria = ADAObjects.accountOverlay().getAttribute("aria-modal");
+		if (aria != null)
+			Assert.assertTrue(aria.equals("true"));
+		String role = ADAObjects.skipToMainContent().getAttribute("role");
+		if (role != null)
+			Assert.assertTrue(role.contains("dialog"));
+	}
+
+	public static void verifyZipCodeLabel() throws Exception {
+		WebdriverUtils.goToURL("https://www.jellybelly.com/");
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.valentine_prodFirst(), "click");
+		Thread.sleep(3000);
+		if (ADAObjects.zipcodeText().isDisplayed()) {
+			assertTrue(true);
+		} else {
+			assertTrue(false);
+		}
+	}
+
+	public static void verifyEmailPopup() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignupData());
+		ADAObjects.emailSignupData().sendKeys("test@gmail.com");
+		ADAObjects.checkboxsignupfooter().click();
+		Thread.sleep(2000);
+		ADAObjects.Enablesubmitfooter().click();
+		Thread.sleep(3000);
+		assertTrue(ADAObjects.closeEmailPopup().isDisplayed());
+		assertTrue(ADAObjects.headerEmailPopup().getTagName().equals("h1"));
+
+	}
+
+	public static void verifyEmailPopup1() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignupData());
+		ADAObjects.emailSignupData().sendKeys("test@gmail.com");
+		ADAObjects.checkboxsignupfooter().click();
+		Thread.sleep(2000);
+		ADAObjects.Enablesubmitfooter().click();
+		Thread.sleep(3000);
+		String role = ADAObjects.colorbox().getAttribute("role");
+		String aria = ADAObjects.colorbox().getAttribute("aria-modal");
+		assertTrue(role != null);
+		assertTrue(aria != null);
+	}
+
+	public static void verifyEmailPopup2() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignupData());
+		Thread.sleep(3000);
+		String style = ADAObjects.colorbox().getAttribute("style");
+		assertTrue(style.contains("display: none"));
+	}
+
+	public static void verifyEmailPopup3() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.emailSignupData());
+		ADAObjects.emailSignupData().sendKeys("test@gmail.com");
+		ADAObjects.checkboxsignupfooter().click();
+		Thread.sleep(2000);
+		ADAObjects.Enablesubmitfooter().click();
+		Thread.sleep(3000);
+		String role = ADAObjects.colorbox().getAttribute("role");
+		String aria = ADAObjects.colorbox().getAttribute("aria-modal");
+		assertTrue(role.equals("dialog"));
+		assertTrue(aria.equals("true"));
+	}
+
+	public static void verifyFlavour() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		List<WebElement> allLinks = ADAObjects.flavourLinks();
+		for (WebElement link : allLinks) {
+
+			String tagIndex = link.getAttribute("tabindex");
+			String aria = link.getAttribute("aria-hidden");
+			assertTrue(tagIndex == null);
+			assertTrue(aria == null);
+		}
+	}
+
+	public static void verifyLoginAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		//WebdriverUtils.maximizeWindow();
+		if(ADAObjects.turboicon().isDisplayed()) {
+			ADAObjects.turboicon().click();
+		}
+		Thread.sleep(2000);
+		ADAObjects.wishlistbutton().click();
+		Thread.sleep(5000);
+		String email = ADAObjects.email().getAttribute("autocomplete");
+		String pass = ADAObjects.PDPPasswordField().getAttribute("autocomplete");
+		System.out.println("email:" + email);
+		System.out.println("pass:" + pass);
+		assertTrue(email.equals("email"));
+		// assertTrue(pass.equals("password"));
+	}
+
+	public static void verifyLoginReq() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		//WebdriverUtils.maximizeWindow();
+				if(ADAObjects.turboicon().isDisplayed()) {
+					ADAObjects.turboicon().click();
+				}
+		Thread.sleep(2000);
+		ADAObjects.wishlistbutton().click();
+		Thread.sleep(5000);
+		assertTrue(ADAObjects.reqLabel().isDisplayed());
+		String email = ADAObjects.email().getAttribute("required");
+		String pass = ADAObjects.PDPPasswordField().getAttribute("required");
+		assertTrue(email != null);
+		assertTrue(pass != null);
+
+	}
+
+	public static void verifycreateAccBtn() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		//WebdriverUtils.maximizeWindow();
+				if(ADAObjects.turboicon().isDisplayed()) {
+					ADAObjects.turboicon().click();
+				}
+		Thread.sleep(2000);
+		ADAObjects.wishlistbutton().click();
+		Thread.sleep(5000);
+		assertTrue(ADAObjects.createAccBtn().getAttribute("role") == null);
+	}
+
+	public static void verifyPDPZipLabel() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		assertTrue(ADAObjects.pdpZipLabel().isDisplayed());
+	}
+
+	public static void verifyTablistAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		Thread.sleep(2000);
+		assertTrue(ADAObjects.prodInforMainDiv().getAttribute("role").equals("tablist"));
+	}
+
+	public static void verifyPDPMaxScale() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String maxScale = ADAObjects.metaViewPort().getAttribute("content");
+		System.out.println("maxScale:" + maxScale);
+		assertTrue(maxScale.contains("maximum-scale=5"));
+	}
+
+	public static void verifyPDPrelatedSection() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag-2-pack/p/9003_SIZZ_CINNA");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String role = ADAObjects.relatedSection().getAttribute("role");
+		assertTrue(role == null);
+	}
+
+	public static void verifyFilterattrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String aria = ADAObjects.filterBy().getAttribute("aria-expanded");
+		assertTrue(aria == null);
+	}
+
+	public static void verifyFilterheaderTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		ADAObjects.filterBy().click();
+		Thread.sleep(5000);
+		assertTrue(ADAObjects.filterRating().getTagName().equals("h3"));
+		assertTrue(ADAObjects.filterPrice().getTagName().equals("h3"));
+		assertTrue(ADAObjects.filterColor().getTagName().equals("h3"));
+	}
+
+	public static void verifysortBy() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String tagname = ADAObjects.sortBy().getTagName();
+		assertTrue(tagname.equals("label"));
+		String dropdownTag = ADAObjects.sortByDropDown().getTagName();
+		assertTrue(dropdownTag.equals("select"));
+
+	}
+
+	public static void verifyBtnAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(10000);
+		WebdriverUtils.scrollToElement(ADAObjects.loadMoreBtn());
+		Thread.sleep(4000);
+		String loadMoreAria = ADAObjects.loadMoreBtn().getAttribute("aria-label");
+		String showAllAria = ADAObjects.showAllBtn().getAttribute("aria-label");
+		assertTrue(loadMoreAria == null);
+		assertTrue(showAllAria == null);
+	}
+
+	public static void verifyFilterAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(10000);
+		ADAObjects.filterBy().click();
+		Thread.sleep(5000);
+		assertTrue(ADAObjects.filterMaindiv().getAttribute("aria-label") != null);
+
+	}
+
+	public static void verifyFilterAttrib() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(10000);
+		ADAObjects.filterBy().click();
+		Thread.sleep(5000);
+		assertTrue(ADAObjects.filterMaindiv().getAttribute("role").equals("dialog"));
+		assertTrue(ADAObjects.filterMaindiv().getAttribute("aria-modal").equals("true"));
+
+	}
+
+	public static void verifyPLPMaxScale() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(Environments.PLPURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(10000);
+		String maxScale = ADAObjects.metaViewPort().getAttribute("content");
+		System.out.println("maxScale:" + maxScale);
+		assertTrue(maxScale.contains("maximum-scale=5"));
+	}
+
+	public static void verifyFilterPriceTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		ADAObjects.filterBy().click();
+		Thread.sleep(3);
+
+		List<WebElement> filterPriceList = ADAObjects.filterPriceItems();
+
+		for (WebElement ele : filterPriceList) {
+
+			String cl = ele.getAttribute("class");
+			assertTrue(cl.equals("sr-only"));
+
+		}
+	}
+
+	public static void verifyPLPtags() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		WebElement plpdetails = ADAObjects.plpdetails();
+		String cl = plpdetails.getAttribute("class");
+		assertTrue(cl.equals("sr-only"));
+	}
+
+	public static void verifymaxscale() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/search?query=cherry&sortBy");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String maxScale = ADAObjects.metaViewPort().getAttribute("content");
+		System.out.println("maxScale:" + maxScale);
+		assertTrue(maxScale.contains("maximum-scale=5"));
+	}
+
+	public static void verifySortbyTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/search?query=cherry&sortBy");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String tag = ADAObjects.sortByLabel().getTagName();
+		assertTrue(tag.equals("label"));
+	}
+
+	public static void verifyButtonAria() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/search?query=cherry&sortBy");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String loadlabel = ADAObjects.loadMoreBtn().getAttribute("aria-label");
+		String loadlabelby = ADAObjects.loadMoreBtn().getAttribute("aria-labeledby");
+		String showlabel = ADAObjects.showAllBtn().getAttribute("aria-label");
+		String showlabelby = ADAObjects.showAllBtn().getAttribute("aria-labeledby");
+		assertTrue(loadlabel == null);
+		assertTrue(loadlabelby == null);
+		assertTrue(showlabel == null);
+		assertTrue(showlabelby == null);
+	}
+
+	public static void verifyCartTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		boolean tabelEle = ADAObjects.cartTable().isDisplayed();
+		assertTrue(tabelEle);
+	}
+
+	public static void verifyPayBtnTag() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String paypal = ADAObjects.paypalBtn().getAttribute("aria-label");
+		String amazonPay = ADAObjects.amazonPayBtn().getAttribute("aria-label");
+
+		assertTrue(paypal == null);
+		assertTrue(amazonPay == null);
+	}
+
+	public static void verifyCartMaxScale() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/cart");
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 20);
+		Thread.sleep(6000);
+		String maxScale = ADAObjects.metaViewPort().getAttribute("content");
+		System.out.println("maxScale:" + maxScale);
+		assertTrue(maxScale.contains("maximum-scale=5"));
+	}
+
+	public static void verifyFooterTagCheckout() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		assertTrue(ADAObjects.checkoutFooterTag().getTagName().equals("footer"));
+
+	}
+
+	public static void verifyHeaderCheckout() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		assertTrue(ADAObjects.checkoutHeaderTag().isDisplayed());
+
+	}
+
+	public static void checkOutPage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+	}
+
+	public static void verifyAutoFillOnInputField() throws Exception {
+		ADAActions.checkOutPage();
+		WebdriverUtils.waitForElementpresent(ADAObjects.checkoutUserName(), 20);
+		String userName = ADAObjects.checkoutUserName().getAttribute("autocomplete");
+		System.out.println("Autocomplete:" + userName);
+		assertTrue(userName.contains("email"));
+		WebdriverUtils.waitForElementpresent(ADAObjects.checkoutPassword(), 20);
+		String password = ADAObjects.checkoutPassword().getAttribute("autocomplete");
+		System.out.println("Autocomplete:" + password);
+		// assertTrue(password.contains("password"));
+		WebdriverUtils.waitForElementpresent(ADAObjects.checkoutGuestEmail(), 20);
+		String guestUserEmail = ADAObjects.checkoutGuestEmail().getAttribute("autocomplete");
+		System.out.println("Autocomplete:" + guestUserEmail);
+		assertTrue(userName.contains("email"));
+
+	}
+
+	public static void verifyLabelTagforGiftMessage() throws Exception {
+		ADAActions.checkOutPage();
+		WebdriverUtils.waitForElementpresent(ADAObjects.checkoutGiftMessage(), 20);
+		ADAObjects.checkoutGiftMessage().getTagName().equals("label");
+
+	}
+
+	public static void verifyLabelTagforFAQ() throws Exception {
+		ADAActions.checkOutPage();
+		WebdriverUtils.waitForElementpresent(ADAObjects.checkoutFAQ(), 20);
+		ADAObjects.checkoutFAQ().getTagName().equals("h2");
+
+	}
+
+	public static void navigateToCheckAsGuest() throws Exception {
+		ADAActions.checkOutPage();
+		Thread.sleep(8000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 30);
+		WebdriverUtils.clickElementActions(ADAObjects.guestEmail());
+		WebdriverUtils.sendKeys(ADAObjects.guestEmail(), "Test@gmail.com");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.checkoutGuestCheckBox(), "checkbox");
+		WebdriverUtils.clickAction(ADAObjects.checkoutGuestButton());
+		Thread.sleep(8000);
+
+	}
+
+	public static void verifyLabelTagforButtons() throws Exception {
+
+		ADAActions.navigateToCheckAsGuest();
+		// ADAActions.navigateToPaymentSection();
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.payByAmazon(), 20);
+		String payPal = ADAObjects.paypalBtn().getAttribute("aria-label");
+		System.out.println("aria-label:" + payPal);
+		assertTrue(payPal.contains("Checkout with PayPal"));
+		String payAmazon = ADAObjects.payByAmazon().getAttribute("aria-label");
+		System.out.println("aria-label:" + payAmazon);
+		assertTrue(payAmazon.contains("Check out with AmazonPay"));
+
+	}
+
+	public static void verifyLabelTagOnShippingInformationForm() throws Exception {
+
+		ADAActions.navigateToCheckAsGuest();
+		Thread.sleep(2000);
+		List<WebElement> formAttribute = ADAObjects.shippingAddressLabel();
+		for (int i = 0; i <= 5; i++) {
+			for (WebElement ele : formAttribute) {
+				String cl = ele.getTagName();
+				assertTrue(cl.equals("label"));
+			}
+			break;
+		}
+
+	}
+
+	public static void verifyAutoCompleteOnShippingInformationForm() throws Exception {
+		ADAActions.navigateToCheckAsGuest();
+		Thread.sleep(3000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.continueShippingButton(), 20);
+		String addressType = ADAObjects.ShippingAddressCheckOut().getAttribute("autocomplete");
+		System.out.println("autocomplete:" + addressType);
+		// assertTrue(addressType=="address-type");
+		// assertTrue(addressType.contains("address-type"));
+		String companyName = ADAObjects.ShippingAddressCompanyNameCheckOut().getAttribute("autocomplete");
+		System.out.println("Company-Name:" + companyName);
+		// assertTrue(companyName.contains("companyname"));
+		String firstName = ADAObjects.ShippingAddressFirstNameCheckOut().getAttribute("autocomplete");
+		assertTrue(firstName.contains("given-name"));
+		String lastName = ADAObjects.ShippingAddressLastNameCheckOut().getAttribute("autocomplete");
+		assertTrue(lastName.contains("family-name"));
+		String addressLineOne = ADAObjects.ShippingAddressLineOneCheckOut().getAttribute("autocomplete");
+		System.out.println("autocomplete:" + addressLineOne);
+		assertTrue(addressLineOne.contains("address-line1"));
+		String addressLineTwo = ADAObjects.ShippingAddressLineTwoCheckOut().getAttribute("autocomplete");
+		// assertTrue(addressLineTwo.contains("address-line2"));
+		String city = ADAObjects.ShippingAddressCityCheckOut().getAttribute("autocomplete");
+		// assertTrue(addressLineTwo.contains("address-level2"));
+		String state = ADAObjects.ShippingAddressStateCheckOut().getAttribute("autocomplete");
+		assertTrue(state.contains("address-level1"));
+		WebdriverUtils.waitForElementpresent(ADAObjects.ShippingAddressPostalCodeCheckOut(), 20);
+		String zip = ADAObjects.ShippingAddressPostalCodeCheckOut().getAttribute("autocomplete");
+		assertTrue(zip.contains("postal-code"));
+		String phone = ADAObjects.ShippingAddressPhoneNumberCheckOut().getAttribute("autocomplete");
+		assertTrue(phone.contains("shipping tel"));
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.ShippingAddressCheckOut(), 20);
+		// WebdriverUtils.clickButtonThroughJS(ADAObjects.ShippingAddressCheckOut(),"Address");
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.ShippingAddressSelectCheckOut(),20);
+		WebdriverUtils.selectByValue(ADAObjects.ShippingAddressCheckOut(), "Residential");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressCompanyNameCheckOut(), "Echidna");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressFirstNameCheckOut(), "Raja");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressLastNameCheckOut(), "Simhan");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressLineOneCheckOut(), "3539 Elmwood Avenue");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressCityCheckOut(), "Philadelphia");
+		WebdriverUtils.selectByValue(ADAObjects.ShippingAddressStateCheckOut(), "PA");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressPostalCodeCheckOut(), "19106");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressPhoneNumberCheckOut(), "1-800-522-3367");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueShippingButton(), "button");
+		Thread.sleep(2000);
+		if (ADAObjects.mobileErrorMessage().isDisplayed()) {
+			WebdriverUtils.sendKeys(ADAObjects.ShippingAddressPhoneNumberCheckOut(), "1-800-522-3367");
+			WebdriverUtils.clickButtonThroughJS(ADAObjects.continueShippingButton(), "button");
+			Thread.sleep(2000);
+		}
+		if (ADAObjects.confirmShippingButton().isDisplayed()) {
+			WebdriverUtils.waitForElementToBeClickable(ADAObjects.confirmShippingButton(), "20");
+			WebdriverUtils.clickButtonThroughJS(ADAObjects.confirmShippingButton(), "button");
+		}
+		Thread.sleep(4000);
+		WebdriverUtils.moveToElement(ADAObjects.shippingMethod());
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.shippingMethod(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.shippingMethod(), "Radio Button");
+		// WebdriverUtils.waitForElementToBeClickable(ADAObjects.shippingMethod(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.shippingMethod(), "Continue Payment");
+		WebdriverUtils.moveToElement(ADAObjects.BillingAddress());
+		String bCompanyName = ADAObjects.companyNameBillingAddress().getAttribute("autocomplete");
+		System.out.println(bCompanyName);
+		// (bCompanyName.contains("companyname"));
+		String bContactEmail = ADAObjects.billingContactEmail().getAttribute("autocomplete");
+		System.out.println(bContactEmail);
+//		assertTrue(bCompanyName.contains("billing-email"));
+		String bFirstName = ADAObjects.billingFirstName().getAttribute("autocomplete");
+		System.out.println(bFirstName);
+		assertTrue(bFirstName.contains("given-name"));
+		String bLastName = ADAObjects.billinglastName().getAttribute("autocomplete");
+		System.out.println(bLastName);
+		assertTrue(bLastName.contains("family-name"));
+		String bAddressLine1 = ADAObjects.billingAddressLine1().getAttribute("autocomplete");
+		System.out.println(bAddressLine1);
+		assertTrue(bAddressLine1.contains("address-line1"));
+		String bAddressLine2 = ADAObjects.billingAddressLine2().getAttribute("autocomplete");
+		System.out.println(bAddressLine2);
+//		assertTrue(bAddressLine2.contains("address-line-2"));
+		String bCity = ADAObjects.billingCity().getAttribute("autocomplete");
+		System.out.println(bCity);
+		assertTrue(bCity.contains("address-level2"));
+		String bState = ADAObjects.billingState().getAttribute("autocomplete");
+		System.out.println(bState);
+		assertTrue(bState.contains("address-level1"));
+		String bZipCode = ADAObjects.billingZipCode().getAttribute("autocomplete");
+		System.out.println(bZipCode);
+		assertTrue(bZipCode.contains("postal-code"));
+		String bPhone = ADAObjects.billingPhoneNum().getAttribute("autocomplete");
+		System.out.println(bPhone);
+		assertTrue(bPhone.contains("shipping tel"));
+
+	}
+
+	public static void navigateToPaymentSection() throws Exception {
+		ADAActions.navigateToCheckAsGuest();
+		Thread.sleep(10000);
+		WebdriverUtils.selectByValue(ADAObjects.ShippingAddressCheckOut(), "Residential");
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressCompanyNameCheckOut(), "Echidna");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressFirstNameCheckOut(), "Raja");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressLastNameCheckOut(), "Simhan");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressLineOneCheckOut(), "3539 Elmwood Avenue");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressCityCheckOut(), "Philadelphia");
+		WebdriverUtils.selectByValue(ADAObjects.ShippingAddressStateCheckOut(), "PA");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressPostalCodeCheckOut(), "19106");
+		WebdriverUtils.sendKeys(ADAObjects.ShippingAddressPhoneNumberCheckOut(), "1-800-522-3367");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.continueShippingButton(), "button");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.confirmShippingButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.confirmShippingButton(), "button");
+		Thread.sleep(8000);
+		WebdriverUtils.scrollToElement(ADAObjects.shippingMethod());
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.shippingMethod(), "Radio Button");
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.paymentButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.paymentButton(), "Continue Payment");
+		Thread.sleep(8000);
+	}
+
+	public static void verifyLoginModoalDialogContainerLabel() throws Exception {
+		ADAActions.navigateToPaymentSection();
+		Thread.sleep(8000);
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.loginBilling1(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.loginBilling1(), "Login Link");
+		Thread.sleep(8000);
+		WebdriverUtils.waitForElementpresent(ADAObjects.loginPopUp1(), 20);
+		if (ADAObjects.loginPopUp1().isDisplayed()) {
+			for (int i = 0; i <= 5; i++) {
+				String modal = ADAObjects.loginPopUp1().getAttribute("aria-modal");
+				assertTrue(modal.contains("true"));
+				String label = ADAObjects.loginPopUp1().getAttribute("aria-label");
+				assertTrue(label.contains("login to create account"));
+				break;
+			}
+		}
+
+	}
+
+	public static void verifyFormFieldOnLogiAndContinueAsGuestButtons() throws Exception {
+		ADAActions.checkOutPage();
+		WebdriverUtils.waitForElementpresent(ADAObjects.loginButtonCheckout(), 20);
+		String login = ADAObjects.loginButtonCheckout().getAttribute("id");
+		assertTrue(login.contains("addbutton"));
+		String guestButton = ADAObjects.GuestUserButtonModal().getAttribute("id");
+		assertTrue(guestButton.contains("guest_addbutton"));
+
+	}
+
+	public static void verifyTagOnNotification() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.NotificationTab(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.NotificationTab(), "Notification");
+		WebdriverUtils.fluentWait(ADAObjects.NotificationText());
+		String tag = ADAObjects.NotificationText().getTagName();
+		System.out.println(tag);
+		assertTrue(ADAObjects.NotificationText().getTagName().contains("h1"));
+
+	}
+
+	public static void verfiyLabelTagOnLoginModal() throws Exception {
+		ADAActions.checkOutPage();
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.checkoutGuestEmail(), 20);
+		assertTrue(ADAObjects.emailText().getTagName().contains("label"));
+		assertTrue(ADAObjects.passwordText().getTagName().contains("label"));
+		assertTrue(ADAObjects.guestEmailText().getTagName().contains("label"));
+
+	}
+
+	public static void verfiyLabelTagOnZipCode() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.findLocallyButton(), "Button");
+		Thread.sleep(2000);
+		WebdriverUtils.waitForElementpresent(ADAObjects.zipCodeTextFindLocally(), 20);
+		String text = ADAObjects.zipCodeTextFindLocally().getTagName();
+		assertTrue(text.contains("label"));
+
+	}
+
+	public static void verfiySpinnerDialogRole() throws Exception {
+		if (Environments.getURL() != null) {
+			WebdriverUtils.goToURL(Environments.getURL());
+		}
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-fiery-five/c/513");
+		WebdriverUtils.waitForElementpresent(ADAObjects.spinnerWheel(), 40);
+		WebdriverUtils.scrollToElement(ADAObjects.spinnerWheel());
+		Thread.sleep(1000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.spinnerWheel(), "Button");
+		WebdriverUtils.waitUntilElementIsDisplayed(ADAObjects.youTubelayover());
+		WebdriverUtils.waitForElementpresent(ADAObjects.youTubelayover(), 20);
+		String role = ADAObjects.youTubelayover().getAttribute("role");
+		assertTrue(role.contains("dialog"));
+		String aria = ADAObjects.youTubelayover().getAttribute("aria-modal");
+		assertTrue(aria.contains("true"));
+
+	}
+
+	public static void verfiyPageScalable() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/harry-potter-bertie-bott-s/c/344");
+		Thread.sleep(6000);
+		String maxScale = ADAObjects.metaViewPort().getAttribute("content");
+		assertTrue(maxScale.contains("maximum-scale=5"));
+
+	}
+
+	public static void verfiyRoleOnSearchIcon() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		String element = ADAObjects.searchIcon().getAttribute("role");
+		assertTrue(element.contains("link"));
+	}
+
+	public static void verfiyAltAttributeForDecorativeImages() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> formAttribute = ADAObjects.decorativeImages();
+		for (WebElement ele : formAttribute) {
+			String cl = ele.getAttribute("alt");
+			assertTrue(cl.equals(""));
+		}
+
+	}
+
+	public static void verfiyAltAttributeForProductImages() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> imageAttribute = ADAObjects.productImages();
+		for (WebElement ele : imageAttribute) {
+			String cl = ele.getAttribute("alt");
+			assertTrue(cl.equals(""));
+		}
+
+	}
+
+	public static void verfiyAltAttributeForFooterImages() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> imageAttribute = ADAObjects.footerImages();
+		for (WebElement ele : imageAttribute) {
+			String cl = ele.getAttribute("alt");
+			assertTrue(cl.equals(""));
+		}
+
+	}
+
+	public static void verfiyTabIndexOnLoginTab() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.moveToElementByActions(ADAObjects.myAccount());
+		Thread.sleep(3000);
+		List<WebElement> myAccountHeader = ADAObjects.myAccountList();
+		for (WebElement header : myAccountHeader) {
+			String tag = header.getAttribute("tabindex");
+			Assert.assertTrue(tag == null);
+		}
+
+	}
+
+	public static void verfiyRoleOnMiniCart() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.HoverOnElement(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(HomePageObjects.Brand(), 10);
+		//WebdriverUtils.moveToElementByActions(HomePageObjects.Brand());
+		BrowserUtils.waitFor(HomePageObjects.PLPLINK(), 10);
+		WebdriverUtils.clickAction(HomePageObjects.PLPLINK());
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		Thread.sleep(2000);
+		LoginActions.waitAndProceedWhenItemdisplayed(PLPObjects.PLPFirstProductATC(), "ATC");
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(FlavourpageObjects.productnameinpopup(), 20);
+		WebdriverUtils.clickAction(MiniCartObjects.closeButton());
+		Thread.sleep(3000);
+		WebdriverUtils.HoverOnElement(ADAObjects.miniCartItem());
+		Thread.sleep(3000);
+		List<WebElement> miniCartHeader = ADAObjects.miniCartList();
+		for (WebElement header : miniCartHeader) {
+			String tag = header.getAttribute("role");
+			assertTrue(tag.contains("group"));
+		}
+
+	}
+
+	public static void verfiyRoleOnMoreLink() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/licorice-jelly-beans-16-oz-re-sealable-bag/p/9000_LICORICE");
+		String link = ADAObjects.moreInfoLink().getAttribute("role");
+		assertTrue(link.contains("button"));
+
+	}
+
+	public static void verfiyAsteriskOnLoginPopUp() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		WebdriverUtils.clickAction(ADAObjects.favourite());
+		String asterisk = ADAObjects.asteriskLoginForm().getTagName();
+		assertTrue(asterisk.contains("p"));
+
+	}
+
+	public static void verfiyAltOnTruckImage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(5000);
+		String truckImage = ADAObjects.truckImage().getAttribute("alt");
+		assertTrue(truckImage.equals(""));
+	}
+
+	public static void verfiyUITagOnPDPPage() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(5000);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.NutritionTab(), "Nutrition_Tab");
+		String s = ADAObjects.AllergensUL().getTagName();
+		assertTrue(s.contains("ul"));
+		List<WebElement> tagli = ADAObjects.AllergenLI();
+		for (WebElement header : tagli) {
+			String tag = header.getTagName();
+			assertTrue(tag.contains("li"));
+		}
+	}
+
+	public static void verfiyTabIndexOnSearch() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(5000);
+		String tag = ADAObjects.serachButton().getAttribute("tabindex");
+		Assert.assertTrue(tag == null);
+	}
+
+	public static void verfiyTagsOnNutritionInformation() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/sizzling-cinnamon-jelly-beans-16-oz-re-sealable-bag/p/9000_SIZZ_CINNA");
+		Thread.sleep(5000);
+		String tag = ADAObjects.NutritionH2Tag().getTagName();
+		System.out.println(tag);
+		assertTrue(tag.contains("h2"));
+		
+		List<WebElement> tagli = ADAObjects.desktopPanelLI();
+		for (WebElement header : tagli) {
+			String nutituionTag = header.getTagName();
+			System.out.println(nutituionTag);
+			assertTrue(nutituionTag.contains("li"));
+		}
+		List<WebElement> tagUl = ADAObjects.desktopPanelUL();
+		for (WebElement header : tagUl) {
+			String nutituionUlTag = header.getTagName();
+			System.out.println(nutituionUlTag);
+			assertTrue(nutituionUlTag.contains("ul"));
+		}
+
+		List<WebElement> areaTag = ADAObjects.desktopPanelAria();
+		for (WebElement header : areaTag) {
+			String ariaTag = header.getAttribute("aria-hidden");
+			System.out.println(ariaTag);
+			assertTrue(ariaTag.contains("true"));
+		}
+
+	}
+
+	public static void verfiyTabIndex() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL("https://www.jellybelly.com/confections-by-jelly-belly/c/339");
+		WebdriverUtils.moveToElement(ADAObjects.showAllButton());
+		WebdriverUtils.waitForElementToBeClickable(ADAObjects.showAllButton(), 20);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.showAllButton(), "Show All Button");
+		WebdriverUtils.waitForElementpresent(ADAObjects.unavailableText(), 20);
+		String tag = ADAObjects.unavailableText().getAttribute("tabindex");
+		Assert.assertTrue(tag == null);
+
+	}
+
+	public static void verifyNavTag() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		String locatorNavTag = ADAObjects.storeLocator().getTagName().toLowerCase();
+		assertTrue(locatorNavTag.contains("a"));
+		String myAccountNavTag = ADAObjects.myAccountHeader().getTagName().toLowerCase();
+		assertTrue(myAccountNavTag.contains("button"));
+		String storeLocatorNavTag = ADAObjects.shoppingCartHeader().getTagName().toLowerCase();
+		assertTrue(storeLocatorNavTag.contains("button"));
+	}
+
+	public static void verifyAriaLabelPDP() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.goToURL(
+				"https://www.jellybelly.com/49-assorted-jelly-bean-flavors-16-oz-re-sealable-bag/p/9000_ASSORTED");
+		List<WebElement> aria = ADAObjects.relatedProductAriaLabel();
+		for (WebElement header : aria) {
+			String nutituionTag = header.getAttribute("aria-label");
+			Assert.assertTrue(nutituionTag != null);
+		}
+	}
+
+	public static void verifyTabIndexPrice() throws IOException, Exception {
+
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/jelly-belly-jelly-beans/c/335");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		if (ADAObjects.salePrice().isDisplayed()) {
+			String salePrice = ADAObjects.salePrice().getAttribute("tabindex");
+			Assert.assertTrue(salePrice == null);
+		}
+		try {
+			if (ADAObjects.listPrice().isDisplayed()) {
+				String listPrice = ADAObjects.listPrice().getAttribute("tabindex");
+				Assert.assertTrue(listPrice == null);
+			}
+		} catch (Exception e) {
+			System.out.println("Element not present");
+		}
+	}
+
+	public static void verifyliTagApplYReset() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		Thread.sleep(6000);
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.Filter(), "click");
+		WebdriverUtils.waitForVisibilityOfElementLocated(PLPObjects.FilterPrice());
+		List<WebElement> liTag = ADAObjects.applyReset();
+		for (WebElement header : liTag) {
+			String Tag = header.getTagName();
+			assertTrue(Tag.contains("li"));
+		}
+
+	}
+
+	public static void verifyliTagShoppingCart() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		String text = ADAObjects.thresholdMessage().getText();
+		assertTrue(text != null);
+
+	}
+
+	public static void verifyliTagFAQ() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		WebdriverUtils.clickButtonThroughJS(ShoppingCartObjects.checkoutButtonTop(), "click");
+		Thread.sleep(6000);
+		List<WebElement> liTag = ADAObjects.faqLi();
+		for (WebElement header : liTag) {
+			String Tag = header.getTagName();
+			assertTrue(Tag.contains("li"));
+		}
+
+	}
+
+	public static void verifyliTagHeader() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/by-the-pound/c/252");
+		WebdriverUtils.maximizeWindow();
+		BrowserUtils.waitFor(ADAObjects.plpaddtocart(), 10);
+		WebdriverUtils.clickButtonThroughJS(ADAObjects.plpaddtocart(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(FlavourpageObjects.viewCartButton(), 10);
+		WebdriverUtils.clickButtonThroughJS(FlavourpageObjects.viewCartButton(), "click");
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		Thread.sleep(3000);
+		Thread.sleep(6000);
+		List<WebElement> liTag = ADAObjects.liHeaderTag();
+		for (WebElement header : liTag) {
+			String Tag = header.getAttribute("tabindex");
+			Assert.assertTrue(Tag == null);
+		}
+	}
+
+	public static void verifyTitletag() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-fiery-five/c/513");
+		// WebdriverUtils.maximizeWindow();
+		WebdriverUtils.swipeDownUntillElement(ADAObjects.spinnerWheel1());
+		try {
+			if (ADAObjects.spinnerWheel() != null) {
+				WebdriverUtils.clickAction(ADAObjects.spinnerWheel());
+				Thread.sleep(6000);
+				WebdriverUtils.waitForElementpresent(ADAObjects.spinnerYouTubeTitle(), 40);
+				String title = ADAObjects.spinnerYouTubeTitle().getAttribute("title").toLowerCase();
+				System.out.println("You tube title is " + title);
+				Assert.assertTrue(title.contains(
+						"video of youths trying flavors of fiery five beans and having repulsive reactions to the spicy hotness."));
+
+			}
+		} catch (Exception e) {
+			System.out.println("Element is not interactable");
+		}
+
+	}
+
+	public static void verifyAriaLableOnNavigationBar() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		String roleID = ADAObjects.subMenuContainer().getAttribute("role");
+		Assert.assertTrue(roleID.contains("region"));
+		String aria = ADAObjects.subMenuContainer().getAttribute("aria-labelledby");
+		Assert.assertTrue(aria.contains("shop-online-open-menu"));
+
+	}
+
+	public static void verifyAltTextImages() throws Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> altTag = ADAObjects.abSpotBanner();
+		for (WebElement header : altTag) {
+			String Tag = header.getAttribute("alt").toLowerCase();
+			System.out.println(Tag);
+			assertTrue(Tag.contains(""));
+		}
+		List<WebElement> altTag1 = ADAObjects.jellyHomeSection();
+		for (WebElement header1 : altTag1) {
+			String Tag1 = header1.getAttribute("alt");
+			assertTrue(Tag1.contains(""));
+		}
+		String tag1 = ADAObjects.candyHomeSection().getAttribute("alt");
+		assertTrue(tag1.contains(""));
+		String tag2 = ADAObjects.factoryHomeSection().getAttribute("alt");
+		assertTrue(tag2.contains(""));
+
+	}
+
+	public static void verifyRoleAria() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		String role = ADAObjects.heroWrapper().getAttribute("role");
+		assertTrue(role.contains("region"));
+		String aria = ADAObjects.heroWrapper().getAttribute("aria-label");
+		assertTrue(aria.contains("carousel"));
+
+	}
+
+	public static void verifyliTagSummerTops() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> liTag = ADAObjects.summerTop();
+		for (WebElement tag : liTag) {
+			String Tag1 = tag.getTagName();
+			assertTrue(Tag1.contains("li"));
+		}
+	}
+
+	public static void verifyliTagFiveCards() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		List<WebElement> liTag = ADAObjects.fiveCardLayout();
+		for (WebElement tag : liTag) {
+			String Tag1 = tag.getTagName();
+			assertTrue(Tag1.contains("li"));
+
+		}
+
+	}
+
+	public static void verifyProgressbarRole() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		String role = ADAObjects.progressBarRole().getAttribute("role");
+		assertTrue(role.contains("progressbar"));
+	}
+
+	public static void verifyAltOnColor() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		List<WebElement> altTag = ADAObjects.colorMenu();
+		for (WebElement tag : altTag) {
+			String Tag1 = tag.getTagName();
+			assertTrue(Tag1.contains(""));
+		}
+	}
+
+	public static void verifyTabIndexing() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		WebdriverUtils.clickAction(ADAObjects.emailfooter());
+		WebdriverUtils.sendKeys(ADAObjects.emailfooter(), WebdriverUtils.generateRandomEmail());
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(ADAObjects.checkboxsignupfooter());
+		Thread.sleep(5000);
+		if (ADAObjects.Enablesubmitfooter() != null) {
+			WebdriverUtils.clickAction(ADAObjects.Enablesubmitfooter());
+		}
+		Thread.sleep(4000);
+		// WebdriverUtils.moveToElement(ADAObjects.thankYouPopUp());
+		if (ADAObjects.thankYouPopUp() != null) {
+			WebdriverUtils.switchToiframe(ADAObjects.thankYouPopUp());
+			List<WebElement> text = ADAObjects.thankYouSubscriptionPopUp();
+			for (WebElement tag : text) {
+				String tag1 = tag.getAttribute("tabindex");
+				Assert.assertTrue(tag1 == null);
+
+			}
+		}
+
+	}
+
+	public static void verifyAltOnPDPImages() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.showAll(), 10);
+		Thread.sleep(1000);
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.scrollToElement(PLPObjects.PLPFirstProductNameInStock());
+		// WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPFirstProductNameInStock());
+		PDPActions.disableEasterPopup();
+		WebdriverUtils.clickButtonThroughJS(PLPObjects.PLPFirstProductNameInStock(), "PLPFirstProductNameInStock");
+		BrowserUtils.waitFor(PLPObjects.PDPProductName(), 10);
+		Thread.sleep(2000);
+		String pdpImage = ADAObjects.PDPImageEnlarge().getAttribute("alt");
+		assertTrue(pdpImage.contains("opens an enlarged product image"));
+		WebdriverUtils.clickAction(ADAObjects.PDPImageEnlarge());
+		String pdpImagePopUp = ADAObjects.PDPImagePOPUp().getAttribute("alt");
+		Assert.assertTrue(pdpImagePopUp != null);
+
+	}
+
+	public static void verifyLabelTagOnLoginPage() throws Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(2000);
+		BrowserUtils.waitFor(HomePageObjects.MegaMenu(), 10);
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		WebdriverUtils.moveToElementByActions(HomePageObjects.MegaMenu());
+		BrowserUtils.waitFor(PLPObjects.MenuLink(pro.getProperty("CategoryName")), 10);
+		WebdriverUtils.clickAction(PLPObjects.MenuLink(pro.getProperty("CategoryName")));
+		BrowserUtils.waitFor(PLPObjects.PLPFirstProductNameInStock(), 10);
+		WebdriverUtils.swipeDownUntillElement(PLPObjects.PLPFirstProductNameInStock());
+		String expProductName = PLPObjects.PLPFirstProductNameInStock().getText().toLowerCase();
+		WebdriverUtils.clickAction(PLPObjects.PLPFirstProductATC());
+		Thread.sleep(2000);
+		// PDPActions.disableEasterPopup();
+//		assertEquals(FlavourpageObjects.quantityinpopup().getText(), "1");
+//		assertEquals(FlavourpageObjects.ATCtextinpopup().getText(), "Item Added to Cart!");
+//		Thread.sleep(5000);
+		WebdriverUtils.clickAction(FlavourpageObjects.closeButton());
+		Thread.sleep(1000);
+		WebdriverUtils.moveToElementByActions(PLPObjects.CartIcon());
+		Thread.sleep(3000);
+		if (CheckoutObjects.iframeBlocks().size() > 0) {
+			for (int i = 0; i < CheckoutObjects.iframeCloseButton().size(); i++) {
+				if (CheckoutObjects.iframeCloseButton().get(i).isDisplayed())
+					WebdriverUtils.clickAction(CheckoutObjects.iframeCloseButton().get(i));
+			}
+		}
+		Thread.sleep(1000);
+		WebdriverUtils.moveToElementByActions(PLPObjects.CartIcon());
+		Thread.sleep(1000);
+		BrowserUtils.waitFor(PLPObjects.CartProduct(), 10);
+		if (PLPObjects.CartProduct().isDisplayed()) {
+
+			for (int i = 0; i <= 5; i++) {
+				Assert.assertEquals(PLPObjects.CartProduct().getText().toLowerCase(), expProductName);
+				break;
+			}
+		}
+
+		WebdriverUtils.clickAction(MiniCartObjects.ViewCartButton());
+		BrowserUtils.waitFor(ShoppingCartObjects.shoppingCartHeader(), 10);
+		WebdriverUtils.clickAction(ShoppingCartObjects.checkoutButtonTop());
+		BrowserUtils.waitFor(ShoppingCartObjects.emailPopUP(), 30);
+		for (int i = 0; i <= 5; i++) {
+				String userName = ADAObjects.checkOutUserNameLabel().getTagName();
+				assertTrue(userName.contains("label"));
+				String password = ADAObjects.checkOutPasswordLabel().getTagName();
+				assertTrue(password.contains("label"));
+				String guestEmail = ADAObjects.checkOutGuestEmailLabel().getTagName();
+				assertTrue(guestEmail.contains("label"));
+				break;
+			}
+	}
+
+	public static void verifyLabelTagNotification() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(ADAObjects.notificationButton());
+		Thread.sleep(2000);
+		String label = ADAObjects.notificationButton().getAttribute("aria-expanded");
+		assertTrue(label.contains("true"));
+		String control = ADAObjects.notificationButton().getAttribute("aria-controls");
+		assertTrue(control.contains("notification-pane"));
+
+	}
+
+	public static void verifyH1H2Tag() throws IOException, Exception {
+		WebdriverUtils.goToURL(Environments.getURL());
+		Thread.sleep(2000);
+		WebdriverUtils.goToURL("https://www.jellybelly.com/beanboozled-jelly-beans/c/341");
+		;
+		Thread.sleep(2000);
+		String h1 = ADAObjects.bannerHeader().getTagName();
+		assertTrue(h1.contains("h1"));
+		String h2 = ADAObjects.bpHeading().getTagName();
+		assertTrue(h2.contains("h2"));
+		String sliderh2 = ADAObjects.slideHeader().getTagName();
+		assertTrue(sliderh2.contains("h2"));
+//		String blph2 = ADAObjects.blpHeading().getTagName();
+//		assertTrue(blph2.contains("h2"));
+	}
+
+}

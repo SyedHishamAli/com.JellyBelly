@@ -1,0 +1,305 @@
+package com.modules;
+
+import static org.testng.Assert.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.testng.Assert;
+import com.pageObjects.LoginObjects;
+import com.pageObjects.MyAccountObjects;
+import com.pageObjects.PDPObjects;
+import com.utility.BrowserUtils;
+import com.utility.Environments;
+import com.utility.WebdriverUtils;
+
+
+public class MyAccountActions {
+	public static void MyAccountInformationEdit1() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.HoverOnElement(MyAccountObjects.myAccountLink());
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		//WebdriverUtils.refreshPage();
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(MyAccountObjects.accountUserName(), 15);
+		WebdriverUtils.swipeDownUntillElement(MyAccountObjects.accountUserName());
+		Assert.assertTrue(MyAccountObjects.editButonForName().isDisplayed());
+
+	}
+	public static void MyAccountInformationEdit() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.maximizeWindow();
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		Thread.sleep(4000);
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(10000);
+		BrowserUtils.waitFor(MyAccountObjects.accountUserName(), 15);
+		WebdriverUtils.swipeDownUntillElement(MyAccountObjects.accountUserName());
+		String Name=MyAccountObjects.accountUserName().getText().trim();
+		if(!Name.equalsIgnoreCase(pro.getProperty("Name"))){
+			WebdriverUtils.clickAction(MyAccountObjects.editButonForName());
+			BrowserUtils.waitFor(MyAccountObjects.FirstNameEditField(), 20);
+			WebdriverUtils.sendKeys(MyAccountObjects.FirstNameEditField(), "Sachin");
+			PDPActions.disableEasterPopup();
+			WebdriverUtils.clickActionWithSwipe(MyAccountObjects.saveButton());
+			Thread.sleep(2000);
+		}
+		WebdriverUtils.refreshPage();
+		Thread.sleep(10000);
+		BrowserUtils.waitFor(MyAccountObjects.editButonForName(), 20);
+		Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim(), pro.getProperty("Name"));
+		WebdriverUtils.clickAction(MyAccountObjects.editButonForName());
+		BrowserUtils.waitFor(MyAccountObjects.lastNameEditField(), 20);
+		WebdriverUtils.sendKeys(MyAccountObjects.lastNameEditField(), "S J");
+		Thread.sleep(10000);
+		if(PDPObjects.popup().isDisplayed()) {
+			WebdriverUtils.clickAction(PDPObjects.popup());
+		}
+		else
+			Thread.sleep(2000);
+		WebdriverUtils.clickButtonThroughJS(MyAccountObjects.saveButton(), "click");
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(MyAccountObjects.accountUserName(), 30);
+		Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim(), pro.getProperty("EditedName"));
+		WebdriverUtils.clickAction(MyAccountObjects.editButonForName());
+		BrowserUtils.waitFor(MyAccountObjects.lastNameEditField(), 30);
+		WebdriverUtils.sendKeys(MyAccountObjects.lastNameEditField(), "S J");
+		WebdriverUtils.clickActionWithSwipe(MyAccountObjects.saveButton());
+		Thread.sleep(5000);
+		BrowserUtils.waitFor(MyAccountObjects.accountUserName(), 30);
+		Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim(), pro.getProperty("Name"));
+
+	}
+
+	public static void MyAccountEmptyInformationErrorMessage() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+//		WebdriverUtils.goToURL("https://www.jellybelly.com/myaccount");
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		Thread.sleep(5000);
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		//WebdriverUtils.refreshPage();
+		// WebdriverUtils.swipeDownUntillElement(MyAccountObjects.accountUserName());
+		WebdriverUtils.waitUntilElementIsDisplayed(MyAccountObjects.editButonForName(), 20);
+		Thread.sleep(6000);
+		//PDPActions.disableEasterPopup();
+		//Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim(), pro.getProperty("Name"));
+		WebdriverUtils.clickAction(MyAccountObjects.editButonForName());
+		BrowserUtils.waitFor(MyAccountObjects.lastNameEditField(), 20);
+		Thread.sleep(1000);
+		//MyAccountObjects.emailEditField().clear();
+		Thread.sleep(6000);
+		Assert.assertFalse(MyAccountObjects.emailEditField().isEnabled());
+		// WebdriverUtils.sendKeys(MyAccountObjects.emailEditField(),
+		// pro.getProperty("Email"));
+		// WebdriverUtils.sendKeys(MyAccountObjects.lastNameEditField(),
+		// "Shab");
+//		WebdriverUtils.clickActionWithSwipe(MyAccountObjects.saveButton());
+//		BrowserUtils.waitFor(MyAccountObjects.emptyEmailError(), 10);
+//		Assert.assertEquals(MyAccountObjects.emptyEmailError().getText().trim(),
+//				"Error: Please enter a valid email address");
+	}
+
+	public static void CancelAndCheckChanges() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		Thread.sleep(3000);
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(8000);
+		String lastName=MyAccountObjects.accountUserName().getText().trim().replace(" ", "").toLowerCase();
+		WebdriverUtils.clickAction(MyAccountObjects.editButonForName());
+		BrowserUtils.waitFor(MyAccountObjects.lastNameEditField(), 20);
+		Thread.sleep(2000);
+		WebdriverUtils.sendKeysWithClear(MyAccountObjects.lastNameEditField(), "S J");
+		WebdriverUtils.clickActionWithSwipe(MyAccountObjects.cancelbutton());
+		BrowserUtils.waitFor(MyAccountObjects.lastNameEditField(), 20);
+		Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim().replace(" ", "").toLowerCase(),lastName);
+	}
+
+	public static void changePasswordFunctionality() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickAction(LoginObjects.LogInLink());
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password"));
+		WebdriverUtils.clickAction(LoginObjects.LogInButton());
+		BrowserUtils.waitFor(LoginObjects.MyAccountLink(), 20);
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(MyAccountObjects.myAccountLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		// WebdriverUtils.swipeDownUntillElement(MyAccountObjects.accountUserName());
+		Thread.sleep(4000);
+		//PDPActions.disableEasterPopup();
+		Assert.assertEquals(MyAccountObjects.accountUserName().getText().trim(), pro.getProperty("Name"));
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password1"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password1"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password1"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password2"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password2"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password2"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password3"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password3"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password3"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password4"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password4"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password4"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password5"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password5"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password5"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("ChangePassword"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("ChangePassword"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.logoutLink());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickAction(LoginObjects.LogInLink());
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("ChangePassword"));
+		WebdriverUtils.clickAction(LoginObjects.LogInButton());
+		BrowserUtils.waitFor(LoginObjects.MyAccountLink(), 20);
+		Assert.assertTrue(LoginObjects.MyAccountLink().isDisplayed());
+		WebdriverUtils.clickAction(LoginObjects.MyAccountLink());
+		BrowserUtils.waitFor(MyAccountObjects.changePasswordLink(), 20);
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("ChangePassword"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("Password"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.confirmChangePasswordField(), pro.getProperty("Password"));
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		BrowserUtils.waitFor(MyAccountObjects.passwordChangedSuccessMessage(), 10);
+		Assert.assertTrue(MyAccountObjects.passwordChangedSuccessMessage().isDisplayed());
+		WebdriverUtils.clickAction(MyAccountObjects.logoutLink());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickAction(LoginObjects.LogInLink());
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password"));
+		WebdriverUtils.clickAction(LoginObjects.LogInButton());
+		BrowserUtils.waitFor(LoginObjects.MyAccountLink(), 20);
+		Assert.assertTrue(LoginObjects.MyAccountLink().isDisplayed());
+	}
+
+	public static void EmptyChangePasswordErrorMessage() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.moveToElementByActions(MyAccountObjects.myAccountLink());
+		WebdriverUtils.clickAction(MyAccountObjects.myProfileLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		WebdriverUtils.waitUntilElementIsDisplayed(MyAccountObjects.changePasswordLink(), 20);
+		Thread.sleep(6000);
+		WebdriverUtils.swipeDownUntillElement(MyAccountObjects.changePasswordLink());
+		WebdriverUtils.waitForElementToBeClickable(MyAccountObjects.changePasswordLink(), "Change password");
+		WebdriverUtils.clickAction(MyAccountObjects.changePasswordLink());
+		BrowserUtils.waitFor(MyAccountObjects.oldPasswordField(), 10);
+		WebdriverUtils.sendKeys(MyAccountObjects.oldPasswordField(), pro.getProperty("Password"));
+		Thread.sleep(300);
+		WebdriverUtils.sendKeys(MyAccountObjects.changePasswordField(), pro.getProperty("ChangePassword"));
+		Thread.sleep(3000);
+		WebdriverUtils.esc();
+		WebdriverUtils.clickAction(MyAccountObjects.passwordChangeSaveButton());
+		Thread.sleep(3000);
+		BrowserUtils.waitFor(MyAccountObjects.emptyConfirmPasswordErrorMessage(), 20);
+		Assert.assertEquals(MyAccountObjects.emptyConfirmPasswordErrorMessage().getText().trim(),
+				"Error: Please provide a valid Password, which must have a minimum of 6 characters with at least 1 number and 1 alphabetic character, a second time");
+
+	}
+
+	public static void EmailPreferenceNavigation() throws IOException, Exception {
+		FileInputStream fs = new FileInputStream(
+				System.getProperty("user.dir") + "//src//com//config//config.properties");
+		Properties pro = new Properties();
+		pro.load(fs);
+		WebdriverUtils.goToURL(Environments.getURL());
+		BrowserUtils.waitFor(LoginObjects.LogInLink(), 10);
+		WebdriverUtils.clickAction(LoginObjects.LogInLink());
+		BrowserUtils.waitFor(LoginObjects.EmailField(), 10);
+		WebdriverUtils.sendKeys(LoginObjects.EmailField(), pro.getProperty("Email"));
+		WebdriverUtils.sendKeys(LoginObjects.PasswordField(), pro.getProperty("Password"));
+		WebdriverUtils.clickAction(LoginObjects.LogInButton());
+		BrowserUtils.waitFor(LoginObjects.MyAccountLink(), 20);
+		Thread.sleep(2000);
+		WebdriverUtils.clickAction(MyAccountObjects.myAccountLink());
+		BrowserUtils.waitFor(MyAccountObjects.myAccountPageHeader(), 10);
+		WebdriverUtils.refreshPage();
+		Thread.sleep(4000);
+		WebdriverUtils.clickAction(MyAccountObjects.emailPreferenceLink());
+		Thread.sleep(2000);
+		WebdriverUtils.switchToNewTab(1);
+		BrowserUtils.waitFor(pro.getProperty("EmailPrefencePageTitle"), 10);
+		Assert.assertEquals(WebdriverUtils.getPageTitle(), pro.getProperty("EmailPrefencePageTitle"));
+
+	}
+
+}

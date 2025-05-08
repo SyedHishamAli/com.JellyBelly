@@ -1,0 +1,124 @@
+package com.testCases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.modules.ADAActions;
+import com.utility.TestBase;
+
+public class ADATestCasesSprint4 extends TestBase {
+	
+	//Sprint 4
+		@Test(priority=48,description="#10 - Verify the Phone number is listed or not")
+		 public void telephoneNumberli() throws IOException, Exception{
+			ADAActions.telephoneNumberli();
+		}
+		@Test(priority=49,description="# 11 - Verify the Phone number is having p tag or not")
+		 public void telephoneNumberp() throws IOException, Exception{
+			ADAActions.telephoneNumberp();
+		}
+		@Test(priority=50,description="# 46 - Verify the megamenu is listed with order")
+		 public void megamenuNav() throws IOException, Exception{
+			ADAActions.megamenuNav();
+		}
+		@Test(priority=51,description="# 138 - Verify the sweet reward is been displayed as heading or not")
+		 public void sweetRewardHeading() throws IOException, Exception{
+			ADAActions.sweetRewardHeading();
+		}
+		@Test(priority=52,description="# 139 - Verify the sweet reward has Aria lable or not")
+		 public void sweetRewardAria() throws IOException, Exception{
+			ADAActions.sweetRewardAria();
+		}
+		@Test(priority=53,description="# 141 - Verify the error in the login page")
+		 public void loginpageError() throws IOException, Exception{
+			ADAActions.loginpageError();
+		}
+		@Test(priority=54,description="# 202 - Verify the Jelly falvors are displaying or not")
+		 public void jeelyFlavors() throws IOException, Exception{
+			ADAActions.jellyFlavors();
+		}
+		@Test(priority=55,description="# 204 - Verify the heading is marked as h2 or not")
+		 public void headingh2() throws IOException, Exception{
+			ADAActions.headingh2();
+		}
+		@Test(priority=56,description="# 205 - Verify the description is displayed as button or not")
+		 public void descriptionNbutton() throws IOException, Exception{
+			ADAActions.descriptionNbutton();
+		}
+		@Test(priority=57,description="# 207 - Verify the text should have aria label")
+		 public void textAria() throws IOException, Exception{
+			ADAActions.textAria();
+		}
+		@Test(priority=58,description="# 210 - Verify the text is marked as heading")
+		 public void textHeading() throws IOException, Exception{
+			ADAActions.textHeading();
+		}
+		@Test(priority=59,description="# 217 - Verify the price attribute has aria label or not")
+		 public void priceAria() throws IOException, Exception{
+			ADAActions.priceAria();
+		}
+		@Test(priority=60,description="# 219 - Verify the Modal has container or not")
+		 public void modalContainer() throws IOException, Exception{
+			ADAActions.modalContainer();
+		}
+		@Test(priority=61,description="# 220 - Verify the modal will be closed on click of esc button")
+		 public void modalEsc() throws IOException, Exception{
+			ADAActions.modalEsc();
+		}
+		@Test(priority=62,description="# 324 - Verify the JB wedding centre as Heading")
+		 public void jbHeading() throws IOException, Exception{
+			ADAActions.jbHeading();
+		}
+		@Test(priority=63,description="# 326 - Verify the Image has alt attribute or not")
+		 public void imageBridegroom() throws IOException, Exception{
+			ADAActions.imageBridegroom();
+		}
+		@Test(priority=64,description="# 338 - Verify the Store image has alt attribute or not")
+		 public void storeImage() throws IOException, Exception{
+			ADAActions.storeImage();
+		}
+		@Test(priority=65,description="# 339 - Verify the Store map is accessiable or not")
+		 public void storeMap() throws IOException, Exception{
+			ADAActions.storeMap();
+		}
+		/*@Test(priority=66,description="# 346 - Verify the Carousel has Aria label or not")
+		 public void carouselAria() throws IOException, Exception{
+			ADAActions.carouselAria();
+		}
+		@Test(priority=67,description="# 353 - Verify the slide is marked as heading or not")
+		 public void slideHeading() throws IOException, Exception{
+			ADAActions.slideHeading();
+		}*/
+		@Test(priority=68,description="# 357 - Verify the links are having alt attributes or notl")
+		 public void articleWrap() throws IOException, Exception{
+			ADAActions.articleWrap();
+		}
+		@Test(priority=69,description="# 358 - Verify the listed in order or not")
+		 public void headings() throws IOException, Exception{
+			ADAActions.headings();
+		}
+		@Test(priority=70,description="# 359 - Verify the handy links are listed out correctly")
+		 public void wrapList() throws IOException, Exception{
+			ADAActions.wrapList();
+		}
+		@Test(priority=71,description="# 360 - Verify the question should be listed properly")
+		 public void listQuestion() throws IOException, Exception{
+			ADAActions.listQuestion();
+		}
+		@Test(priority=72,description="# 362 - Verify the telephone number should be marked as link")
+		 public void myOrderShip() throws IOException, Exception{
+			ADAActions.myOrderShip();
+		}
+		
+// New Release
+		@Test(priority=122,description="# 206 - PLP - It is difficult for screen reader users to identify when one section ends and the next begins..")
+		 public void screenreader() throws IOException, Exception{
+			ADAActions.validatescreenreader();
+		}
+		@Test(priority=123,description="# 376 -  Quantity Text box in cart page.")
+		 public void quantitytextbox() throws IOException, Exception{
+			ADAActions.validatequantitytextbox();
+		}
+		
+}

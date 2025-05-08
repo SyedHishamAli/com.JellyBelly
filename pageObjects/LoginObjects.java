@@ -1,0 +1,102 @@
+package com.pageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.utility.WebdriverUtils;
+
+public class LoginObjects {
+		public static WebElement LogInLink() throws Exception{
+			 // return WebdriverUtils.findElement(By.xpath("//*[@class='mz-utilitynav']//*[contains(text(),'Log In or Register')]"));
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-utilitynav']//a[contains(text(),'Log In')]"));  
+		} 
+		public static WebElement LogInLinkAfterHover() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-utilitynav']//a[contains(text(),'Log In')]"));
+		} 
+		public static WebElement EmailField() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//input[@name='email']"));
+		} 
+		public static WebElement PasswordField() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//input[@name='password']"));
+		} 
+		public static WebElement checkbox() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@id='login-cpp-checkbox']"));
+		} 
+		public static WebElement LogInButton() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//button[contains(text(),'Log In')]"));
+		} 
+		public static WebElement LogInButtonPDP() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@value='Login']"));
+		}
+		public static WebElement ForgotPasswordLink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//a[@class='mz-forgot']"));
+		} 
+		public static WebElement StaticText() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-pagetitle']"));
+		} 
+		public static WebElement CreateaccountLink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@href='/user/signup' and contains(text(),'Create account')]"));
+		} 
+		public static WebElement ForgotPasswordEmailField() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//input[@type='email']"));
+		} 
+		public static WebElement SendEmailButton() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("(//button[contains(text(),'Submit')])[1]"));
+		} 
+		public static WebElement ConfirmationText() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@id='error-inventory']"));
+		} 
+		public static WebElement ConfirmationErrText() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@id='mz-errors-list']"));
+		} 
+		public static WebElement MyAccountLink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='button-popover user-popover popover-label']"));
+		}
+		public static WebElement MyAccountEmail() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@id='myaccount-or-logout']//li[@class='listItem']/span"));
+		}
+		public static WebElement LoginErrorMessage() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//span[@class='mz-validationmessage']"));
+		}
+		public static String popup() throws Exception{
+			  return "//*[@class='layer-wiziwig']//b[contains(text(),'NO THANKS')]";
+		}
+		public static String signuppopup() throws Exception{
+			  return "//*[@class='layer-wiziwig']//span//em";
+		}
+		public static WebElement RegisterLink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-utilitynav']//a[contains(text(),'Register')]"));
+		}
+		
+		public static WebElement OrderstatusLink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//a[contains(text(),'Order Status')]"));
+		}
+		public static WebElement Sweetrewardsinlayover() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("(//*[@class='sweetreward-login-desc'] /span)[1]"));
+		}
+//		public static WebElement Sweetrewardsheader() throws Exception{
+//			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-cms-content']//h1"));
+//		}
+		
+		public static WebElement Sweetrewardsheader() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='right-content-container']//h1"));
+		}
+		public static WebElement logoutlink() throws Exception{
+			  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-utilitynav-link myAcclastLayoverElem' and contains(text(),'Log Out')]"));
+		}
+		public static WebElement jblink() throws Exception {
+			return WebdriverUtils.findElement(By.xpath("//*[contains(@href, 'jellybelly.com')]"));
+		}	
+		public static WebElement NoThanks() throws Exception {
+			return WebdriverUtils.findElement(By.xpath("//em[contains(text(), 'No Thanks')]"));
+		}
+		public static WebElement cookie() throws Exception{
+			return WebdriverUtils.findElement(By.xpath("//*[@id='cookie-consent']"));
+		}
+		public static WebElement freeGroundShipping() throws Exception{
+			return WebdriverUtils.findElement(By.xpath("//*[contains(@class, 'design-layer vcenter')]//*[contains(text(),'x')]"));
+		}
+		public static WebElement JBHomeLink() throws Exception{
+			return WebdriverUtils.findElement(By.xpath("//a[text()='Jelly Belly US']"));
+		}
+}

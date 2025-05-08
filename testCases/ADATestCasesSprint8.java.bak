@@ -1,0 +1,140 @@
+package com.testCases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.modules.ADAActions;
+import com.modules.MiniCartActions;
+import com.utility.TestBase;
+
+public class ADATestCasesSprint8 extends TestBase{
+	
+	//Sprint 8
+		@Test(priority=128,description="# 163 - PDP -This is a button, but it is not marked up as such; screen readers will not identify it as actionable and it will not be usable by keyboard users.")
+		public void FreeShipping() throws IOException, Exception{
+			ADAActions.FreeShipping();
+		}
+		
+		@Test(priority=128,description="# 160 - PDP -This image has an inaccurate or incomplete alt attribute, making the purpose/contents of the image unclear to screen reader users.")
+		public void PDPZoom() throws IOException, Exception{
+			ADAActions.PDPZoom();
+		}
+		
+		@Test(priority=129,description="# 157 - PDP -There is text within this image.")
+		public void PDPZoomtext() throws IOException, Exception{
+			ADAActions.PDPZoomText();
+		}
+		
+		@Test(priority=130,description="# 151 - PDP -These images have inaccurate or incomplete alt attributes, making the purpose/contents of the images unclear to screen reader users.")
+		public void PDPThumbnail() throws IOException, Exception{
+			ADAActions.PDPThumbnail();
+		}
+		
+		@Test(priority=131,description="# 149 - PDP -This region requires additional ARIA markup to assist screen reader users in understanding what this section is for, and where it begins and ends.")
+		public void PDPImage() throws IOException, Exception{
+			ADAActions.PDPImage();
+		}
+		/*
+		@Test(priority=132,description="# 222 - PDP -When submitting the form with errors, the form field with an error is not automatically focused.")
+		public void PDPLoginError() throws IOException, Exception{
+			ADAActions.PDPLoginError();
+		}
+		
+		@Test(priority=133,description="# 221 - PDP -When submitting the form with errors, the form field with an error is not automatically focused.")
+		public void PDPLoginError1() throws IOException, Exception{
+			ADAActions.PDPLoginError1();
+		}
+		*/
+		
+		@Test(priority=134,description="# 218 - PLP -This <div> has a background image that is not accessible to screen reader users.")
+		public void PLPRating() throws IOException, Exception{
+			ADAActions.PLPRating();
+		}
+		
+		@Test(priority=135,description="# 15 - PLP -All ID attributes must be unique across each page.")
+		public void PLPIDAttribute() throws IOException, Exception{
+			ADAActions.PLPIDAttribute();
+		}
+		
+		@Test(priority=136,description="# 142 - Login -The required form fields are not indicated as such to screen reader users.")
+		public void LoginRequired() throws IOException, Exception{
+			ADAActions.LoginRequired();
+		}
+		
+		//uncomment @Test(priority=137,description="# 274 - Wedding -This text is styled using the Cufón font, which causes the text to not be announced properly by screen readers.")
+		public void WeddingText() throws IOException, Exception{
+			ADAActions.WeddingText();
+		}
+		
+		@Test(priority=138,description="# 361 - Shipping -These links do not move the user's focus to the targeted location on the page.")
+		public void VerifyFocusShipping() throws IOException, Exception{
+			ADAActions.VerifyFocusShipping();
+		}
+		
+		@Test(priority=139,description="# 22 - Cart -These tables do not have column and/or row headers specified in the markup.")
+		public void VerifyCartColoumns() throws IOException, Exception{
+			ADAActions.VerifyCartColoumns();
+		}
+		
+		@Test(priority=140,description="# 354 - History -These images have inaccurate or incomplete alt attributes, making the purpose/contents of the images unclear to screen reader users.")
+		public void VerifyHistoryImages() throws IOException, Exception{
+			ADAActions.VerifyHistoryImages();
+		}
+		
+		//uncomment @Test(priority=141,description="# 294 - Party -Keyboard and screen reader users do not have their focus moved to this modal when it opens.")
+		public void VerifyCandyClose() throws IOException, Exception{
+			ADAActions.VerifyCandyClose();
+		}
+		
+		//uncomment @Test(priority=141,description="# 100 - Party -This image has an inaccurate or incomplete alt attribute, making the purpose/contents of the image unclear to screen reader users.")
+		public void VerifyCandyImage() throws IOException, Exception{
+			ADAActions.VerifyCandyImage();
+		}
+		
+		//uncomment @Test(priority=142,description="# 98 - Party -There is text within this image.")
+		public void VerifyCandyText() throws IOException, Exception{
+			ADAActions.VerifyCandyText();
+		}
+		
+		//uncomment @Test(priority=142,description="# 97 - Party -These links do not move the user's focus to the targeted location on the page.")
+		public void VerifyCandyHeader() throws IOException, Exception{
+			ADAActions.VerifyCandyHeader();
+		}
+		
+		@Test(priority=143,description="#6: These links have background images that are not accessible to screen reader users.")
+		 public void socialIconsOnHomePage() throws IOException, Exception{
+			ADAActions.socialIcon();
+		}
+		@Test(priority=144,description="#63: Keyboard and screen reader users do not have their focus moved to this modal when it opens.")
+		 public void logoIcon() throws IOException, Exception{
+			ADAActions.logoIconModal();
+		}
+		@Test(priority=145,description="#70: This content does not appear in a logical order for screen reader users and does not receive focus in a logical order for keyboard users.")
+		 public void emailAddressSubmitButton() throws IOException, Exception{
+			ADAActions.footerEmailDataEnter();
+		}
+		@Test(priority=146,description="#399: These elements have tabindex attributes set on them.")
+		 public void miniCartTabIndex() throws IOException, Exception{
+			MiniCartActions.MinicartProductInfo1();
+			ADAActions.miniCartTab();
+		}
+		@Test(priority=147,description="#300: The purpose of this button is not clear to screen reader users")
+		 public void spinButton() throws IOException, Exception{
+			ADAActions.loadingHomePage();
+			ADAActions.spinnerText();
+		}
+		
+		@Test(priority=148,description="#302: The jelly bean selected by the spinner appears visually on the page, however this is not conveyed to screen reader users.")
+		 public void beanboozledspinnerText() throws IOException, Exception{
+			ADAActions.loadingHomePage();
+			ADAActions.beanboozledspinnerText();
+		}
+		
+		@Test(priority=149,description="#216: The strike-through typography used on this price is not conveyed to screen reader users.")
+		 public void PLPStrikethrough() throws IOException, Exception{
+			ADAActions.loadingHomePage();
+			ADAActions.PLPStrikethrough();
+		}
+		
+}

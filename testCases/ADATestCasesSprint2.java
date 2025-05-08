@@ -1,0 +1,97 @@
+package com.testCases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.modules.ADAActions;
+import com.modules.MiniCartActions;
+import com.modules.PDPActions;
+import com.utility.TestBase;
+
+public class ADATestCasesSprint2 extends TestBase{
+
+		//Sprint 2
+		@Test(priority=24,description="# 3 - Verify the header in Item added popup")
+		 public void itemAddedPopup() throws IOException, Exception{
+			ADAActions.itemAddedPopup();
+		}
+		// Descoped in Redisgn site @Test(priority=25,description="# 5 - Verify role attribute should not be present in Campany retail")
+		 public void companyRetail() throws IOException, Exception{
+			ADAActions.companyRetail();
+		}
+		@Test(priority=26,description="# 9 - Verify footer email singup lable should be proper")
+		 public void footerEmailSignup() throws IOException, Exception{
+			ADAActions.footerEmailSignup();
+		}
+		@Test(priority=27,description="# 13 - Verify the category ID should be unique")
+		 public void uniqueCategoryID() throws IOException, Exception{
+			ADAActions.uniqueCategoryID();
+		}
+		@Test(priority=28,description="# 38 - Verify the Header links should not have aria label")
+		 public void headerLinksAriaLabel() throws IOException, Exception{
+			ADAActions.headerLinksAriaLabel();
+		}
+		@Test(priority=29,description="# 257 - Verify the Minicart product name should have h2 tag")
+		 public void miniCartProductName() throws IOException, Exception{
+			ADAActions.miniCartProductName();
+		}
+		@Test(priority=30,description="# 258 - Verify the Minicart price should not have h4 tag")
+		 public void miniCartPrice() throws IOException, Exception{
+			ADAActions.miniCartPrice();
+		}
+		@Test(priority=31,description="# 81 - Verify the content should not have aria label")
+		 public void contentCaliforniaFactoryPage() throws IOException, Exception{
+			ADAActions.contentCaliforniaFactoryPage();
+		}
+		@Test(priority=32,description="# 90 - Verify the page should not contain article tag")
+		 public void contentCaliforniaFactoryPageArticle() throws IOException, Exception{
+			ADAActions.contentCaliforniaFactoryPageArticle();
+		}
+		//uncomment @Test(priority=33,description="# 110 - Verify the dropdown should be labeled properly")
+		 public void birthdayPartyForm() throws IOException, Exception{
+			ADAActions.birthdayPartyForm();
+		}
+		//uncomment @Test(priority=34,description="# 111 - Verify the form fields should be labeled properly")
+		 public void birthdayPartyFormField() throws IOException, Exception{
+			ADAActions.birthdayPartyFormField();
+		}
+		@Test(priority=35,description="# 244 - Verify the quantity field is labeled properly")
+		 public void quantityField() throws IOException, Exception{
+			 PDPActions.PDPAddToCart();
+			ADAActions.quantityField();
+		}
+		@Test(priority=36,description="# 252 - Verify the quantity field should have h2 tag")
+		 public void recommendationHeading() throws IOException, Exception{
+			ADAActions.recommendationHeading();
+		}
+		/*@Test(priority=37,description="# 347 - Verify the content should not have aria label")
+		 public void companyHistory() throws IOException, Exception{
+			ADAActions.companyHistory();
+		}*/
+		@Test(priority=38,description="# 369 - Verify the page should not have article tag")
+		 public void companyHistoryArticle() throws IOException, Exception{
+			ADAActions.companyHistoryArticle();
+		}
+		@Test(priority=39,description="# 400 - Verify the quantity field should be labeled as button")
+		 public void quantityCart() throws IOException, Exception{
+			ADAActions.quantityCart();
+		}
+		
+//New Release
+		@Test(priority=115,description="# 4 - These elements lack focus indicators when they receive focus.")
+		 public void homesubmit() throws IOException, Exception{
+			ADAActions.footersubmit();
+		}
+		@Test(priority=116,description="# 65 - The modal container is not labeled as such.")
+		 public void modal() throws IOException, Exception{
+			//ADAActions.validatemodal();
+		}
+		@Test(priority=117,description="# 90 - There is an extraneous article tag on this page, which may cause confusion for screen reader users.")
+		 public void beanboozled() throws IOException, Exception{
+			ADAActions.Beanboozled();
+		}
+		
+}
+
+

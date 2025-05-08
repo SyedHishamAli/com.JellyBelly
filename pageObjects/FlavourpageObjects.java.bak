@@ -1,0 +1,112 @@
+package com.pageObjects;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.utility.WebdriverUtils;
+
+public class FlavourpageObjects {
+	public static WebElement Shoponline() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='brand-buttons']//li/a[contains(text(),'Shop Online')]"));
+	}
+	public static WebElement findastore() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='brand-buttons']//li/a[contains(text(),'Find a Store')]"));
+	}
+	public static WebElement filtersection() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='mz-l-paginatedlist']"));
+	}
+	public static WebElement Shopbulk() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='sub-cat-btn' and @title='Shop Bulk']"));
+	}
+	public static WebElement Shopbulklink() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[text()='View ALL Favorite Flavors Items']"));
+	}
+	public static WebElement Shopbags() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='sub-cat-btn' and @title='Shop 1 lb Bags']"));
+	}
+	public static WebElement Shopbagslink() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='item-cointainer']//a[@title='shop 1 lb Bags']"));
+	}
+	public static WebElement Shopgiftbox() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='sub-cat-btn' and @title='Shop Gift Boxes']"));
+	}
+	public static WebElement Shopgiftboxlink() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='item-cointainer']//a[@title='Gift Boxes']"));
+	}
+	public static WebElement Grabandgo() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='sub-cat-btn' and @title='Shop Grab & Go Bags']"));
+	}
+	public static WebElement Grabandgolink() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='item-cointainer']//a[@title='Grab & Go Bags']"));
+	}
+	public static WebElement ATCProduct() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='jb-add-to-cart jb-tealium-trigger add-to-cart-btn-plp'])[1]"));
+	}
+	public static WebElement productnameinFLP() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='jb-add-to-cart jb-tealium-trigger add-to-cart-btn-plp'])[1]//preceding::div//*[@class='mz-productlisting-title']"));
+	}
+	public static WebElement productnameinpopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='prodcut-tital-price']//span[@class='product-name'])[1]"));
+	}
+	public static WebElement productnameinpopup1() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//span[@class='product-name'])[1]"));	 
+	}
+	public static WebElement quantityinpopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='qty-popup']//*[@class='qty-count-popup']"));
+	}
+	public static WebElement quantityinpopup1() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='qty-popup']//span[@class='qty-count-popup'])[1]"));
+	}
+	public static WebElement ATCtextinpopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='Add-to-cart-popup active']//h1"));
+	}
+	public static List<WebElement> notifyme() throws Exception{
+		  return WebdriverUtils.findElements(By.xpath("//*[@class='jb-out-of-stock notify-me-plp-rti jb-out-of-stock-cur']"));
+	}
+	public static WebElement notifymebutton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='jb-out-of-stock notify-me-plp-rti jb-out-of-stock-cur'])[1]"));
+	}
+	public static WebElement notifymeemail() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='notify-me-email']"));
+	}
+	public static WebElement notifymebut() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='notify-me-button']"));
+	}
+	public static WebElement SuccessMsg() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='success-msg']"));
+	}
+	public static WebElement productcode(String Productcode) throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='add-to-wishlist-c']//button[@data-mz-prdcode='"+Productcode+"']"));
+	}
+	public static WebElement WishlistButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("(//*[@class='add-to-wishlist add-to-wishlist-qv'])[1]"));
+	}
+	public static WebElement Image(String PDPProductName1) throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//img[@alt='"+PDPProductName1+"']"));
+	}
+//	public static WebElement closeButton() throws Exception{
+//		  return WebdriverUtils.findElement(By.xpath("//*[@class='popup-container']//span[@class='cross-close-popup']"));
+//	}
+	public static WebElement closeButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//span[@aria-label='Close']"));
+	}
+	
+	public static WebElement closeButton1() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//*[@class='popup-container']//span[@class='monetate-close-icon']"));
+	}
+	
+	public static WebElement continueShoppingButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//a[text()='Continue Shopping']"));
+	}
+	public static WebElement viewCartButton() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//a[text()='View Cart']"));
+	}
+	public static WebElement recommendationSectionInConfirmPopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//div[@id='addtocart-popup-rec-prod-sec']"));
+	}
+	public static WebElement priceInConfirmPopup() throws Exception{
+		  return WebdriverUtils.findElement(By.xpath("//span[@class='listprice']"));
+	}
+}

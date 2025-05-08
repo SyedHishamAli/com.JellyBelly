@@ -1,0 +1,291 @@
+#---------------------------------------------------Browser----------------------------------------------------
+
+Browser=chrome
+
+#Browser=firefox
+
+Sport Beans® Jelly Beans Lemon Lime 6-Count Pack
+
+#----------------------------------------------Application_URL--------------------------------------------------
+testURL=https://www.jellybelly.com/
+accessibityURL=https://www.jellybelly.com/accessibility-statement
+
+DSDURL=https://www.jellybellydsd.com/
+
+UAT_URL=https://www.jellybelly.com/
+PLPURL=https://www.jellybelly.com/jelly-belly-jelly-beans/c/335
+PDPURL=https://www.jellybelly.com/candy-corn-10-lbs-bulk/p/1015
+PLPRecomendationURL=https://www.jellybelly.com/licorice-jelly-beans-16-oz-re-sealable-bag/p/9000_LICORICE
+
+
+#--------------------------------------------GlobalHeader-------------------------------------------------------
+homePageTitle=Official Site of Jelly Belly Candies and Confections
+#ProductName=Buttered Popcorn Jelly Beans - 16 oz Re-Sealable Bag
+ProductName=49 Assorted Jelly Bean Flavors - 3 lb Clear Can
+sportTitle=Jelly Belly Sport Beans® Jelly Beans \u2013 JellyBelly.com
+productCode=20028
+#productName=jelly
+invlaidSearchKey=#####
+
+Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Flavors 6-Count Pack
+
+#--------------------------------------------LogIn-------------------------------------------------------
+Email=sachin.sj@echidnainc.com
+GuestEmail=sachin.sj@echidnainc.com
+Password=Sachin@007
+##welcome4
+Welcome@1
+ChangePassword=Welcome@2
+Password1=Welcome@9
+Password2=Welcome@8
+Password3=Welcome@7
+Password4=Welcome@6
+Password5=Welcome@5
+InvalidEmail=Test@gmail.com
+
+
+
+#--------------------------------------------SignUp--------------------------------------------------------------
+signUpFirstName=Susovan
+signUpLastName=Guru
+signUpPassword=Welcome@1
+errorMsgLastName=Error: Please provide your Last Name.
+existingMailId=sachin.sj@echidnainc.com
+#errorMsgMail=Thanks for trying to register, but there is already an account with that email address. Please visit the Forgot Password page to update your password or Contact Us for additional assistance.
+errorMsgMail=Error: Sorry, an unexpected error occurred. Please refresh the page and try again, or contact support.
+errorMsgFirstName=Error: Please provide your First Name.
+errorMsgEmail=Error: Please enter a valid Email Address and Password combination. Make sure you include the '@' and the '.' in the Email Address and that your Password has a minimum of 6 characters with at least 1 number and 1 alphabetic character.
+errorMsgPassword=Error: Provide both password. Password must be a minimum of 6 characters with at least 1 number and 1 alphabetic character.
+#--------------------------------------------Homepage-------------------------------------------------------
+#Banner1=BeanBoozled 5th Edition Challenge
+Banner1=JELLY BEAN OUTLET | JELLY BEAN BULK DISCOUNT SALE
+#Banner2=Christmas Gift Baskets: Christmas Jelly Beans and Candy
+#Banner2=Krispy Kreme Doughnuts Jelly Beans Mix | Doughnut Beans
+Banner2=flash sale
+#Banner3=Bean Machines & Candy Dispensers
+#Banner3=Candy Confections | Gourmet Candy and Chocolates
+Banner3=GOURMET CANDY CONFECTIONS | SPECIALTY CANDY AND CHOCOLATES
+#Banner4=Jelly Belly 5-Flavor NOEL Clear Gift Box - 4 oz
+#Banner4=New Products
+#Banner4=Harry Potter Bertie Bott\u2019s Jelly Beans and Candy
+Banner4=HARRY POTTER CANDY | HARRY POTTER JELLY BEANS & CHOCOLATE
+#Banner5=Jelly Belly Rosé Jelly Beans
+Banner5=BEANBOOZLED FIERY FIVE CHALLENGE
+#Banner6=Jelly Beans | Bulk, Mixes, Bags and Classic Flavors
+Banner6=JELLY BELLY JELLY BEANS | ALL JELLY BEAN FLAVORS & MIXES
+#Banner7=Harry Potter Bertie Bott\u2019s Jelly Beans and Candy
+Banner7=Sunkist Citrus Mix Jelly Beans & Fruit Gems
+#Banner8=BeanBoozled 5th Edition Challenge
+Banner8=Jelly Belly Sports Beans® | Energy Jelly Beans
+PLPName=Jelly Belly® Jelly Beans
+BLPName=Jelly Beans | Bulk, Mixes, Bags and Classic Flavors
+BLPName1=Candy Confections | Gourmet Candy and Chocolates
+BLPName2=BeanBoozled 5th Edition Challenge
+BLPName3=Harry Potter Bertie Bott\u2019s Jelly Beans and Candy
+CategoryName=Jelly Belly Jelly
+#CategoryName=Sport Beans
+Flavor1=Jelly Belly Official Flavors
+Flavor2=BeanBoozled 5th Edition Challenge
+Flavor3=Harry Potter\u2122 Bertie Bott's Every Flavor Beans\u2122
+#--------------------------------------------Footer-------------------------------------------------------
+ContactUsTitle=Contact Us Jelly belly
+PromotionsLinkTitle=Jelly Belly Coupons and Discounts
+SpecialtyWholesaleCustomersLinkTitle=Specialty Wholesale Customers - Wholesale Candy
+NewsroomLinkTitle=Jelly Belly Newsroom
+AffiliateProgramTitle=JellyBelly.com Affiliate Program
+PinterestTitle=Jelly Belly Candy Company (jellybelly) on Pinterest
+FacebookTitle=Jelly Belly - Home | Facebook
+YoutubeURL=https://www.youtube.com/jellybelly
+GplusTitle=Jelly Belly - Google+
+InstagramTitle=Jelly Belly (@jellybellycandyco) \u2022 Instagram photos and videos
+LinkedinTitle=Jelly Belly Candy Company | LinkedIn
+Phonenumber=9999999999
+ProductCount=Showing 1 - 29 of 29 products
+Freetourtext=Visit Jelly Belly
+
+#----------------------------------------------------QuickView--------------------------------------------------
+
+#ProductName=Sport Beans® Jelly Beans Lemon Lime 6-Count Pack
+#ProductName=Sport Beans® Jelly Beans Green Apple 6-Count Pack
+#ProductName=Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Flavors 6-Count Pack
+#Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Smoothie Flavors, 6-Count Pack
+#Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Smoothie Flavors 24-Pack
+QuickViewText=quckview
+ProductDetails=PORTABLE POWER® 6 - 1-oz bags of Lemon Lime Sport Beans jelly beans from Jelly Belly. With vitamins B, C and electrolytes. Great for exercise. ...
+SuccessMsg=Thank you! We'll let you know when we have more.
+
+
+
+
+#--------------------------------------------PDP-------------------------------------------------------
+PDPProductName=Sport Beans® Jelly Beans Strawberry Banana Smoothie 6-Count Pack
+#PDPProductName=Sport Beans® Jelly Beans Green Apple 6-Count Pack
+#PDPProductName=Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Flavors 6-Count Pack
+RecommendPDPProductName=Extreme Sport Beans® Jelly Beans with CAFFEINE - Assorted Smoothie Flavors, 6-Count Pack
+#PDPProductName=Extreme Sport Beans® Jelly Beans with CAFFEINE - Assorted Smoothie Flavors, 6-Count Pack
+AddedToWishlistText=ADDED TO WISHLIST
+WriteAReviwText=Write a Review
+WritetheFirstReview=Write the First Review
+PDPPrice=Price $29.95
+AddTowishlistText=Wishlist +
+#ProductName1=Buttered Popcorn Jelly Beans - 16 oz Re-Sealable Bag
+#ProductName1=Tutti-Fruitti Jelly Beans - 16 oz Re-Sealable Bag
+ProductName1=49 Assorted Jelly Bean Flavors - 3 lb Clear Can
+ProductName2=Sport Beans® Jelly Beans Assorted Flavors 6-Count Pack
+ProductDescription=When you absolutely must satisfy your Jelly Belly Buttered Popcorn jelly bean craving, you need - yes, need - this 16-oz bag... and you won't find it anywhere but here!
+#PDPRecommendationProduct=Buttered Popcorn Jelly Beans - ...
+PDPRecommendationProduct=Tutti-Fruitti Jelly Beans - 16 ...
+#PDPRelatedProduct=Buttered Popcorn Jelly Beans Box - 1.75 oz
+PDPRelatedProduct=Tutti-Fruitti Jelly Beans - 10 lbs bulk
+#--------------------------------------------PLP-------------------------------------------------------
+RecommendationProduct=Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted ...
+
+
+#--------------------------------------------Minicart-------------------------------------------------------
+EmptyCartText=You have no items in your cart.
+EmptyCartTextWHENREMOVED=FREE Conversation Beans 1.2 oz Box - a Valentine's Day treat from Jelly Belly - $1.50
+
+Shipping=Shipping: TBD
+ViewCartText=VIEW CART
+CheckoutText=PROCEED TO CHECKOUT
+EstimatedTotal=Estimated Total: $7.99
+#CartCount=1KeepShoppingText
+CartCount=1
+CartCounts=5
+ShoppingCartText=Shopping Cart
+ShoppingCartText1=Shopping Cart (1 items)
+ShoppingCartText2=Shopping Cart (2 items)
+CheckoutTitle=Secure Checkout
+
+
+
+#---------------------------------------------------------MyAccount-------------------------------------------------------
+
+Name=Sachin S J
+EditedName=Sachin S J
+EmailPrefencePageTitle=Email Preference Center | Jelly Belly Candy Company
+
+
+#----------------------------------------------------Checkout------------------------------------------------------------
+couponCode=ROSEMARY
+couponcodeprod=save10now
+Cardtype=Visa
+Cardnumber=411111111111111111
+Nameoncard=Test
+ChangedNameoncard=Change Test
+Month=04
+Year =2020
+CVV=123
+
+CompanyName=Echidna
+ShippingFirstName=Sachin
+ShippingLastName=S JF
+ShippingAddressFirst=101 tyson drive
+ShippingAddressSecond=3456
+ShippingCity=Albertville
+ShippingZipcode=35950
+ShippingPhoneNumber=9999999998
+ShippingState=AL
+ShippingAddresstype=Residential
+
+ForgotPasswordPageTitle=Recover Password
+InvalidEmailFormat=smkmd.gmail.com
+EmailErrorMessage=Error: Please be sure to provide your Email Address. Make sure you have included the '@' and the '.' in the address.
+PaypalPageTitle=PayPal Checkout
+GiftMessage=This is a special Gift
+                  
+#----------------------------------------------------Shopping Cart------------------------------------------------------------
+KeepShoppingText=KEEP SHOPPING
+//KeepShoppingText=Keep Shopping
+EstimatedTotal=$7.99
+EstimatedTotals=Estimated Total: $7.99
+CouponText=Enter Coupon Code
+RecommendedSectionText=JELLY BELLY ALSO RECOMMENDS
+#CartProduct=Extreme Sport Beans® Jelly Beans with CAFFEINE - Assorted Smoothie Flavors, 6-Count Pack
+CartProduct=Sport Beans® Jelly Beans Lemon Lime 6-Count Pack
+#CartProduct=Sport Beans® Jelly Beans Green Apple 6-Count Pack
+#CartProduct=Extreme Sport Beans® Jelly Beans with CAFFEINE -  Assorted Flavors 6-Count Pack
+CouponAppliedText=10% discount.:
+InvalidCoupon=Test321
+#CartRecommendationProduct=BeanBoozled Jelly Beans - 1.6 ...
+CartRecommendationProduct=Jelly Belly 40-Flavor Christmas Gift ...
+#RecommendationProduct1=BeanBoozled Jelly Beans - 1.6 oz Box (4th edition)
+RecommendationProduct1=Jelly Belly 40-Flavor Christmas Gift Box
+#---------------------------------------------------------AddressBook--------------------------------------------------------------------
+
+
+newAddressCompanyName=Echidna
+newAddressFirstName=Susovan
+newAddressLastName=Guru
+newAddressFirst=101 tyson drive
+newAddressSecond=3456
+newAddressCity=Albertville
+newAddressZipcode=36569
+newAddressPhoneNumber=9999999994
+newAddressState=AL
+newAddressAddressType=Residential
+
+editNewAddressSecond=4523
+editNewAddressPhoneNumber=9999999992
+
+
+#------------------------------------------------------------SavedCardSection---------------------------------------------------------------
+
+
+NewAddedCardtype=VISA
+NewAddedCardnumber=411111111111111111
+EncryptedCardNumber=************1111
+NewAddedNameoncard=Susovan Guru
+NewAddedMonth=04
+NewAddedYear =2020
+NewAddedCVV=123
+
+
+EditedNewAddedCardnumber=4111111111111523
+EditedEncryptedCardNumber=************1523
+EditedNewAddedMonth=06
+EditedNewAddedYear=2022
+
+
+#---------------------------------------------------------------DSD----------------------------------------------------------
+DSD_Email=amit.p@echidnainc.com
+DSD_Password=amit@002
+
+#-------------------------------------------------------------WishList-------------------------------------------------------
+emptyText=You do not have any wishlist items.
+ShippingPageTitle=Jelly Belly Shipping Information
+#------------------------------------------------------------UAT---------------------------------------------------------------
+UATProductName=Sport Beans® Jelly Beans Fruit Punch 6-Count Pack
+
+
+//*[contains(@href, 'jellybelly.com')]
+//em[contains(text(), 'No Thanks')]
+
+#-------------------------------------------------FreeShippingCheckout------------------------------------------------------
+tresholdPrice=$55
+
+#Address 1
+firstname1=Sachin
+lastname1=S J
+addressLineOne1=101 Tyson
+city1=DrAlbertville
+state1=AL
+zipcode1=35950-8537
+phone1=(098) 765-4321)
+addressType1=Residential
+
+#Address 2
+firstname2=Sachin
+lastname2=S J
+addressLineOne2=PO Box 896
+city2=Willow
+state2=AK
+zipcode2=99688-0896
+phone2=(123) 456-7890)
+addressType2=Residential
+
+freeShippingMessage=Orders over $25 may qualify for FREE Ground Shipping (SurePost or Ground)!
+nonFreeShippingMessage=Your order has one or more items in which the price does not count towards the Free Shipping threshold
+shippingAKHIWithFreeShip=Your order has one or more items in which the price does not count towards the Free Shipping threshold.Shipping to AK, HI, or a Military address can take up to 6 weeks for delivery.
+shippingAKHI=Shipping to AK, HI, or a Military address can take up to 6 weeks for delivery
+
