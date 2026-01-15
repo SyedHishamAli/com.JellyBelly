@@ -20,6 +20,7 @@ The framework is structured to be scalable, reusable, and easy to maintain for U
 ---
 
 ## 📁 Project Folder Structure
+```bash
 JellyBellyHybridModelRepo
 │
 ├── pom.xml
@@ -42,7 +43,7 @@ JellyBellyHybridModelRepo
 │               └── testCases/
 │
 └── testng.xml   (optional)
-
+```
 
 
 ---
